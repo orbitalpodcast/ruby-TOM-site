@@ -1,6 +1,14 @@
 class Episode < ApplicationRecord
   # has_many :photos
 
+  validates :number,        presence: true,
+                            uniqueness: true,
+                            numericality: {only_integer: true, greater_than: 0}
+  validates :title,:slug,
+                              presence: true,
+                            uniqueness: true
+  validates :publish_date,:description,:notes,:draft,
+                            presence: true
   def to_param
     slug
   end
