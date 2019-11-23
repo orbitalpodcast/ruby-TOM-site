@@ -76,10 +76,10 @@ class EpisodesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_episode
-      if /\A\d+\z/.match(params[:slug_or_id])                  # does the incoming URL param contain a number?
-        @episode = Episode.find(params[:slug_or_id])           # if so, look up the requested episode by its number
+      if /\A\d+\z/.match(params[:slug_or_number])                  # does the incoming URL param contain a number?
+        @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
       else
-        @episode = Episode.find_by slug: params[:slug_or_id]   # if not, look up the requested episode by its slug
+        @episode = Episode.find_by slug: params[:slug_or_number]   # if not, look up the requested episode by its slug
       end
     end
 
