@@ -16,11 +16,11 @@ class Episode < ApplicationRecord
     slug
   end
 
-  def self.published_episodes()
+  def self.published()
     where(draft: false)
   end
-  def self.current_draft()
-    find_by(draft: true)
+  def self.drafts()
+    where(draft: true)
   end
   def self.most_recent()
     Episodes.maximum('number')

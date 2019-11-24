@@ -1,4 +1,5 @@
 class EpisodesController < ApplicationController
+  before_action :build_slug,  only: [:show, :edit, :update, :destroy]
   before_action :set_episode, only: [:show, :edit, :update, :destroy]
 
   # GET /episodes
@@ -30,6 +31,7 @@ class EpisodesController < ApplicationController
 
     @episode = Episode.new(episode_params)
 
+    set_draft
     respond_to do |format|
       if @episode.save
         format.html { redirect_to @episode, notice: 'Episode was successfully created.' }
@@ -46,12 +48,7 @@ class EpisodesController < ApplicationController
   def update
     # logger.debug ">>>>>>>update was invoked"
 
-    if params[:commit] == 'Save as draft'
-      @episode.draft = true
-    elsif params[:commit] == 'Publish'
-      @episode.draft = false
-    end
-
+    set_draft
     respond_to do |format|
       if @episode.update(episode_params)
         format.html { redirect_to @episode, notice: 'Episode was successfully updated.' }
@@ -80,6 +77,23 @@ class EpisodesController < ApplicationController
         @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
       else
         @episode = Episode.find_by slug: params[:slug_or_number]   # if not, look up the requested episode by its slug
+      end
+    end
+
+    def set_draft
+      if params[:commit] == 'Save as draft'
+        @episode.draft = true
+        logger.debug ">>>>>>>draft was clicked"
+      elsif params[:commit] == 'Publish'
+        @episode.draft = false
+        logger.debug ">>>>>>>publish was clicked"
+      end
+    end
+
+    def build_slug
+      if defined? @episode.slug
+        # Drop all non-alphanumeric characters, and change spaces to hyphens
+        @episode.slug = @episode.title.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
       end
     end
 
