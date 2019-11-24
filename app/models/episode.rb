@@ -22,8 +22,8 @@ class Episode < ApplicationRecord
   def self.drafts()
     where(draft: true)
   end
-  def self.most_recent()
-    Episodes.maximum('number')
+  def self.most_recent_published(number_of_posts)
+    order(publish_date: :desc).limit(5)
   end
 
 end

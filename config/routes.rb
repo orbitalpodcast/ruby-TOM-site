@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root 'episodes#index'
+  root 'pages#index'
   resources :episodes, param: :slug_or_number
 end

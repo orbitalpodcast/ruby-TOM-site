@@ -24,7 +24,7 @@ listeners
 
 
 index
-  X most recent episodes
+  most recent episodes
     featured image
     title, linked to episode page
     publish date
