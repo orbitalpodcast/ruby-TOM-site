@@ -25,5 +25,8 @@ class Episode < ApplicationRecord
   def self.most_recent_published(number_of_posts)
     order(publish_date: :desc).limit(5)
   end
+  def self.slugify(unslug) # Drop all non-alphanumeric characters, and change spaces to hyphens
+    unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
+  end
 
 end

@@ -1,6 +1,7 @@
+
+
 class EpisodesController < ApplicationController
-  before_action :build_slug,  only: [:show, :edit, :update, :destroy]
-  before_action :set_episode, only: [:show, :edit, :update, :destroy]
+  before_action :set_episode, only: [:show, :edit, :update, :destroy] #allow URL to reference slug or episode number
 
   # GET /episodes
   # GET /episodes.json
@@ -31,6 +32,7 @@ class EpisodesController < ApplicationController
 
     @episode = Episode.new(episode_params)
 
+    build_slug
     set_draft
     respond_to do |format|
       if @episode.save
@@ -48,6 +50,7 @@ class EpisodesController < ApplicationController
   def update
     # logger.debug ">>>>>>>update was invoked"
 
+    build_slug
     set_draft
     respond_to do |format|
       if @episode.update(episode_params)
@@ -91,9 +94,11 @@ class EpisodesController < ApplicationController
     end
 
     def build_slug
-      if defined? @episode.slug
-        # Drop all non-alphanumeric characters, and change spaces to hyphens
-        @episode.slug = @episode.title.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
+      logger.debug ">>>>>>>build_slug called"
+      logger.debug ">>>>>>>slug is currently: #{@episode.slug}"
+      if not defined? @episode.slug or @episode.slug.empty?
+        logger.debug ">>>>>>>slug not defined"
+        @episode.slug = Episode.slugify(@episode.title)
       end
     end
 
