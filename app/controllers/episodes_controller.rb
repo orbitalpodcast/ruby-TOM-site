@@ -17,8 +17,8 @@ class EpisodesController < ApplicationController
   # GET /episodes/new
   def new
     @episode = Episode.new
-    @episode.title = 'enter your title here'
     @episode.number = Episode.maximum('number') + 1
+    @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) #next tuesday
   end
 
   # GET /episodes/1/edit

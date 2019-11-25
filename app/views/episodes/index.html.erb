@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Episodes</h1> <%= link_to 'New Episode', new_episode_path %>
+<h1><%= link_to 'The Orbital Mechanics Podcast', root_path %></h1> </br>
 
 <% Episode.all.each do |episode| %>
-    <h2><%= "Episode #{episode.number}: #{episode.title}" %></h2>
-    <i><%= episode.publish_date %></i>
-    <%= episode.description %>
-    <%= link_to 'Edit', edit_episode_path(episode) %>
+    <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
+    <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) %>
+    <h3><%= episode.description %></h3>
+    
   </p>
 <% end %>
