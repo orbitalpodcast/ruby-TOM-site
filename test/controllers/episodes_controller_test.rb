@@ -10,10 +10,10 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
-    get root_path
-    # assert_response :success
-  end
+  # test "should get new" do
+  #   get root_path
+  #   assert_response :success
+  # end
 
   # test "should create episode" do
   #   assert_difference('Episode.count') do
