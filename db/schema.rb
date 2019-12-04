@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_032306) do
     t.string "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["number"], name: "index_episodes_on_number", unique: true
+    t.index ["slug"], name: "index_episodes_on_slug", unique: true
   end
 
 end
