@@ -1,17 +1,26 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  number: 
-  title: MyString
-  slug: MyString
-  publish_date: 2019-11-21
-  description: MyString
-  notes: MyString
+  number: 232
+  title: Full Panic Ensued
+  slug: full-panic-ensued
+  publish_date: 2019-10-15
+  description: Commercial Crew has fallen behind, but SpaceX is rushing to get Crew Dragon out the door.
+  notes: This week in SF history October 17, 1956 Birth of Mae Jemison (wikipedia.org) Spaceflight news Battery replacement EVAs (americaspace.com)
+
 
 two:
-  number: 
-  title: MyString
-  slug: MyString
-  publish_date: 2019-11-21
-  description: MyString
-  notes: MyString
+  number: 237
+  title: DOWNLINK--Elena Zorzoli Rossi
+  slug: elena-zorzoli-rossi
+  publish_date: 2019-11-24
+  description: this person is a thing
+  notes: news, notes and photos
+
+three: 
+  number: 233
+  title: IAC, DC 2019
+  slug: iac-dc-2019
+  publish_date: 2019-10-29
+  description: Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.
+  notes: Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.  This show is brought to you by just over one hundred supporters on Patreon (and direct monthly supporters using Bitcoin and Paypal!) We couldn’t have done this without you, and we are so thankful for your confidence in our ability to bring you educational and entertaining content.
