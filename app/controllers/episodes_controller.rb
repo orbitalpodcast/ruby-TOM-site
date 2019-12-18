@@ -26,16 +26,14 @@ class EpisodesController < ApplicationController
   # POST /episodes
   # POST /episodes.json
   def create
-    # logger.debug ">>>>>>>create was invoked"
     logger.debug ">>>>>>>create was invoked"
 
     @episode = Episode.new(episode_params)
-
     build_slug
     set_draft
     respond_to do |format|
       if @episode.save
-        format.html { redirect_to @episode, notice: 'Episode was successfully created.' }
+        format.html { redirect_to draft_path, notice: 'Episode was successfully created.' }
         format.json { render :show, status: :created, location: @episode }
       else
         format.html { render :new }
@@ -47,7 +45,6 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
-    # logger.debug ">>>>>>>update was invoked"
     logger.debug ">>>>>>>update was invoked"
     logger.debug ">>>>>>> @episode.slug is #{@episode.slug}"
 
@@ -55,7 +52,7 @@ class EpisodesController < ApplicationController
     set_draft
     respond_to do |format|
       if @episode.update(episode_params)
-        format.html { redirect_to @episode, notice: 'Episode was successfully updated.' }
+        format.html { redirect_to draft_path, notice: 'Episode was successfully updated.' }
         format.json { render :show, status: :ok, location: @episode }
       else
         format.html { render :edit }
