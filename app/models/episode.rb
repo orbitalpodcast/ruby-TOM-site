@@ -20,8 +20,8 @@ class Episode < ApplicationRecord
   def self.published()
     where(draft: false)
   end
-  def self.drafts()
-    where(draft: true)
+  def self.draft_waiting?                         # Used by routes to determine where to send GET /draft
+    where(draft: true).length > 0
   end
   def self.most_recent_published(number_of_posts)
     order(publish_date: :desc).limit(5)
