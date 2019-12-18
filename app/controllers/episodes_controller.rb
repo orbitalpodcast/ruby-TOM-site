@@ -1,5 +1,3 @@
-
-
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy] #allow URL to reference slug or episode number
 
@@ -18,7 +16,7 @@ class EpisodesController < ApplicationController
   def new
     @episode = Episode.new
     @episode.number = (Episode.maximum('number') || 0) + 1
-    @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) #next tuesday
+    @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) # find next tuesday TODO: pull publish date/schedule out into config file
   end
 
   # GET /episodes/1/edit
@@ -29,6 +27,7 @@ class EpisodesController < ApplicationController
   # POST /episodes.json
   def create
     # logger.debug ">>>>>>>create was invoked"
+    logger.debug ">>>>>>>create was invoked"
 
     @episode = Episode.new(episode_params)
 
@@ -49,6 +48,8 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1.json
   def update
     # logger.debug ">>>>>>>update was invoked"
+    logger.debug ">>>>>>>update was invoked"
+    logger.debug ">>>>>>> @episode.slug is #{@episode.slug}"
 
     build_slug
     set_draft
@@ -86,10 +87,10 @@ class EpisodesController < ApplicationController
     def set_draft
       if params[:commit] == 'Save as draft'
         @episode.draft = true
-        logger.debug ">>>>>>>draft was clicked"
+        logger.debug ">>>>>>> @episode.draft = true"
       elsif params[:commit] == 'Publish'
         @episode.draft = false
-        logger.debug ">>>>>>>publish was clicked"
+        logger.debug ">>>>>>> @episode.draft = false"
       end
     end
 

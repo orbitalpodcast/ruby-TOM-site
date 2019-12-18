@@ -13,6 +13,7 @@ class Episode < ApplicationRecord
   validates :draft,             inclusion: { in: [true, false] }
 
   def to_param
+  def to_param                                    # Overrides default behavior, and constructs episode_path by using the slug.
     slug
   end
 
@@ -25,7 +26,7 @@ class Episode < ApplicationRecord
   def self.most_recent_published(number_of_posts)
     order(publish_date: :desc).limit(5)
   end
-  def self.slugify(unslug) # Drop all non-alphanumeric characters, and change spaces to hyphens
+  def self.slugify(unslug)                        # Drop all non-alphanumeric characters, and change spaces to hyphens
     unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
   end
 
