@@ -1,6 +1,9 @@
 <h1>Editing Episode</h1>
 
+<p id="notice"><%= notice %></p>
+
 <%= render 'form', episode: @episode %>
 
 <%= link_to 'Show', @episode %> |
-<%= link_to 'Back', episodes_path %>
+<%= link_to 'Back', episodes_path %> |
+<%= link_to("Remove", @episode, method: :delete) %>

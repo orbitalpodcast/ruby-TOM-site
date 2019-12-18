@@ -2,11 +2,11 @@
 
 <h1>The Orbital Mechanics Podcast</h1></br>
 
-<% Episode.most_recent_published(1).each do |episode| %>
-    <h2><%= "Episode #{episode.number}: #{episode.title}" %></h2>
+<% Episode.most_recent_published(5).each do |episode| #TODO: pull number of epsiodes to display on the homepage out to a config file %>
+    <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
     <i><%= episode.publish_date %></i>
     <%= episode.description %>
   </p>
 <% end %>
 
-<%= link_to 'More epsisodes...', episodes_path %>
+<%= link_to 'More episodes...', episodes_path %>

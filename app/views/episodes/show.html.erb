@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+
+<% if @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p> <% end %>
 <p>
   <strong>Number:</strong>
   <%= @episode.number %>
