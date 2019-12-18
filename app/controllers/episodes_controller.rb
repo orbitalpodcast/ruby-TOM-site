@@ -99,13 +99,16 @@ class EpisodesController < ApplicationController
       end
     end
 
-    def build_slug
-      logger.debug ">>>>>>>build_slug called"
-      logger.debug ">>>>>>>slug is currently: #{@episode.slug}"
-      if not defined? @episode.slug or @episode.slug.empty?
-        logger.debug ">>>>>>>slug not defined"
+    def build_slug    # Currently a mess. Before saving to the DB, we need to make sure the slug is valid, and assign one if it isn't.
+      if @episode.title.empty?
+        @episode.slug = 'untilted-draft'
+      elsif not defined? @episode.slug || @episode.slug.empty?
+        @episode.slug = Episode.slugify(@episode.title)
+        logger.debug ">>>>>>> empty slug field. Is now: #{@episode.slug}"
+      elsif @episode.slug == 'untilted-draft' and not @episode.title.empty?
         @episode.slug = Episode.slugify(@episode.title)
       end
+      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -113,3 +116,8 @@ class EpisodesController < ApplicationController
       params.require(:episode).permit(:draft, :number, :title, :slug, :publish_date, :description, :notes)
     end
 end
+
+
+
+
+
