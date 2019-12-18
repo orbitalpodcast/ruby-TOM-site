@@ -1,18 +1,27 @@
 class Episode < ApplicationRecord
   # has_many :photos
 
-  validates :number,            presence: true,
-                                uniqueness: true,
-                                numericality: {only_integer: true, greater_than: 0}
-  validates :title,:slug,
-                                presence: true,
-                                uniqueness: true
+  validates :number,
+                            presence: true,
+                            uniqueness: true,
+                            numericality: {only_integer: true, greater_than: 0}
+  validates :slug,  # TODO: validate self.slugify-style regex
+                            presence: true,
+                            uniqueness: true,
+                            length: { minimum: 1 }
+  validates :draft,
+                            inclusion: { in: [true, false] }
+  validates :title,
+                            presence: true,
+                            uniqueness: true,
+                            length: { minimum: 1 },
+                            on: :publish
   validates :publish_date,
-            :description,:notes,
-                                presence: true
-  validates :draft,             inclusion: { in: [true, false] }
+            :description,
+            :notes,
+                            presence: true,
+                            on: :publish
 
-  def to_param
   def to_param                                    # Overrides default behavior, and constructs episode_path by using the slug.
     slug
   end
