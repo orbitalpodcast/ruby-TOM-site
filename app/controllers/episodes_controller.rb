@@ -77,10 +77,15 @@ class EpisodesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_episode
-      if /\A\d+\z/.match(params[:slug_or_number])                  # does the incoming URL param contain a number?
+      if not params[:slug_or_number] # WARNING WARNING WARNING TODO: this is a workaround, and might expose a draft to a not logged in user!!!
+        @episode = Episode.most_recent_draft.take
+        logger.debug ">>>>>>> no slug_or_number, so setting @episode by most_recent_draft" 
+      elsif /\A\d+\z/.match(params[:slug_or_number])                  # does the incoming URL param contain a number?
         @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
+        logger.debug ">>>>>>> setting @episode by params number"
       else
         @episode = Episode.find_by slug: params[:slug_or_number]   # if not, look up the requested episode by its slug
+        logger.debug ">>>>>>> setting @episode by params slug"
       end
     end
 
