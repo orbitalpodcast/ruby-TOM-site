@@ -13,15 +13,27 @@ class EpisodesController < ApplicationController
   end
 
   # GET /episodes/new
-  def new
-    @episode = Episode.new
-    @episode.number = (Episode.maximum('number') || 0) + 1
-    @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) # find next tuesday TODO: pull publish date/schedule out into config file
-  end
+  # def new
+  # end
 
   # GET /episodes/1/edit
   def edit
+    if @episode.draft?
+      redirect_to draft_path
+    end
   end
+
+  # GET /draft
+  def draft
+    if Episode.draft_waiting?
+      @episode = Episode.most_recent_draft.take
+    else
+      @episode = Episode.new
+      @episode.number = (Episode.maximum('number') || 0) + 1
+      @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) # find next tuesday TODO: pull publish date/schedule out into config file
+    end
+  end
+
 
   # POST /episodes
   # POST /episodes.json
@@ -46,7 +58,6 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1.json
   def update
     logger.debug ">>>>>>>update was invoked"
-    logger.debug ">>>>>>> @episode.slug is #{@episode.slug}"
 
     build_slug
     set_draft
@@ -74,17 +85,14 @@ class EpisodesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_episode
-      # if not params[:slug_or_number] # WARNING WARNING WARNING TODO: this is a workaround, and might expose a draft to a not logged in user!!!
-      #   @episode = Episode.most_recent_draft.take
-      #   logger.debug ">>>>>>> no slug_or_number, so setting @episode by most_recent_draft" 
       if /\A\d+\z/.match(params[:slug_or_number])                  # does the incoming URL param contain an integer?
         @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
         logger.debug ">>>>>>> setting @episode by params number"
       elsif /\A[\w-]+\z/.match(params[:slug_or_number])             # is the param alphanumeric, potentially with dashes?
-        @episode = Episode.find_by slug: params[:slug_or_number]   # if so, look up the requested episode by its slug
+        @episode = Episode.find_by slug: params[:slug_or_number]    # if so, look up the requested episode by its slug
         logger.debug ">>>>>>> setting @episode by params slug"
       else
-        redirect_to episodes_path
+        redirect_to episodes_path                                   # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
       end
     end
 
@@ -115,6 +123,9 @@ class EpisodesController < ApplicationController
       params.require(:episode).permit(:draft, :number, :title, :slug, :publish_date, :description, :notes)
     end
 end
+
+
+
 
 
 
