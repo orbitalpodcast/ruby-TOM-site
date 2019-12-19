@@ -88,25 +88,23 @@ class EpisodesController < ApplicationController
       if /\A\d+\z/.match(params[:slug_or_number])                  # does the incoming URL param contain an integer?
         @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
         logger.debug ">>>>>>> setting @episode by params number"
-      elsif /\A[\w-]+\z/.match(params[:slug_or_number])             # is the param alphanumeric, potentially with dashes?
-        @episode = Episode.find_by slug: params[:slug_or_number]    # if so, look up the requested episode by its slug
+      elsif /\A[\w-]+\z/.match(params[:slug_or_number])            # is the param alphanumeric, potentially with dashes?
+        @episode = Episode.find_by slug: params[:slug_or_number]   # if so, look up the requested episode by its slug
         logger.debug ">>>>>>> setting @episode by params slug"
       else
-        redirect_to episodes_path                                   # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
+        redirect_to episodes_path                                  # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
       end
     end
 
-    def set_draft
+    def set_draft                                                  # used when a form is submitted to update the episode.draft attribute depending on which button was selected.
       if params[:commit] == 'Save as draft'
-        @episode.draft = true
-        logger.debug ">>>>>>> @episode.draft = true"
       elsif params[:commit] == 'Publish'
         @episode.draft = false
-        logger.debug ">>>>>>> @episode.draft = false"
       end
+      logger.debug ">>>>>>> set_draft invoked. @episode.draft = #{@episode.draft}"
     end
 
-    def build_slug    # Currently a mess. Before saving to the DB, we need to make sure the slug is valid, and assign one if it isn't.
+    def build_slug                                                   # Currently a mess. Before saving to the DB, we need to make sure the slug is valid, and assign one if it isn't.
       if @episode.title.empty?
         @episode.slug = 'untilted-draft'
       elsif not defined? @episode.slug || @episode.slug.empty?
@@ -115,7 +113,6 @@ class EpisodesController < ApplicationController
       elsif @episode.slug == 'untilted-draft' and not @episode.title.empty?
         @episode.slug = Episode.slugify(@episode.title)
       end
-      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
