@@ -18,6 +18,7 @@ class EpisodesController < ApplicationController
 
   # GET /episodes/1/edit
   def edit
+    logger.debug ">>>>>>> edit was invoked"
     if @episode.draft?
       redirect_to draft_path
     end
@@ -38,7 +39,7 @@ class EpisodesController < ApplicationController
   # POST /episodes
   # POST /episodes.json
   def create
-    logger.debug ">>>>>>>create was invoked"
+    logger.debug ">>>>>>> create was invoked"
 
     @episode = Episode.new(episode_params)
     build_slug
@@ -57,12 +58,15 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
-    logger.debug ">>>>>>>update was invoked"
+    logger.debug ">>>>>>> update was invoked"
 
     build_slug
     set_draft
+
     respond_to do |format|
       if @episode.update(episode_params)
+      logger.debug ">>>>>>> now inside respond_to"
+      logger.debug ">>>>>>> params.permit(...) = #{ params}"
         format.html { redirect_to draft_path, notice: 'Episode was successfully updated.' }
         format.json { render :show, status: :ok, location: @episode }
       else
@@ -98,6 +102,7 @@ class EpisodesController < ApplicationController
 
     def set_draft                                                  # used when a form is submitted to update the episode.draft attribute depending on which button was selected.
       if params[:commit] == 'Save as draft'
+        @episode.draft = true
       elsif params[:commit] == 'Publish'
         @episode.draft = false
       end
