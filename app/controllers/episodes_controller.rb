@@ -86,7 +86,15 @@ class EpisodesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_episode
-      if /\A\d+\z/.match(params[:slug_or_number])                  # does the incoming URL param contain an integer?
+      if not defined?(params[:slug_or_number]) || params[:slug_or_number].empty?
+        if not params[:slug].empty?
+          logger.debug '>>>>>> set_episode got a slug. Setting @episode.'
+          @episode = Episode.find_by( slug: params[:slug])
+        elsif not params[:number].empty?
+          logger.debug '>>>>>> set_episode got a number. Setting @episode.'
+          @episode = Episode.find_by( number: params[:number])
+        end
+      elsif /\A\d+\z/.match(params[:slug_or_number])               # does the incoming URL param contain an integer?
         @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
         logger.debug ">>>>>>> setting @episode by params number"
       elsif /\A[\w-]+\z/.match(params[:slug_or_number])            # is the param alphanumeric, potentially with dashes?
