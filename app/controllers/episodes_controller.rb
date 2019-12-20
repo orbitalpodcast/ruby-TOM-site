@@ -10,6 +10,7 @@ class EpisodesController < ApplicationController
   # GET /episodes/1
   # GET /episodes/1.json
   def show
+    logger.debug ">>>>>> @episode is #{@episode}"
   end
 
   # GET /episodes/new
@@ -96,13 +97,14 @@ class EpisodesController < ApplicationController
         end
       elsif /\A\d+\z/.match(params[:slug_or_number])               # does the incoming URL param contain an integer?
         @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
-        logger.debug ">>>>>>> setting @episode by params number"
+        logger.debug ">>>>>>> set_episode got a :slug_or_number, and it is a number. Setting @episode."
       elsif /\A[\w-]+\z/.match(params[:slug_or_number])            # is the param alphanumeric, potentially with dashes?
         @episode = Episode.find_by slug: params[:slug_or_number]   # if so, look up the requested episode by its slug
-        logger.debug ">>>>>>> setting @episode by params slug"
+        logger.debug ">>>>>>> set_episode got a :slug_or_number, and it is a slug. Setting @episode."
       else
         redirect_to episodes_path                                  # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
       end
+
     end
 
     def set_draft                                                  # used when a form is submitted to update the episode.draft attribute depending on which button was selected.
