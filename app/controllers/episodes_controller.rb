@@ -5,6 +5,10 @@ class EpisodesController < ApplicationController
   # GET /episodes.json
   def index
     @episodes = Episode.all
+    respond_to do |format|
+      format.html
+      format.rss { render :layout => false }  # TODO: Restrict drafts from RSS feed. Add params to allow number of episodes selection.
+    end
   end
 
   # GET /episodes/1
