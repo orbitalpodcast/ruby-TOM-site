@@ -66,7 +66,6 @@ class EpisodesController < ApplicationController
     set_draft
 
     respond_to do |format|
-      logger.debug ">>>>>>> episode_params = #{ episode_params }"
       if @episode.update(episode_params)
         format.html { redirect_to draft_path, notice: 'Episode was successfully updated.' }
         format.json { render :show, status: :ok, location: @episode }
@@ -132,16 +131,17 @@ class EpisodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
-      proposed_params = params.require(:episode).permit(:draft, :number, :title, :slug, :publish_date, :description, :notes)
-      if proposed_params[:title].empty? and proposed_params[:slug].empty?
-        proposed_params[:slug] = 'untilted-draft'
-      elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untilted-draft' and not proposed_params[:title].empty?)
-        proposed_params[:slug] = Episode.slugify(proposed_params[:title])
-      else
-        logger.debug ">>>>>>> OH CRAP! Episode_params managed to not know how to set slug."
-        logger.debug ">>>>>>> proposed_params is #{proposed_params}"
-      end
-      proposed_params
+      # proposed_params = 
+      params.require(:episode).permit(:draft, :number, :title, :slug, :publish_date, :description, :notes, :audio, images:[])
+      # if proposed_params[:title].empty? and proposed_params[:slug].empty?
+      #   proposed_params[:slug] = 'untilted-draft'
+      # elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untilted-draft' and not proposed_params[:title].empty?)
+      #   proposed_params[:slug] = Episode.slugify(proposed_params[:title])
+      # else
+      #   logger.debug ">>>>>>> OH CRAP! Episode_params managed to not know how to set slug."
+      #   logger.debug ">>>>>>> proposed_params is #{proposed_params}"
+      # end
+      # proposed_params
     end
 end
 

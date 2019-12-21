@@ -1,5 +1,8 @@
 class Episode < ApplicationRecord
-  # has_many :photos
+  
+  has_many_attached :images
+  scope :with_eager_loaded_images, -> { eager_load(images_attachments: :blob) }
+  has_one_attached :audio
 
   validates :number,
                             presence: true,

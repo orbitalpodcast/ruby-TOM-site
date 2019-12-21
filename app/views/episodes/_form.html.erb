@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :audio %>
+    <%= form.file_field :audio %>
+  </div>
+
+  <div class="field">
     <%= form.label :number %>
     <%= form.text_field :number %>
   </div>
@@ -40,6 +45,21 @@
     <%= form.label :notes %>
     <%= form.text_area :notes %>
   </div>
+
+  <div class='field'>
+    <%= form.label :images %> 
+    <%= form.file_field :images, multiple: true, direct_upload: true %>
+  </div>
+
+  <% if episode.images.attached? %>
+  <p>
+    <strong>Images:</strong>
+    <br>
+    <% episode.images.each do |image| %>
+      <%= image_tag image %>
+    <% end %>
+  </p>
+  <% end %>
 
   <div class="actions">
     <%= form.submit "Save as draft", commit: 'draft' %>

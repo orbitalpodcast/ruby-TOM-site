@@ -33,5 +33,15 @@
   <%= @episode.notes %>
 </p>
 
+<% if @episode.images.attached? %>
+<p>
+  <strong>Images:</strong>
+  <br>
+  <% @episode.images.each do |image| %>
+    <%= image_tag(image) %>
+  <% end %>
+</p>
+<% end %>
+
 <%= link_to 'Edit', edit_episode_path(@episode) %> |
 <%= link_to 'Back', episodes_path %>
