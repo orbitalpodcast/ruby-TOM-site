@@ -14,7 +14,6 @@ class EpisodesController < ApplicationController
   # GET /episodes/1
   # GET /episodes/1.json
   def show
-    logger.debug ">>>>>> @episode is #{@episode}"
   end
 
   # GET /episodes/new
@@ -65,8 +64,8 @@ class EpisodesController < ApplicationController
     logger.debug ">>>>>>> update was invoked"
 
     set_draft
+
     respond_to do |format|
-      logger.debug ">>>>>>> now inside respond_to"
       logger.debug ">>>>>>> episode_params = #{ episode_params }"
       if @episode.update(episode_params)
         format.html { redirect_to draft_path, notice: 'Episode was successfully updated.' }

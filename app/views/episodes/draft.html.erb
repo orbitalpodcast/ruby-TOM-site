@@ -4,4 +4,5 @@
 
 <%= render 'form', episode: @episode %>
 
-<%= link_to 'Back', episodes_path %>
+<%= link_to 'Back', episodes_path %>|
+<%= link_to("Remove", @episode, method: :delete) %>
