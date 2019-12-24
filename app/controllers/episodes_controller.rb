@@ -1,6 +1,6 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy] #allow URL to reference slug or episode number
-  after_action :create_photo_objects, :update_photo_captions, :delete_photo_objects, only: [:create, :update]
+  after_action :create_photo_objects, :update_photo_captions, :delete_photo_objects, :delete_audio_attachment, only: [:create, :update]
 
   # GET /episodes
   # GET /episodes.json
