@@ -141,6 +141,18 @@ class EpisodesController < ApplicationController
       end
     end
 
+    def delete_photo_objects
+      for image_id in (params[:remove_image] || []) do
+        Image.find_by( id: image_id).destroy!
+      end
+    end
+
+    def delete_audio_attachment
+      if params.has_key? :remove_audio
+        @episode.audio.purge
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
       # proposed_params = 
