@@ -48,18 +48,15 @@
 
   <div class='field'>
     <%= form.label :images %> 
-    <%= form.file_field :images, multiple: true, direct_upload: true %>
+    <%= form.file_field :images, multiple: true %>
   </div>
 
-  <% if episode.images.attached? %>
-  <p>
-    <strong>Images:</strong>
-    <br>
-    <% episode.images.each do |image| %>
-      <%= image_tag image %>
-    <% end %>
-  </p>
+  <ul>
+  <% for image in episode.images do %>
+      <li><%= image_tag(url_for(image.image)) %></li>
+      <li><%= text_field_tag ("image_captions[#{image.id}]"), (image.caption || '') %> | <%= check_box_tag 'remove_image[]', image.id %> DELETE ON SAVE</li>
   <% end %>
+  </ul>
 
   <div class="actions">
     <%= form.submit "Save as draft", commit: 'draft' %>

@@ -1,5 +1,6 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy] #allow URL to reference slug or episode number
+  after_action :create_photo_objects, :update_photo_captions, :delete_photo_objects, only: [:create, :update]
 
   # GET /episodes
   # GET /episodes.json
@@ -64,7 +65,6 @@ class EpisodesController < ApplicationController
     logger.debug ">>>>>>> update was invoked"
 
     set_draft
-
     respond_to do |format|
       if @episode.update(episode_params)
         format.html { redirect_to draft_path, notice: 'Episode was successfully updated.' }
@@ -129,10 +129,22 @@ class EpisodesController < ApplicationController
       end
     end
 
+    def create_photo_objects
+      for image in (params.require(:episode).permit(images: [])[:images] || []) do
+        @image = @episode.images.create(caption: 'not implemented yet').image.attach(image)
+      end
+    end
+
+    def update_photo_captions
+      for image_id, image_caption in (params[:image_captions] || []) do
+        Image.find_by(id: image_id).update(caption: image_caption)
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
       # proposed_params = 
-      params.require(:episode).permit(:draft, :number, :title, :slug, :publish_date, :description, :notes, :audio, images:[])
+      params.require(:episode).permit(:draft, :number, :title, :slug, :publish_date, :description, :notes, :audio)
       # if proposed_params[:title].empty? and proposed_params[:slug].empty?
       #   proposed_params[:slug] = 'untilted-draft'
       # elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untilted-draft' and not proposed_params[:title].empty?)
