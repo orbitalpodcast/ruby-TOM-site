@@ -3,6 +3,12 @@
 <% logger.debug ">>>>>>> view. @episode is #{@episode}" %>
 
 <% if @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p> <% end %>
+
+<p>
+  <strong>Has audio attached:</strong>
+  <%= @episode.audio.attached? %>
+</p>
+
 <p>
   <strong>Number:</strong>
   <%= @episode.number %>

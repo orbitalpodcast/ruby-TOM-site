@@ -1,5 +1,7 @@
 class Episode < ApplicationRecord
-  # has_many :photos
+  
+  has_many :images, dependent: :destroy
+  has_one_attached :audio
 
   validates :number,
                             presence: true,

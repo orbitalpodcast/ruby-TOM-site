@@ -12,6 +12,12 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :audio %>
+    <%= form.file_field :audio %>
+    <%= check_box_tag 'remove_audio' %> DELETE ATTACHED AUDIO ON SAVE</li>
+  </div>
+
+  <div class="field">
     <%= form.label :number %>
     <%= form.text_field :number %>
   </div>
@@ -40,6 +46,18 @@
     <%= form.label :notes %>
     <%= form.text_area :notes %>
   </div>
+
+  <div class='field'>
+    <%= form.label :images %> 
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
+  <ul>
+  <% for image in episode.images do %>
+      <li><%= image_tag(url_for(image.image)) %></li>
+      <li><%= text_field_tag ("image_captions[#{image.id}]"), (image.caption || '') %> | <%= check_box_tag 'remove_image[]', image.id %> DELETE ON SAVE</li>
+  <% end %>
+  </ul>
 
   <div class="actions">
     <%= form.submit "Save as draft", commit: 'draft' %>
