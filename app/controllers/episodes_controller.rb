@@ -1,6 +1,7 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy] #allow URL to reference slug or episode number
-  after_action :create_photo_objects, :update_photo_captions, :delete_photo_objects, :delete_audio_attachment, only: [:create, :update]
+  after_action :create_photo_objects, :update_photo_captions, 
+               :delete_photo_objects, :delete_audio_attachment, only: [:create, :update]
 
   # GET /episodes
   # GET /episodes.json
@@ -109,7 +110,8 @@ class EpisodesController < ApplicationController
 
     end
 
-    def set_draft                                                  # used when a form is submitted to update the episode.draft attribute depending on which button was selected.
+    def set_draft
+    # used when a form is submitted to update the episode.draft attribute depending on which button was selected.
       if params[:commit] == 'Save as draft'
         @episode.draft = true
       elsif params[:commit] == 'Publish'
@@ -118,7 +120,8 @@ class EpisodesController < ApplicationController
       logger.debug ">>>>>>> set_draft invoked. @episode.draft = #{@episode.draft}"
     end
 
-    def build_slug                                                   # Currently a mess. Before saving to the DB, we need to make sure the slug is valid, and assign one if it isn't.
+    def build_slug
+    # Before saving an episode, we need to make sure the slug is valid, and assign one if it isn't.
       if @episode.title.empty?
         @episode.slug = 'untilted-draft'
       elsif not defined? @episode.slug || @episode.slug.empty?
@@ -130,24 +133,33 @@ class EpisodesController < ApplicationController
     end
 
     def create_photo_objects
+    # When images are uploaded, we need to create new Image objects, attach the files, and associate the Image with this @episode
       for image in (params.require(:episode).permit(images: [])[:images] || []) do
-        @image = @episode.images.create(caption: 'not implemented yet').image.attach(image)
+        @image = @episode.images.create().image.attach(image)
       end
     end
 
     def update_photo_captions
+    # When we save @episode, we also want to update the captions of the associated Images.
       for image_id, image_caption in (params[:image_captions] || []) do
-        Image.find_by(id: image_id).update(caption: image_caption)
+        if params[:remove_image]  # Don't update captions if we're about to delete the photo.
+          to_be_deleted = params[:remove_image].include? image_id
+        end
+        if not to_be_deleted      # TODO: can these two ifs be refactored together?
+          Image.find_by(id: image_id).update(caption: image_caption)
+        end
       end
     end
 
     def delete_photo_objects
+    # When the user checks image deletion checkboxes, we need to go through and delete those Image objects.
       for image_id in (params[:remove_image] || []) do
         Image.find_by( id: image_id).destroy!
       end
     end
 
     def delete_audio_attachment
+    # When the user checks the audio remove checkbox, we need to purge that attached file.
       if params.has_key? :remove_audio
         @episode.audio.purge
       end
