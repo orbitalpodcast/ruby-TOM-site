@@ -1,28 +1,25 @@
 xml.instruct! :xml, :version => "1.0"
 xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version => "2.0" do
   xml.channel do
-    xml.title "The Orbital Mechanics Podcast"
+    xml.title Settings.rss.title
     xml.link episodes_url
     xml.lastBuildDate Time.zone.now.to_s(:rfc822)
-    xml.language 'en-US'
-    xml.itunes :author, 'David Fourman, Ben Etherington and Dennis Just'
-    xml.itunes :explicit, 'no'
+    xml.language Settings.rss.language
+    xml.itunes :author, Settings.rss.author
+    xml.itunes :explicit, Settings.rss.explicit_show
     xml.itunes :owner do
-      xml.itunes :name, 'Ben Etherington'
-      xml.itunes :email, 'info@theorbitalmechanics.com'
+      xml.itunes :name, Settings.rss.owner.my_name
+      xml.itunes :email, Settings.rss.owner.email
     end
-    xml.itunes :category, :text => 'Science' do
-      xml.itunes :category, :text => 'Natural Sciences'
+    for category, subcategory in Settings.rss.category do
+      xml.itunes :category, :text => category do
+        xml.itunes :category, :text => subcategory
+      end
     end
-    xml.itunes :category, :text => 'Science' do
-      xml.itunes :category, :text => 'Physics'
-    end
-    xml.itunes :category, :text => 'Science' do
-      xml.itunes :category, :text => 'Earth Sciences'
-    end
-    xml.itunes :type, 'episodic'
-    xml.itunes :image, 'https://images.squarespace-cdn.com/content/5439a3d0e4b0dedc218f23b9/1418314982417-0PNSD5LD6WLV5ZFEWTLM/TOM_2.jpg?format=1500w&amp;content-type=image%2Fjpeg'
-    xml.description 'Every week we cover the latest spaceflight news, discuss past, current and future exploration efforts, and take a look at upcoming events. Tune in to hear about how humans get to space, how they stay in space and how unmanned craft reach farther and farther into the universe around us.'
+    xml.itunes :type, Settings.rss.type
+    xml.itunes :image, Settings.rss.image_show
+    xml.description Settings.rss.description_show
+    xml.link root_path
 
     @episodes.each do |episode|
       xml.item do
