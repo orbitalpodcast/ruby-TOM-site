@@ -1,4 +1,6 @@
-<%= form_with(model: episode, local: true) do |form| %>
+<% #TODO: make the page reflect the database. Display potential auto-fills next to the textfields, but don't actually pre-fill those fields. This can result in path issues when changes are made to the page, but not to the database (due to validation errors)  %>
+
+<%= form_with(model: episode, local: true, url: episode_path(episode.number)) do |form| %>
   <% if episode.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
@@ -14,7 +16,7 @@
   <div class="field">
     <%= form.label :audio %>
     <%= form.file_field :audio %>
-    <%= check_box_tag 'remove_audio' %> DELETE ATTACHED AUDIO ON SAVE</li>
+    <% if episode.audio.attached? %><%= check_box_tag 'remove_audio' %> DELETE ATTACHED AUDIO ON SAVE <% end %>
   </div>
 
   <div class="field">
