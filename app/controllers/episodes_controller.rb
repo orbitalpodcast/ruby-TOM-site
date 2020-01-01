@@ -1,5 +1,6 @@
 class EpisodesController < ApplicationController
-  before_action :set_episode, only: [:show, :edit, :update, :destroy] #allow URL to reference slug or episode number
+  before_action :set_episode,                                   only: [:show, :edit, :update, :destroy, :publish] #allow URL to reference slug or episode number
+  before_action :set_draft,                                     only: [:create, :update]
   after_action :create_photo_objects, :update_photo_captions, 
                :delete_photo_objects, :delete_audio_attachment, only: [:create, :update]
 
@@ -41,6 +42,8 @@ class EpisodesController < ApplicationController
     end
   end
 
+  def publish
+  end
 
   # POST /episodes
   # POST /episodes.json
@@ -64,8 +67,6 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1.json
   def update
     logger.debug ">>>>>>> update was invoked"
-
-    set_draft
     respond_to do |format|
       if @episode.update(episode_params)
         format.html { redirect_to draft_path, notice: 'Episode was successfully updated.' }
@@ -89,15 +90,8 @@ class EpisodesController < ApplicationController
 
   private
     def set_episode
-      if not defined?(params[:slug_or_number]) || params[:slug_or_number].empty?
-        if not params[:slug].empty?
-          logger.debug '>>>>>> set_episode got a slug. Setting @episode.'
-          @episode = Episode.find_by( slug: params[:slug])
-        elsif not params[:number].empty?
-          logger.debug '>>>>>> set_episode got a number. Setting @episode.'
-          @episode = Episode.find_by( number: params[:number])
-        end
-      elsif /\A\d+\z/.match(params[:slug_or_number])               # does the incoming URL param contain an integer?
+      logger.debug ">>>>>>> beginnging of set_episode. @episode is: #{@episode}"
+      if /\A\d+\z/.match(params[:slug_or_number])               # does the incoming URL param contain an integer?
         @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
         logger.debug ">>>>>>> set_episode got a :slug_or_number, and it is a number. Setting @episode."
       elsif /\A[\w-]+\z/.match(params[:slug_or_number])            # is the param alphanumeric, potentially with dashes?
@@ -106,30 +100,19 @@ class EpisodesController < ApplicationController
       else
         redirect_to episodes_path                                  # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
       end
-
+      logger.debug ">>>>>>> End of set_episode. @episode is: #{@episode}"
     end
 
     def set_draft
-    # used when a form is submitted to update the episode.draft attribute depending on which button was selected.
+    # Used when a form is submitted to update the episode.draft attribute depending on which button was selected.
       if params[:commit] == 'Save as draft'
         @episode.draft = true
       elsif params[:commit] == 'Publish'
         @episode.draft = false
+        publish
       end
-      logger.debug ">>>>>>> set_draft invoked. @episode.draft = #{@episode.draft}"
     end
 
-    def build_slug
-    # Before saving an episode, we need to make sure the slug is valid, and assign one if it isn't.
-      if @episode.title.empty?
-        @episode.slug = 'untilted-draft'
-      elsif not defined? @episode.slug || @episode.slug.empty?
-        @episode.slug = Episode.slugify(@episode.title)
-        logger.debug ">>>>>>> empty slug field. Is now: #{@episode.slug}"
-      elsif @episode.slug == 'untilted-draft' and not @episode.title.empty?
-        @episode.slug = Episode.slugify(@episode.title)
-      end
-    end
 
     def create_photo_objects
     # When images are uploaded, we need to create new Image objects, attach the files, and associate the Image with this @episode
@@ -166,10 +149,10 @@ class EpisodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
-      proposed_params =  params.require(:episode).permit(:draft, :number, :title, :slug, :publish_date, :description, :notes, :audio)
+      proposed_params = params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description, :notes, :audio)
       if proposed_params[:title].empty? and proposed_params[:slug].empty?
-        proposed_params[:slug] = 'untilted-draft'
-      elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untilted-draft' and not proposed_params[:title].empty?)
+        proposed_params[:slug] = 'untitled-draft'
+      elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untitled-draft' and not proposed_params[:title].empty?)
         proposed_params[:slug] = Episode.slugify(proposed_params[:title])
       else
         logger.debug ">>>>>>> OH CRAP! Episode_params managed to not know how to set slug."
