@@ -13,6 +13,8 @@
     </div>
   <% end %>
 
+  <% if episode.draft? %> <p>DRAFT DRAFT DRAFT</p> <% end %>
+
   <div class="field">
     <%= form.label :audio %>
     <%= form.file_field :audio %>

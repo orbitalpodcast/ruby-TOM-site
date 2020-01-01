@@ -3,6 +3,7 @@ class Episode < ApplicationRecord
   has_many :images, dependent: :destroy
   has_one_attached :audio
 
+# Validations for all episodes
   validates :number,
                             presence: true,
                             uniqueness: true,
@@ -13,16 +14,20 @@ class Episode < ApplicationRecord
                             length: { minimum: 1 }
   validates :draft,
                             inclusion: { in: [true, false] }
-  validates :title,
-                            presence: true,
-                            uniqueness: true,
-                            length: { minimum: 1 },
-                            on: :publish
-  validates :publish_date,
-            :description,
-            :notes,
-                            presence: true,
-                            on: :publish
+# Validations for published episodes
+  with_options unless: -> { self.draft? } do |e|
+    e.validates :title,
+                              # presence: true,
+                              uniqueness: true,
+                              length: { minimum: 5 }
+    e.validates :publish_date,
+              :description,
+              :notes,
+                              presence: true
+    # e.validates :slug,
+    #                           exclusion: { in: ['untitled-draft'] }
+  end
+
 
   def to_param                                    # Overrides default behavior, and constructs episode_path by using the slug.
     slug
