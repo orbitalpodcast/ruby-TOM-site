@@ -88,7 +88,6 @@ class EpisodesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_episode
       if not defined?(params[:slug_or_number]) || params[:slug_or_number].empty?
         if not params[:slug].empty?
@@ -179,12 +178,17 @@ class EpisodesController < ApplicationController
       end
       proposed_params
     end
+
+    # def build_slug
+    # # Before saving an episode, we need to make sure the slug is valid, and assign one if it isn't.
+    #   byebug
+    #   if @episode.title.empty?
+    #     @episode.slug = 'untilted-draft'
+    #   elsif not defined? @episode.slug || @episode.slug.empty?
+    #     @episode.slug = Episode.slugify(@episode.title)
+    #     logger.debug ">>>>>>> empty slug field. Is now: #{@episode.slug}"
+    #   elsif @episode.slug == 'untilted-draft' and not @episode.title.empty?
+    #     @episode.slug = Episode.slugify(@episode.title)
+    #   end
+    # end
 end
-
-
-
-
-
-
-
-

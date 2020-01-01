@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'pages#index'
-  resources :episodes, except: :new, param: :slug_or_number     # Not sure if TOM.com/### is an episode number or a slug, so pass it through and decide in Episode.set_episode
+  resources :episodes, except: :new, param: :slug_or_number
 
   get '/draft', to: 'episodes#draft'
   get '/show-notes/:slug', to: redirect('episodes/%{slug}')
