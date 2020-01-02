@@ -66,7 +66,11 @@ class EpisodesController < ApplicationController
     logger.debug ">>>>>>> update was invoked"
     respond_to do |format|
       if @episode.update(episode_params)
-        format.html { redirect_to draft_path, notice: 'Episode was successfully updated.' }
+        if @episode.draft?
+          format.html { redirect_to draft_path, notice: 'Episode draft was successfully updated.' }
+        else
+          format.html { redirect_to @episode, notice: 'Episode was successfully published.' }
+        end
         format.json { render :show, status: :ok, location: @episode }
       else
         format.html { render :edit }
@@ -95,7 +99,7 @@ class EpisodesController < ApplicationController
         @episode = Episode.find_by slug: params[:slug_or_number]   # if so, look up the requested episode by its slug
         logger.debug ">>>>>>> set_episode got a :slug_or_number, and it is a slug. Setting @episode."
       else
-        redirect_to episodes_path                                  # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
+        redirect_to episode_path                                   # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
       end
       logger.debug ">>>>>>> End of set_episode. @episode is: #{@episode}"
     end

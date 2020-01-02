@@ -24,8 +24,8 @@ class Episode < ApplicationRecord
               :description,
               :notes,
                               presence: true
-    # e.validates :slug,
-    #                           exclusion: { in: ['untitled-draft'] }
+    e.validates :slug,
+                              exclusion: { in: ['untitled-draft'] }
   end
 
 
