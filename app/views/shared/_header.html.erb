@@ -1,0 +1,12 @@
+<% if logged_in? %>
+  <%= current_user.email %> | 
+  <%= link_to 'log out', logout_path %>
+<% end %>
+
+<p>
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+</p>

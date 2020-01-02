@@ -4,7 +4,7 @@
 
 <% Episode.most_recent_published(5).each do |episode| #TODO: pull number of epsiodes to display on the homepage out to a config file %>
     <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
-    <i><%= episode.publish_date %></i>
+    <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) if logged_in? %>
     <%= episode.description %>
   </p>
 <% end %>
