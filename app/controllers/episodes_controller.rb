@@ -42,9 +42,6 @@ class EpisodesController < ApplicationController
     end
   end
 
-  def publish
-  end
-
   # POST /episodes
   # POST /episodes.json
   def create
@@ -109,7 +106,6 @@ class EpisodesController < ApplicationController
         @episode.draft = true
       elsif params[:commit] == 'Publish'
         @episode.draft = false
-        publish
       end
     end
 
