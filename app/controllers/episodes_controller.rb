@@ -147,12 +147,14 @@ class EpisodesController < ApplicationController
       end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
+    # Whitelist params before pushing them into the database. Update slug when needed.
       proposed_params = params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description, :notes, :audio)
       if proposed_params[:title].empty? and proposed_params[:slug].empty?
+        # If the user hasn't specified a title, we still need a slug to reference, so use a placeholder.
         proposed_params[:slug] = 'untitled-draft'
       elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untitled-draft' and not proposed_params[:title].empty?)
+        # If the user has previously not specified a title, but has now updated it and not touched the slug, update it now.
         proposed_params[:slug] = Episode.slugify(proposed_params[:title])
       else
         logger.debug ">>>>>>> OH CRAP! Episode_params managed to not know how to set slug."
