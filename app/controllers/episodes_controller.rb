@@ -156,10 +156,6 @@ class EpisodesController < ApplicationController
       elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untitled-draft' and not proposed_params[:title].empty?)
         # If the user has previously not specified a title, but has now updated it and not touched the slug, update it now.
         proposed_params[:slug] = Episode.slugify(proposed_params[:title])
-      else
-        logger.debug ">>>>>>> OH CRAP! Episode_params managed to not know how to set slug."
-        logger.debug ">>>>>>> params[:title] is #{params[:title]}"
-        logger.debug ">>>>>>> params[:slug] is #{params[:slug]}"
       end
       proposed_params
     end
