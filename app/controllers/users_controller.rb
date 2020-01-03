@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
      @user = User.create( params.require(:user).permit(:email).merge(admin: false) )
+     # session[:user_id] = @user.id
      redirect_to '/welcome'
   end
 
@@ -63,4 +64,5 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:password_digest, :email)
     end
+
 end
