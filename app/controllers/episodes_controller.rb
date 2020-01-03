@@ -1,8 +1,11 @@
 class EpisodesController < ApplicationController
-  before_action :set_episode,                                   only: [:show, :edit, :update, :destroy, :publish] #allow URL to reference slug or episode number
-  before_action :set_draft,                                     only: [:create, :update]
-  after_action :create_photo_objects, :update_photo_captions, 
-               :delete_photo_objects, :delete_audio_attachment, only: [:create, :update]
+  skip_before_action :authorized,        only: [:index, :show, :draft] # authorized redirects to root. Draft should redirect to login.
+  before_action :set_episode,            only: [:show, :edit, :update, :destroy, :publish] #allow URL to reference slug or episode number
+  before_action :set_draft,              only: [:create, :update]
+  after_action :create_photo_objects,
+               :update_photo_captions, 
+               :delete_photo_objects,
+               :delete_audio_attachment, only: [:create, :update]
 
   # GET /episodes
   # GET /episodes.json
@@ -33,6 +36,10 @@ class EpisodesController < ApplicationController
 
   # GET /draft
   def draft
+    unless logged_in?
+      session[:pre_login_request] = '/draft'
+      redirect_to login_path 
+    end
     if Episode.draft_waiting?
       @episode = Episode.most_recent_draft.take
     else

@@ -1,8 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<% logger.debug ">>>>>>> view. @episode is #{@episode}" %>
-
-<% if @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p> <% end %>
+<% if logged_in? and @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p> <% end %>
 
 <p>
   <strong>Has audio attached:</strong>
@@ -39,5 +35,7 @@
   <%= @episode.notes %>
 </p>
 
-<%= link_to 'Edit', edit_episode_path(@episode) %> |
+
+<% if logged_in? and @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p><% end %>
+<% if logged_in? %><%= link_to 'Edit', edit_episode_path(@episode) %> | <% end %>
 <%= link_to 'Back', episodes_path %>

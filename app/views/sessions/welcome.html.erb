@@ -1,0 +1,13 @@
+<h1>Welcome</h1>
+
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
+<% if logged_in? %>
+    <h1>You are logged in, <%= current_user.email %>.</h1>
+<%end%>
+<%= button_to "Sign Up", '/login', method: :get%>
+<%= button_to "Login", '/users/new', method: :get%>
