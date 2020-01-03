@@ -1,6 +1,17 @@
 <h1>The Orbital Mechanics Podcast</h1></br>
 
 <% @logged_in = logged_in? %>
+
+<% if @logged_in and Episode.draft_waiting? %>
+  <% Episode.where(draft: true).each do |episode| %>
+      <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
+      <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) %>
+      <%= episode.description %>
+    </p>
+  <% end %>
+  ------
+<% end %>
+
 <% Episode.most_recent_published(5).each do |episode| #TODO: pull number of epsiodes to display on the homepage out to a config file %>
     <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
     <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) if @logged_in %>
