@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     reset_session
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
-      logger.debug ">>>>>>> user successfully logged in"
+      logger.debug ">>>>>>> user #{params[:email]} successfully logged in"
       session[:user_id] = @user.id
       if @pre_login_request
         redirect_to @pre_login_request, notice: "Authentication successful!"
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
         redirect_to root_url, notice: "Authentication successful!"
       end
     else
-      logger.debug ">>>>>>> user failed login"
+      logger.debug ">>>>>>> user #{params[:email]} failed login"
       redirect_to '/login'
       flash.alert = "Credentials incorrect."
     end
