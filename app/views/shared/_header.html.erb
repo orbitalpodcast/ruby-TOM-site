@@ -1,6 +1,7 @@
 <% if logged_in? %>
   <%= current_user.email %> | 
-  <%= link_to 'log out', logout_path %>
+  <%= link_to 'Email Subscribers', users_path %> | 
+  <%= link_to 'Log Out', logout_path %>
 <% end %>
 
 <p>
