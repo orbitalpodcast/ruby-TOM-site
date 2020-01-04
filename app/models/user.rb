@@ -31,4 +31,13 @@ class User < ApplicationRecord
   def to_param
     access_token
   end
+
+  def self.all_admins
+    where(admin: true)
+  end
+
+  def self.all_non_admins
+    where(admin: nil)
+  end
+
 end
