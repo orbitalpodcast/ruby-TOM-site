@@ -28,4 +28,7 @@ class User < ApplicationRecord
                       format: { with: PASSWORD_FORMAT },
                       if: -> { self.admin? }
 
+  def to_param
+    access_token
+  end
 end
