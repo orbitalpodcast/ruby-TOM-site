@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   root 'pages#index'
 
-  resources :users, only: [:new, :create]
+  resources :users, param: :access_token, except: :new
   get   'login',    to: 'sessions#new'
   post  'login',    to: 'sessions#create'
   get  'logout',    to: 'sessions#destroy'
-  get 'welcome',    to: 'sessions#welcome'
+  get 'newsletter', to: 'users#new'
+  get 'welcome',    to: 'users#welcome'
 
   resources :episodes, except: :new, param: :slug_or_number
   get '/draft',            to: 'episodes#draft'
