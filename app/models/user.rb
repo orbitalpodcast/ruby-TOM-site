@@ -40,4 +40,8 @@ class User < ApplicationRecord
     where(admin: nil)
   end
 
+  def self.all_subscribed
+    where(subscribed: true)
+  end
+
 end
