@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#index'
 
-  resources :users, param: :access_token, except: :new
+  resources :newsletter, controller: 'users', as: 'users', param: :access_token, except: [:index, :show, :destroy]
+  resources :users, param: :access_token, only: [:index, :show, :destroy]
   get   'login',    to: 'sessions#new'
   post  'login',    to: 'sessions#create'
   get  'logout',    to: 'sessions#destroy'
