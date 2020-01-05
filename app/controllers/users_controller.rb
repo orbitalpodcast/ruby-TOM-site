@@ -34,13 +34,11 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       if @user.save
-        logger.debug ">>>>>>> create successful"
         format.html { redirect_to welcome_path }
         format.json { render :show, status: :ok, location: @user }
 
         UserMailer.with(user: @user).welcome_email.deliver_later
       else
-        logger.debug ">>>>>>> create unsuccessful"
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
