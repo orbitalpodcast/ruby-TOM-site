@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         format.html { redirect_to welcome_path }
         format.json { render :show, status: :ok, location: @user }
 
-        UserMailer.with(user: @user).welcome_email.deliver_later # /rails/mailers/user_mailer/welcome_email
+        UserMailer.with(user: @user).welcome_email.deliver_later
       else
         logger.debug ">>>>>>> create unsuccessful"
         format.html { render :new }
