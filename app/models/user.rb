@@ -19,7 +19,9 @@ class User < ApplicationRecord
 
   validates :email,
                     presence: true,
-                    uniqueness: true,
+                    uniqueness: {message: "Looks like you've already signed up with that address. "\
+                                           "There's an unsubscribe link at the bottom of each of "\
+                                           "our emails, if that's what you're trying to do."},
                     format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\z/ }
   validates :admin,
                     inclusion: { in: [true, nil] }

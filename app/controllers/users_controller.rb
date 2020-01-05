@@ -28,9 +28,9 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-     @user = User.new( params.require(:user).permit(:email, :subscribed) )
-     if not @user.subscribed
-      redirect_to new_user_path(email: request.parameters.dig(:user, :email)), notice: "Wait, you didn't want to sign up?" and return
+    @user = User.new( params.require(:user).permit(:email, :subscribed) )
+    if not @user.subscribed
+      redirect_to new_user_path(email: request.parameters.dig(:user, :email)), errors.add(subscribed: "Wait, you didn't want to sign up?") and return
     end
     respond_to do |format|
       if @user.save
@@ -53,11 +53,9 @@ class UsersController < ApplicationController
     logger.debug ">>>>>>> users#update invoked" 
     respond_to do |format|
       if @user.update(user_params)
-        logger.debug ">>>>>>> update successful"
-        format.html { redirect_to edit_user_path, notice: 'User was successfully updated.' }
+        format.html { redirect_to edit_user_path, notice: 'Preferences successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
-        logger.debug ">>>>>>> update unsuccessful"
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
