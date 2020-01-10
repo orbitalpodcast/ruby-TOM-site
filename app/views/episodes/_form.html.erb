@@ -66,8 +66,22 @@
   <% end %>
   </ul>
 
+  <%= form.hidden_field :draft %>
+  <%= form.hidden_field :newsletter_status %>
+
+
+
   <div class="actions">
-    <%= form.submit "Save as draft", commit: 'draft' %>
-    <%= form.submit "Publish", commit: 'publish' %>
+    <% # TODO: consider using gem commit_param_matching. %>
+    <%= form.submit 'Save as draft' %>
+    <% if episode.persisted? %>
+      <%= form.submit 'Draft and schedule newsletter' %>
+      <%= form.submit 'Publish' %>
+      <p>
+      <div class="field">
+        <%= form.label :newsletter_status %>
+        <strong><%= episode.newsletter_status %></strong>
+      </div>
+    <% end %>
   </div>
 <% end %>
