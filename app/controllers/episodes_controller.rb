@@ -28,9 +28,6 @@ class EpisodesController < ApplicationController
 
   # GET /episodes/1/edit
   def edit
-    if @episode.draft?
-      redirect_to draft_path
-    end
   end
 
   # GET /draft
@@ -97,15 +94,8 @@ class EpisodesController < ApplicationController
 
   private
     def set_episode
-      logger.debug ">>>>>>> beginnging of set_episode. @episode is: #{@episode}"
-      if /\A\d+\z/.match(params[:slug_or_number])               # does the incoming URL param contain an integer?
-        @episode = Episode.find_by number: params[:slug_or_number] # if so, look up the requested episode by its number
-        logger.debug ">>>>>>> set_episode got a :slug_or_number, and it is a number. Setting @episode."
-      elsif /\A[\w-]+\z/.match(params[:slug_or_number])            # is the param alphanumeric, potentially with dashes?
-        @episode = Episode.find_by slug: params[:slug_or_number]   # if so, look up the requested episode by its slug
-        logger.debug ">>>>>>> set_episode got a :slug_or_number, and it is a slug. Setting @episode."
-      else
-        redirect_to episode_path                                   # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
+      @episode = Episode.find_by(slug: params[:id]) || Episode.find_by(number: params[:id])
+      # TODO: this results in two database calls when given a number. Worth checking params presence first?
       end
     end
 

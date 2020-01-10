@@ -1,19 +1,22 @@
 Rails.application.routes.draw do
   root 'pages#index'
 
+  get 'newsletter', to: 'users#new'
   resources :newsletter, controller: 'users', as: 'users', param: :access_token, except: [:index, :show, :destroy]
   resources :users, param: :access_token, only: [:index, :show, :destroy]
   get   'login',    to: 'sessions#new'
   post  'login',    to: 'sessions#create'
   get  'logout',    to: 'sessions#destroy'
-  get 'newsletter', to: 'users#new'
-  get 'welcome',    to: 'users#welcome'
+  get 'welcome',    to: 'users#welcome' # TODO: move newsletter welcome to static controller
 
-  resources :episodes, except: :new, param: :slug_or_number
+  get '/episodes',         to: 'episodes#index'
   get '/draft',            to: 'episodes#draft'
-  get '/show-notes/:slug', to: redirect('episodes/%{slug}')
-  get '/:number',          to: redirect('episodes/%{number}'), constraints: { number: /\d+/ }
-  # resources :episodes, except: :new, param: :number,           constraints: { number: /\d+/ }
-  get '/:slug',            to: redirect('episodes/%{slug}'),   constraints: { slug: /[\w-]+/ }
-  # resources :episodes, except: :new, param: :slug,             constraints: { slug: /[\w-]+/ }
+  get '/show-notes/:slug', to: redirect('/%{slug}')
+
+  resources :episodes, constraints: { slug: /[\w-]+/ }
+  resources :episodes, constraints: { number: /\d+/ }
+  # Interpret direct paths
+  resources :episodes, path: '/:slug',   constraints: { slug: /[\w-]+/ }, to: redirect('episodes/%{slug}')
+  resources :episodes, path: '/:number', constraints: { number: /\d+/ },  to: redirect('episodes/%{number}')
+
 end
