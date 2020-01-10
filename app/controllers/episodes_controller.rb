@@ -28,7 +28,6 @@ class EpisodesController < ApplicationController
 
   # GET /episodes/1/edit
   def edit
-    logger.debug ">>>>>>> edit was invoked"
     if @episode.draft?
       redirect_to draft_path
     end
@@ -52,8 +51,6 @@ class EpisodesController < ApplicationController
   # POST /episodes
   # POST /episodes.json
   def create
-    logger.debug ">>>>>>> create was invoked"
-
     @episode = Episode.new(episode_params)
     previous_slug = @episode.slug
     @episode.slug = build_slug episode_title: @episode.title, episode_slug: @episode.slug
@@ -110,7 +107,6 @@ class EpisodesController < ApplicationController
       else
         redirect_to episode_path                                   # look, I agree it's unlikely someone is gonna try and cram symbols into the URL but let's not take chances.
       end
-      logger.debug ">>>>>>> End of set_episode. @episode is: #{@episode}"
     end
 
     def set_draft
@@ -121,7 +117,6 @@ class EpisodesController < ApplicationController
         @episode.draft = false
       end
     end
-
 
     def create_photo_objects
     # When images are uploaded, we need to create new Image objects, attach the files, and associate the Image with this @episode
