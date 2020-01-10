@@ -1,11 +1,11 @@
 class EpisodesController < ApplicationController
   skip_before_action :authorized,        only: [:index, :show, :draft] # authorized redirects to root. Draft should redirect to login.
   before_action :set_episode,            only: [:show, :edit, :update, :destroy, :publish] #allow URL to reference slug or episode number
-  before_action :set_draft,              only: [:create, :update]
   after_action :create_photo_objects,
                :update_photo_captions, 
                :delete_photo_objects,
                :delete_audio_attachment, only: [:create, :update]
+  before_action :handle_submit_button,    only: :update
 
   # GET /episodes
   # GET /episodes.json
@@ -32,16 +32,19 @@ class EpisodesController < ApplicationController
 
   # GET /draft
   def draft
-    unless logged_in?
+    unless logged_in? # All other paths should pretend like unauthorized requests don't ever work. This needs special handling.
       session[:pre_login_request] = '/draft'
       redirect_to login_path 
     end
     if Episode.draft_waiting?
       @episode = Episode.most_recent_draft.take
+      redirect_to edit_episode_path @episode
     else
       @episode = Episode.new
       @episode.number = (Episode.maximum('number') || 0) + 1
       @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) # find next tuesday TODO: pull publish date/schedule out into config file
+      @episode.draft = true
+      render :new
     end
   end
 
@@ -111,12 +114,19 @@ class EpisodesController < ApplicationController
       return episode_slug
     end
 
-    def set_draft
+    def handle_submit_button
     # Used when a form is submitted to update the episode.draft attribute depending on which button was selected.
       if params[:commit] == 'Save as draft'
+        logger.debug ">>>>>>> save as draft clicked"
         @episode.draft = true
+      elsif params[:commit] == 'Draft and schedule newsletter'
+        @episode.draft = true
+        @episode.newsletter_status = 'scheduling'
+        logger.debug ">>>>>>> draft and schedule clicked"
       elsif params[:commit] == 'Publish'
         @episode.draft = false
+        logger.debug ">>>>>>> published clicked"
+        publish
       end
     end
 
