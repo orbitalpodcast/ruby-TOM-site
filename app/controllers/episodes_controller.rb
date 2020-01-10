@@ -55,14 +55,15 @@ class EpisodesController < ApplicationController
     logger.debug ">>>>>>> create was invoked"
 
     @episode = Episode.new(episode_params)
-    set_draft
+    previous_slug = @episode.slug
+    @episode.slug = build_slug episode_title: @episode.title, episode_slug: @episode.slug
     respond_to do |format|
       if @episode.save
         format.html { redirect_to draft_path, notice: 'Episode was successfully created.' }
         format.json { render :show, status: :created, location: @episode }
       else
-        format.html { render :new }
-        format.json { render json: @episode.errors, status: :unprocessable_entity }
+        @episode.slug = previous_slug
+        format.html { render :draft }
       end
     end
   end
@@ -70,9 +71,10 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
-    logger.debug ">>>>>>> update was invoked"
+    previous_slug = @episode.slug
+    @episode.slug = build_slug(episode_title: @episode.title, episode_slug: @episode.slug)
     respond_to do |format|
-      if @episode.update(episode_params)
+      if @episode.update( episode_params.merge!(slug: @episode.slug) )
         if @episode.draft?
           format.html { redirect_to draft_path, notice: 'Episode draft was successfully updated.' }
         else
