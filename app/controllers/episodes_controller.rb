@@ -78,7 +78,9 @@ class EpisodesController < ApplicationController
         publish
         format.html { redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully updated.' }
       else
+        # TODO: clean this process up! This is really ugly.
         @episode.slug = previous_slug
+        @episode.newsletter_status = 'not scheduled' if @episode.newsletter_status = 'scheduling'
         format.html { render :edit }
       end
     end
@@ -98,7 +100,10 @@ class EpisodesController < ApplicationController
     
     def schedule_newsletter
     # Called on successful updates. Picks up where handle_submit_button leaves off.
-      if @episode.newsletter_status == 'scheduling'
+      if @episode.newsletter_status == 'canceling'
+        logger.debug ">>>>>>> I would have canceled the newsletter"
+        @episode.update_attribute :newsletter_status, 'not scheduled'
+      elsif @episode.newsletter_status == 'scheduling'
         logger.debug ">>>>>>> I would have scheduled the newsletter"
         @episode.update_attribute :newsletter_status, 'scheduled'
       end
@@ -135,9 +140,11 @@ class EpisodesController < ApplicationController
         logger.debug ">>>>>>> save as draft clicked"
         @episode.draft = true
       elsif params[:commit] == 'Draft and schedule newsletter'
-        @episode.draft = true
         @episode.newsletter_status = 'scheduling'
         logger.debug ">>>>>>> draft and schedule clicked"
+      elsif params[:commit] == 'Cancel scheduled newsletter'
+        @episode.newsletter_status = 'canceling'
+        logger.debug ">>>>>>> cancel newsletter clicked"
       elsif params[:commit] == 'Publish'
         @episode.draft = false
         logger.debug ">>>>>>> published clicked"

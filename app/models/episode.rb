@@ -4,7 +4,8 @@ class Episode < ApplicationRecord
   has_one_attached :audio
 
   NEWESLETTER_STATUSES =  ['not scheduled',  # when newly created, and not ready to email
-                           'scheduling',     # when scheduleing requested, but not completed
+                           'scheduling',     # when scheduling requested, but not completed
+                           'canceling',      # when canceling a scheduled send requested, but not completed
                            'scheduled',      # when notes are done, and an email is scheduled
                            'sent',           # when email has been sent
                            'not sent']       # rare: when no email has or will be sent
@@ -23,18 +24,22 @@ class Episode < ApplicationRecord
   validates :newsletter_status,
                             inclusion: { in: NEWESLETTER_STATUSES }
 # Validations before schduling an episode newsletter
-  with_options if: -> { self.newsletter_status_at_least 'scheduled' } do |e|
+  with_options if: -> { self.newsletter_status_at_least 'scheduling' } do |e|
     e.validates :title,
-                              # presence: true,
+                              presence: true,
                               uniqueness: true,
                               length: { minimum: 5 }
     e.validates :publish_date,
-              :description,
-              :notes,
+                :description,
+                :notes,
                               presence: true
     e.validates :slug,
                               exclusion: { in: ['untitled-draft'] }
   end
+# Validations before publishing an episode
+  with_options if: -> { not self.draft? } do |e|
+  end
+
 
   def to_param
   # Overrides default behavior, and constructs episode_path by using the slug.
@@ -43,6 +48,10 @@ class Episode < ApplicationRecord
   def newsletter_status_at_least(target_status)
   # Check progression of newsletter status through the expected stages.
     NEWESLETTER_STATUSES.find_index(target_status) <= NEWESLETTER_STATUSES.find_index(self.newsletter_status)
+  end
+  def newsletter_status_before(target_status)
+  # Check progression of newsletter status through the expected stages.
+    NEWESLETTER_STATUSES.find_index(target_status) > NEWESLETTER_STATUSES.find_index(self.newsletter_status)
   end
   def self.most_recent_draft
   # Mostly used by episodes#set_episode when :slug_or_number.blank?
