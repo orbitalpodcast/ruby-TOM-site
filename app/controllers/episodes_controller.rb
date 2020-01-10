@@ -1,14 +1,15 @@
 class EpisodesController < ApplicationController
-  skip_before_action :authorized,        only: [:index, :show, :draft] # authorized redirects to root. Draft should redirect to login.
-  before_action :set_episode,            only: [:show, :edit, :update, :destroy, :publish] #allow URL to reference slug or episode number
-  after_action :create_photo_objects,
-               :update_photo_captions, 
-               :delete_photo_objects,
-               :delete_audio_attachment, only: [:create, :update]
+  skip_before_action :authorized,         only: [:index, :show, :draft]
+  before_action :set_episode,             except: [:index, :draft] # allow URL to reference slug or episode number
   before_action :handle_submit_button,    only: :update
+  after_action  :create_photo_objects,
+                :update_photo_captions, 
+                :delete_photo_objects,
+                :delete_audio_attachment, only: [:create, :update]
 
   # GET /episodes
   # GET /episodes.json
+  # GET /episodes.rss
   def index
     @episodes = Episode.all
     respond_to do |format|
@@ -44,6 +45,7 @@ class EpisodesController < ApplicationController
       @episode.number = (Episode.maximum('number') || 0) + 1
       @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) # find next tuesday TODO: pull publish date/schedule out into config file
       @episode.draft = true
+      @episode.newsletter_status = 'not scheduled'
       render :new
     end
   end
@@ -52,8 +54,7 @@ class EpisodesController < ApplicationController
   # POST /episodes.json
   def create
     @episode = Episode.new(episode_params)
-    previous_slug = @episode.slug
-    @episode.slug = build_slug episode_title: @episode.title, episode_slug: @episode.slug
+    @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
       if @episode.save
         format.html { redirect_to draft_path, notice: 'Episode was successfully created.' }
@@ -68,19 +69,17 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
-    previous_slug = @episode.slug
-    @episode.slug = build_slug(episode_title: @episode.title, episode_slug: @episode.slug)
+    previous_slug = episode_params[:slug]
+    new_slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
-      if @episode.update( episode_params.merge!(slug: @episode.slug) )
-        if @episode.draft?
-          format.html { redirect_to draft_path, notice: 'Episode draft was successfully updated.' }
-        else
-          format.html { redirect_to @episode, notice: 'Episode was successfully published.' }
-        end
-        format.json { render :show, status: :ok, location: @episode }
+      if @episode.update(episode_params.merge!(slug: new_slug, # new slugs are generated in the controller instead of in JS.
+                                               newsletter_status: @episode.newsletter_status)) # persist new newsletter_status, not the one in the params.
+        schedule_newsletter
+        publish
+        format.html { redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully updated.' }
       else
+        @episode.slug = previous_slug
         format.html { render :edit }
-        format.json { render json: @episode.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -96,6 +95,22 @@ class EpisodesController < ApplicationController
   end
 
   private
+    
+    def schedule_newsletter
+    # Called on successful updates. Picks up where handle_submit_button leaves off.
+      if @episode.newsletter_status == 'scheduling'
+        logger.debug ">>>>>>> I would have scheduled the newsletter"
+        @episode.update_attribute :newsletter_status, 'scheduled'
+      end
+    end
+
+    def publish
+    # Called on successful updates. Picks up where handle_submit_button leaves off.
+      unless @episode.draft?
+        logger.debug ">>>>>>> I would have published the episode"
+      end
+    end
+
     def set_episode
       @episode = Episode.find_by(slug: params[:id]) || Episode.find_by(number: params[:id])
       # TODO: this results in two database calls when given a number. Worth checking params presence first?
