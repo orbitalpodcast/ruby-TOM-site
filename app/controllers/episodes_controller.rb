@@ -96,7 +96,19 @@ class EpisodesController < ApplicationController
     def set_episode
       @episode = Episode.find_by(slug: params[:id]) || Episode.find_by(number: params[:id])
       # TODO: this results in two database calls when given a number. Worth checking params presence first?
+    end
+
+    def build_slug(episode_title:, episode_slug:)
+      # Try and replace an empty slug or a placeholder.
+      if episode_slug.empty? || episode_slug == 'untitled-draft'
+        if episode_title.empty?
+          return 'untitled-draft'
+        else
+          return Episode.slugify(episode_title)
+        end
       end
+      # If the slug isn't empty or a placeholder, no need to replace it.
+      return episode_slug
     end
 
     def set_draft
@@ -143,15 +155,8 @@ class EpisodesController < ApplicationController
 
     def episode_params
     # Whitelist params before pushing them into the database. Update slug when needed.
-      proposed_params = params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description, :notes, :audio)
-      if proposed_params[:title].empty? and proposed_params[:slug].empty?
-        # If the user hasn't specified a title, we still need a slug to reference, so use a placeholder.
-        proposed_params[:slug] = 'untitled-draft'
-      elsif proposed_params[:slug].empty? or (proposed_params[:slug] == 'untitled-draft' and not proposed_params[:title].empty?)
-        # If the user has previously not specified a title, but has now updated it and not touched the slug, update it now.
-        proposed_params[:slug] = Episode.slugify(proposed_params[:title])
-      end
-      proposed_params
+      params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description,
+                                                        :notes, :audio, :draft, :newsletter_status, images: [])
     end
 
     # def build_slug
