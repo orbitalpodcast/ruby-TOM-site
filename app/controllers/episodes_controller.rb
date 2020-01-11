@@ -99,7 +99,7 @@ class EpisodesController < ApplicationController
   private
     
     def schedule_newsletter
-    # Called on successful updates. Picks up where handle_submit_button leaves off.
+     # Called on successful updates. Picks up where handle_submit_button leaves off.
       if @episode.newsletter_status == 'canceling'
         logger.debug ">>>>>>> I would have canceled the newsletter"
         @episode.update_attribute :newsletter_status, 'not scheduled'
@@ -110,7 +110,7 @@ class EpisodesController < ApplicationController
     end
 
     def publish
-    # Called on successful updates. Picks up where handle_submit_button leaves off.
+      # Called on successful updates. Picks up where handle_submit_button leaves off.
       unless @episode.draft?
         logger.debug ">>>>>>> I would have published the episode"
       end
@@ -135,7 +135,7 @@ class EpisodesController < ApplicationController
     end
 
     def handle_submit_button
-    # Used when a form is submitted to update the episode.draft attribute depending on which button was selected.
+      # Used when a form is submitted to update the episode.draft attribute depending on which button was selected.
       if params[:commit] == 'Save as draft'
         logger.debug ">>>>>>> save as draft clicked"
         @episode.draft = true
@@ -160,7 +160,7 @@ class EpisodesController < ApplicationController
     end
 
     def update_photo_captions
-    # When we save @episode, we also want to update the captions of the associated Images.
+      # When we save @episode, we also want to update the captions of the associated Images.
       for image_id, image_caption in (params[:image_captions] || []) do
         if params[:remove_image]  # Don't update captions if we're about to delete the photo.
           to_be_deleted = params[:remove_image].include? image_id
@@ -172,35 +172,22 @@ class EpisodesController < ApplicationController
     end
 
     def delete_photo_objects
-    # When the user checks image deletion checkboxes, we need to go through and delete those Image objects.
+     # When the user checks image deletion checkboxes, we need to go through and delete those Image objects.
       for image_id in (params[:remove_image] || []) do
         Image.find_by( id: image_id).destroy!
       end
     end
 
     def delete_audio_attachment
-    # When the user checks the audio remove checkbox, we need to purge that attached file.
+     # When the user checks the audio remove checkbox, we need to purge that attached file.
       if params.has_key? :remove_audio
         @episode.audio.purge
       end
     end
 
     def episode_params
-    # Whitelist params before pushing them into the database. Update slug when needed.
+      # Whitelist params before pushing them into the database. Update slug when needed.
       params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description,
                                                         :notes, :audio, :draft, :newsletter_status, images: [])
     end
-
-    # def build_slug
-    # # Before saving an episode, we need to make sure the slug is valid, and assign one if it isn't.
-    #   byebug
-    #   if @episode.title.empty?
-    #     @episode.slug = 'untilted-draft'
-    #   elsif not defined? @episode.slug || @episode.slug.empty?
-    #     @episode.slug = Episode.slugify(@episode.title)
-    #     logger.debug ">>>>>>> empty slug field. Is now: #{@episode.slug}"
-    #   elsif @episode.slug == 'untilted-draft' and not @episode.title.empty?
-    #     @episode.slug = Episode.slugify(@episode.title)
-    #   end
-    # end
 end
