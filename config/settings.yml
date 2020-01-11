@@ -1,6 +1,5 @@
 newsletter:
   from: ben@theorbitalmechanics.com
-  default_send_time: 12:00:00 -08:00
 
 
 # Definitions from https://help.apple.com/itc/podcasts_connect/#/itcb54353390

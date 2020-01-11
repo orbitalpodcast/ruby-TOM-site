@@ -110,12 +110,11 @@ class EpisodesController < ApplicationController
     end
 
     def schedule_newsletter
+      # TODO: extract default time to send email to settings
       # TODO: detect and handle scheduling a newsletter when the time has already passed. Warn then send immediately?
       # TODO: change this to an activerecord association?
-      email_time = Time.parse Settings.newsletter.default_send_time
-      email_datetime = DateTime.new(@episode.publish_date.year, @episode.publish_date.month, @episode.publish_date.day,
-                                    email_time.hour, email_time.min, email_time.sec, email_time.zone)
-      logger.debug ">>>>>>> Scheduling newsletter for #{email_datetime}"
+      email_time = DateTime.new(@episode.publish_date.year, @episode.publish_date.month, @episode.publish_date.day, 12, 0, 0, '-08:00')
+      logger.debug ">>>>>>> Scheduling newsletter for #{email_time}"
 
       scheduled_job = EpisodeMailer.delay(run_at: email_time).show_notes(@episode)
       @episode.update_attribute :newsletter_job_id, scheduled_job.id
