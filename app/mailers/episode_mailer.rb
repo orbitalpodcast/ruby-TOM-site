@@ -1,7 +1,7 @@
 class EpisodeMailer < ApplicationMailer
 
-  def show_notes
-    @episode = params[:episode]
+  def show_notes(episode)
+    @episode = episode
     @recipients = User.where(subscribed: true)
     # @emails = @recipients.collect(&:email).join(",")
     @subject = "🎧 Episode #{@episode.number}: #{@episode.title}"
