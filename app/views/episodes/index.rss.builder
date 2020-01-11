@@ -5,7 +5,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version
   xml.channel do
     xml.title Settings.rss.title
     xml.link episodes_url
-    xml.lastBuildDate Time.zone.now.to_s(:rfc822)
+    xml.lastBuildDate Episode.order(:publish_date).last.publish_date.to_s(:rfc822)
     xml.language Settings.rss.language
     xml.itunes :author, Settings.rss.author
     xml.itunes :explicit, Settings.rss.explicit_show
@@ -44,7 +44,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version
   end
 end
 
-
+# TODO: add syndication schedule http://web.resource.org/rss/1.0/modules/syndication/
 
 # SQUARESPACE OUTPUT
 # <item>
