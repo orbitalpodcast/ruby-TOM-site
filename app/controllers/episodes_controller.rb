@@ -104,7 +104,7 @@ class EpisodesController < ApplicationController
         logger.debug ">>>>>>> I would have canceled the newsletter"
         @episode.update_attribute :newsletter_status, 'not scheduled'
       elsif @episode.newsletter_status == 'scheduling'
-        logger.debug ">>>>>>> I would have scheduled the newsletter"
+        EpisodeMailer.with(episode: @episode).show_notes.deliver_later
         @episode.update_attribute :newsletter_status, 'scheduled'
       end
     end
