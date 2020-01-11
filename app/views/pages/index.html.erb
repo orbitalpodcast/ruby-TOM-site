@@ -2,6 +2,40 @@
 
 <% @logged_in = logged_in? %>
 
+<% if @logged_in and Delayed::Job.exists? %>
+  <h3>Scheduled jobs (<%= Delayed::Job.count %>) Don't forget to rake jobs:work</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Episode name</th>
+        <th>Attempts</th>
+        <th>Created at</th>
+        <th>Will Be Run At</th>
+        <th>Last Error</th>
+        <th>Destroy Command</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for job in Delayed::Job.all do %>
+        <% job_args = YAML.load( job.handler ) %>
+        <% job_episode = job_args.args[0] %>
+        <tr>
+          <td><%= job.id %></td>
+          <td><%= job_episode.title %></td>
+          <td><%= job.attempts %></td>
+          <td><%= job.created_at %></td>
+          <td><%= job.run_at %></td>
+          <td><%= job.last_error %></td>
+          <td><%= "Delayed::Job.find(#{job.id}).destroy!" %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  ------
+<% end %>
+
 <% if @logged_in and Episode.draft_waiting? %>
   <% Episode.where(draft: true).each do |episode| %>
       <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
@@ -13,8 +47,8 @@
 <% end %>
 
 <% Episode.most_recent_published(5).each do |episode| #TODO: pull number of epsiodes to display on the homepage out to a config file %>
-    <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
-    <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) if @logged_in %>
+    <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode.slug) %></h2>
+    <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if @logged_in %>
     <%= episode.description %>
   </p>
 <% end %>

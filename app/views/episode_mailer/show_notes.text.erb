@@ -1,0 +1,6 @@
+<%= @episode.notes %>
+Listen to the episode here (once David's finished editing): <%= episode_url(@episode) %>
+
+This episode also has <%= @episode.images.count %> images, but since you're viewing this email as plain text, we can't show them to you. 
+
+Unsubscribe here: <%= edit_user_url(@user) %>

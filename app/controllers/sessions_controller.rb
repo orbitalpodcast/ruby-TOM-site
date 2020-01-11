@@ -34,11 +34,4 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-  # GET welcome
-  def welcome
-  end
-
-  # GET authorized
-  def page_requires_login
-  end
 end

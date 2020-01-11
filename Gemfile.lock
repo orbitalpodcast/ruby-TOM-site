@@ -80,6 +80,11 @@ GEM
       dry-schema (~> 1.0)
     crass (1.0.5)
     deep_merge (1.2.1)
+    delayed_job (4.1.8)
+      activesupport (>= 3.0, < 6.1)
+    delayed_job_active_record (4.1.4)
+      activerecord (>= 3.0, < 6.1)
+      delayed_job (>= 3.0, < 5)
     dry-configurable (0.9.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4, >= 0.4.7)
@@ -120,6 +125,10 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.7.0)
+      launchy (~> 2.2)
     loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -245,7 +254,9 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   config
+  delayed_job_active_record (~> 4.1.4)
   jbuilder (~> 2.7)
+  letter_opener
   puma (~> 4.3)
   rails (~> 6.0.1)
   sass-rails (>= 6)

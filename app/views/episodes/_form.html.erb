@@ -1,6 +1,6 @@
 <% #TODO: make the page reflect the database. Display potential auto-fills next to the textfields, but don't actually pre-fill those fields. This can result in path issues when changes are made to the page, but not to the database (due to validation errors)  %>
 
-<%= form_with(model: episode, local: true, url: episode_path(episode.number)) do |form| %>
+<%= form_with(model: episode, local: true) do |form| %>
   <% if episode.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
@@ -66,8 +66,23 @@
   <% end %>
   </ul>
 
+  <%= form.hidden_field :draft %>
+  <%= form.hidden_field :newsletter_status %>
+
+
+
   <div class="actions">
-    <%= form.submit "Save as draft", commit: 'draft' %>
-    <%= form.submit "Publish", commit: 'publish' %>
+    <% # TODO: consider using gem commit_param_matching. %>
+    <%= form.submit 'Save as draft' %>
+    <% if episode.persisted? %>
+      <%= form.submit 'Draft and schedule newsletter' if episode.newsletter_status_before 'scheduled' %>
+      <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_status == 'scheduled' %>
+      <%= form.submit 'Publish' %>
+      <p>
+      <div class="field">
+        <%= form.label :newsletter_status %>
+        <strong><%= episode.newsletter_status %></strong>
+      </div>
+    <% end %>
   </div>
 <% end %>

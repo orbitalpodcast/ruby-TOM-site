@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+  </head>
+  <body>
+    <%= @episode.notes %>
+    <p> <%= link_to "Listen to the episode here (once David's finished editing)", episode_url(@episode) %>
+    <p>
+    <% for image in @episode.images do %>
+        <p><%= image_tag(url_for(image.image)) %>
+        <p><%= image.caption || '' %>
+    <% end %>
+    <p><%= link_to "unsubscribe", edit_user_url(@user) %>
+  </body>
+</html>

@@ -13,6 +13,6 @@ class ApplicationController < ActionController::Base
 
   def authorized
     logger.debug ">>>>>>> Authorizing..."
-    redirect_to root_url unless logged_in?
+    redirect_to root_url unless logged_in? #and current_user.admin?
   end
 end

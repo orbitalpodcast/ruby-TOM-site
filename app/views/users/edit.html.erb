@@ -1,6 +1,6 @@
-<h1>Editing User</h1>
+<h1>Weekly show note email preferences for <i><%= @user.email %></i></h1>
 
-<%= render 'form', user: @user %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= form_for @user, url: user_path do |form| %>
+  <%= form.check_box :subscribed %> Subscribe to weekly show notes emails<br><br>
+  <%= form.submit 'update preferences' %>
+<% end %>
