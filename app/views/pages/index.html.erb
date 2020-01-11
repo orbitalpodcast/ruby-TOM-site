@@ -2,7 +2,7 @@
 
 <% @logged_in = logged_in? %>
 
-<% if @logged_in and not Delayed::Job.nil? %>
+<% if @logged_in and Delayed::Job.exists? %>
   <h3>Scheduled jobs (<%= Delayed::Job.count %>) Don't forget to rake jobs:work</h3>
   <table>
     <thead>
