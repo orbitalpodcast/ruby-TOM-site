@@ -99,12 +99,17 @@ class EpisodesController < ApplicationController
   private
     
     def schedule_newsletter
-     # Called on successful updates. Picks up where handle_submit_button leaves off.
+      # Called on successful updates. Picks up where handle_submit_button leaves off.
       if @episode.newsletter_status == 'canceling'
         logger.debug ">>>>>>> I would have canceled the newsletter"
         @episode.update_attribute :newsletter_status, 'not scheduled'
       elsif @episode.newsletter_status == 'scheduling'
-        EpisodeMailer.with(episode: @episode).show_notes.deliver_later
+        # TODO: extract default time to send email to settings
+        # TODO: detect and handle scheduling a newsletter when the time has already passed. Warn then send immediately?
+        email_time = DateTime.new(@episode.publish_date.year, @episode.publish_date.month, @episode.publish_date.day, 12, 0, 0, '-08:00')
+        logger.debug ">>>>>>> Scheduling newsletter for #{email_time}"
+        
+        EpisodeMailer.delay(run_at: email_time).show_notes(@episode)
         @episode.update_attribute :newsletter_status, 'scheduled'
       end
     end
