@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  # TODO: generate errors for each failed condition
+  # TODO: generate errors for each failed password validation condition
   PASSWORD_FORMAT = /
     (?=.{8,})   # Must contain 8 or more characters
     (?=.*\d)    # Must contain a digit

@@ -1,5 +1,3 @@
-<% #TODO: make the page reflect the database. Display potential auto-fills next to the textfields, but don't actually pre-fill those fields. This can result in path issues when changes are made to the page, but not to the database (due to validation errors)  %>
-
 <%= form_with(model: episode, local: true) do |form| %>
   <% if episode.errors.any? %>
     <div id="error_explanation">

@@ -112,7 +112,7 @@ class EpisodesController < ApplicationController
 
     def schedule_newsletter
       # TODO: detect and handle scheduling a newsletter when the time has already passed. Warn then send immediately?
-      # TODO: change this to an activerecord association?
+      # TODO: change scheduled newsletter from a saved id int to an activerecord association?
       email_time = Time.parse Settings.newsletter.default_send_time
       email_datetime = DateTime.new(@episode.publish_date.year, @episode.publish_date.month, @episode.publish_date.day,
                                     email_time.hour, email_time.min, email_time.sec, email_time.zone)
@@ -136,7 +136,7 @@ class EpisodesController < ApplicationController
 
     def set_episode
       @episode = Episode.find_by(slug: params[:id]) || Episode.find_by(number: params[:id])
-      # TODO: this results in two database calls when given a number. Worth checking params presence first?
+      # TODO: set_episode results in two database calls when given a number. Worth checking params presence first?
     end
 
     def build_slug(episode_title:, episode_slug:)

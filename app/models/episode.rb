@@ -15,7 +15,7 @@ class Episode < ApplicationRecord
                             presence: true,
                             uniqueness: true,
                             numericality: {only_integer: true, greater_than: 0}
-  validates :slug,  # TODO: validate self.slugify-style regex
+  validates :slug,  # TODO: validate episode slug conforms to slugify regex
                             presence: true,
                             uniqueness: true,
                             length: { minimum: 1 }
