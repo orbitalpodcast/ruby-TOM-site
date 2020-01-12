@@ -26,7 +26,7 @@ If you're using the standard theme, updating this should be 90% of the work you 
 
 #### Index
 
-Shows the most recent X number of episodes, links to static pages, and should be customized to display your social media posts, subscribe and support pages, etc.
+Shows the most recent X number of episodes, links to static pages, and should be customized to display your social media posts, subscribe and support pages, etc. Right now, the homepage also acts as a dashboard for logged-in admins, showing drafted posts and scheduled tasks.
 
 #### Static pages
 
@@ -42,11 +42,11 @@ Episodes that are drafts are not listed in the index and episodes list, and requ
 
 #### Draft page
 
-Because of the TOMcast workflow, only one draft is ever present at a given time. Because of this, if you navigate to TOM.com/draft, you will be asked to authenticate, then the episode edit page is brought up for either the current draft or a new draft.
+The TOM crew only works on one episode at a time. To cater to this workflow, if you navigate to TOM.com/draft, you will be asked to authenticate, then the episode edit page is brought up for either the current draft or a new draft if one isn't already in progress.
 
-Episode objects have a number of attributes: a draft bool, a number int, a title string, a slug string, a published-on date, a description string, a notes string, associations to multiple photo objects, and an attached audio file. When an episode is published (ie saved with draft=false), all of these are validated. We want to make sure that podcast authors never publish an episode with something missing! However, saving as a draft skips all the validations (aside from episode number and slug, which are auto-generated anyway), allowing multiple authors to work on the episode as they like. No need to do everything at once! The one big issue here is that concurrent work will result in incomplete saves, overwriting each other's work. For TOMcast, that's not a problem due to our weekly schedules, but it might be a problem worth solving for other teams. Let me know if that's the case and we can collaborate on something.
+Episode objects have a number of attributes: an episode number, a title, a slug (for URLs), a publish date, a short description, longer notes with links, associations to multiple photo/caption objects, and an audio file. When an episode is published (ie saved with draft=false), all of these are validated. We want to make sure that podcast authors never publish an episode with something missing! However, saving as a draft skips a lot of validations, which means you can do work piecemeal. The one big issue here is that concurrent work will result in incomplete saves, overwriting each other's work. For TOMcast, that's not a problem due to our weekly schedules, but it might be a problem worth solving for other teams. Let me know if that's the case and we can collaborate on something.
 
-Some of these attributes will never have to be touched by the author. Episode numbers are incremented from the last published episode, slugs are generated from the episode title. Draft is set based on whether you're publishing the episode yet or not. File associations are created as you upload files. Most importantly, all of these attributes are used not only to generate the website and the RSS feed, but also to post on socials and send out show notes in newsletter format. This is a major part of the magic: every other platform requires extra work to get this done. Instead, let's configure it to work for our special circumstances and requirements and never touch it again.
+I want to do as little work as possible getting new episodes up. Episode numbers are auto-filled, and slugs are generated from the episode title. Most importantly, the website knows how to use the data you've given it to build the RSS feed, to post on socials and email show notes in newsletter format. This is a major part of the magic: every other platform requires a lot of copy-pasting and entering the same data in multiple places. Instead, let's configure it to work for our specific workflow and requirements, then never touch it again.
 
 The other bit of magic is the episode notes markup. WYSIWYG editors are wonderful if you're creating a whole new web page. For recurring tasks, though, they're slow and bulky. Instead, let's take a little time to learn a markup language and let the computer do the formatting for us. In this case, I've created the most minimal of markup languages. Assuming you'll usually have the same topic headers every show, we define those in the config file, and automatically format them as headers. Everything else gets bulleted. You can define sub-bullets with leading dashes. My particular preference is to use a pseudo-footnote format, where bullets are statements followed by a domain name in parentheses, hyperlinked to a source for the statement. To accomplish this in my minimalistic markup, just write a line and add a URL at the end. All of the following evaluate to the same output:
 
@@ -74,11 +74,13 @@ And that output is:
 
 #### RSS feeds
 
-Conform to iTunes spec. Squarespace seems to think that only pushing out the 100 most recent episodes is a good idea, so I've gone ahead and done that, but also added an archive feed and a final RSS item that points users to it. In the future, a customized RSS feed will be available to recurring supporters so they can have secure access to bonus content, either isolated or mixed in with all the other episodes.
+Conform to iTunes spec. Squarespace seems to think that only pushing out the 100 most recent episodes is a good idea, so I've gone ahead and done that, but also added an archive feed and a final RSS item that points users to it. In the future, secure, custom RSS feeds will be available to recurring supporters so they can have secure access to bonus content, either isolated or mixed in with all the other episodes.
 
 #### Newsletter
 
 Listeners can sign up to receive show notes, complete with links and photos, just before the episode is published. I encourage every educational podcast to include thorough links and references, but what's the point of doing so if most people listen to the show in their car, or while their hands are busy? Instead, we make that additional content available in their inboxes so they can either get a sneak peek before they listen to the show, or take their time clicking through links on topics that interested them when they're back at their desks.
+
+Newsletter subscribers are actually user objects that will be integrated with the support back end.
 
 #### Routing
 
