@@ -18,16 +18,16 @@ class Episode < ApplicationRecord
   validates :slug,  # TODO: validate episode slug conforms to slugify regex
                             presence: true,
                             uniqueness: true,
-                            length: { minimum: 1 }
+                            length: { minimum: 5 }
   validates :draft,
                             inclusion: { in: [true, false] }
   validates :newsletter_status,
                             inclusion: { in: NEWESLETTER_STATUSES }
 # Validations before schduling an episode newsletter
-  with_options if: -> { self.newsletter_status_at_least 'scheduling' } do |e|
+  with_options if: -> { self.newsletter_status and self.newsletter_status_at_least 'scheduling' } do |e|
     e.validates :title,
                               presence: true,
-                              uniqueness: true,
+                              uniqueness: { case_sensitive: false },
                               length: { minimum: 5 }
     e.validates :publish_date,
                 :description,
