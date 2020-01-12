@@ -46,7 +46,7 @@
   ------
 <% end %>
 
-<% Episode.most_recent_published(5).each do |episode| #TODO: pull number of epsiodes to display on the homepage out to a config file %>
+<% Episode.most_recent_published(Settings.homepage.number_of_episodes).each do |episode| %>
     <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode.slug) %></h2>
     <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if @logged_in %>
     <%= episode.description %>
