@@ -73,8 +73,9 @@ class EpisodesController < ApplicationController
     new_slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
       if @episode.update(episode_params.merge!(slug: new_slug, # new slugs are generated in the controller instead of in JS.
-                                               newsletter_status: @episode.newsletter_status)) # persist new newsletter_status, not the one in the params.
-        schedule_newsletter
+                                               newsletter_status: @episode.newsletter_status # persist new newsletter_status, not the one in the params.
+                                       ).except(:images))
+        handle_newsletter
         publish
         format.html { redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully updated.' }
       else
@@ -170,8 +171,8 @@ class EpisodesController < ApplicationController
     end
 
     def create_photo_objects
-    # When images are uploaded, we need to create new Image objects, attach the files, and associate the Image with this @episode
-      for image in (params.require(:episode).permit(images: [])[:images] || []) do
+      # When images are uploaded, we need to create new Image objects, attach the files, and associate the Image with this @episode
+      for image in (episode_params[:images] || []) do
         @image = @episode.images.create().image.attach(image)
       end
     end
