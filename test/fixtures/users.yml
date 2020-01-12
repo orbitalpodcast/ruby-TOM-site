@@ -1,13 +1,20 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  username: MyString
-  password_digest: MyString
-  admin: 
-  email: MyString
 
-two:
-  username: MyString
-  password_digest: MyString
-  admin: 
-  email: MyString
+<% 50.times do |n| %>
+user_<%= n %>:
+  email: <%= "subscribeduser#{n}@example.com" %>
+  subscribed: true
+<% end %>
+
+<% 50.times do |n| %>
+user_<%= n %>:
+  email: <%= "not_subscribeduser#{n}@example.com" %>
+  subscribed: false
+<% end %>
+
+admin:
+  email: 'ben@theorbitalmechanics.com'
+  password_digest: <%= BCrypt::Password.create('VSkI3n&r0Q9k2XFZGxUi', cost: 2) %>
+  subscribed: false
+  admin: true

@@ -1,26 +1,70 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  number: 232
-  title: Full Panic Ensued
-  slug: full-panic-ensued
-  publish_date: 2019-10-15
-  description: Commercial Crew has fallen behind, but SpaceX is rushing to get Crew Dragon out the door.
-  notes: This week in SF history October 17, 1956 Birth of Mae Jemison (wikipedia.org) Spaceflight news Battery replacement EVAs (americaspace.com)
-
+  draft: false
+  newsletter_status: not sent
+  number: 241
+  title: Clock Kerfuffle
+  slug: clock-kerfuffle
+  publish_date: 2019-12-24
+  description: Space software engineer and friend of the show Emory Stagmer joins us to discuss CST-100 Starliner\'s recent failure to rendezvous with ISS'
+  notes: |-
+    Spaceflight News
+    * Starliner OFT https://www.nasaspaceflight.com/2019/12/starliner-mission-shortening-failure-successful-launch/ http://www.collectspace.com/news/news-122219a-boeing-starliner-oft-landing.html
+    * IR video https://twitter.com/NASA/status/1208735543657320448\
+    * Re-entry video from the ground https://twitter.com/MrTutskey/status/1208184010377170944\
+    Short & Sweet
+    * Omega has a payload. https://www.spaceflightinsider.com/organizations/northrop-grumman/first-fight-of-omega-rocket-to-carry-ssn-payload/
+    * ULA selected to launch next GOES mission. https://www.satellitetoday.com/government-military/2019/12/19/nasa-selects-ula-for-goes-t-mission/
+    * SpaceX announces yet another Starlink launch. https://www.teslarati.com/spacex-starlink-internet-satellite-constellation-expands/
+    This week in SF history
+    * December 23, 1968. Apollo 8 enters Lunar SOI https://en.wikipedia.org/wiki/Apollo_8\
+    * Two weeks ahead in 2015: running out of juice
 
 two:
-  number: 237
-  title: DOWNLINK--Elena Zorzoli Rossi
-  slug: elena-zorzoli-rossi
-  publish_date: 2019-11-24
-  description: this person is a thing
-  notes: news, notes and photos
-
-three: 
-  number: 233
-  title: IAC, DC 2019
-  slug: iac-dc-2019
-  publish_date: 2019-10-29
-  description: Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.
-  notes: Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.  This show is brought to you by just over one hundred supporters on Patreon (and direct monthly supporters using Bitcoin and Paypal!) We couldn’t have done this without you, and we are so thankful for your confidence in our ability to bring you educational and entertaining content.
+  draft: false
+  newsletter_status: not sent
+  number: 240
+  title: Nightingale
+  slug: nightingale
+  publish_date: 2019-12-17
+  description: OSIRIS-Rex has set its sights on a crater called Nightingale, and will be headed down to grab some rocks from the surface of Asteroid Bennu in a year.
+  notes: |-
+    Spaceflight news
+    * Rocket Lab inaugurates LC 2 at Wallops. https://spacenews.com/rocket-lab-inaugurates-u-s-launch-site/
+    * Reuse footage from Running Out of Fingers https://youtu.be/QK9mQdar5_w?t=1144\
+    * OSIRIS-Rex landing site selected https://spacenews.com/nasa-selects-osiris-rex-asteroid-sampling-site/\">spacenews.com</a>)</p><p class=\"\">
+    Short & Sweet
+    * A new European rocket gets funding. http://www.parabolicarc.com/2019/12/13/isar-aerospace-closes-17-million-series-a-for-new-launch-vehicle/#more-71645
+    * SLS core stage is complete https://spacenews.com/sls-core-stage-declared-ready-for-launch-in-2021/
+    * Vector files for chapter 11. https://spacenews.com/vector-files-for-chapter-11-bankruptcy
+    Questions, comments, corrections
+    * Art in aerospace?
+    This week in SF history
+    * 18 December 1973: Launch of the Orion 2 space telescope onboard Soyuz 13 https://en.wikipedia.org/wiki/Soyuz_13 https://en.wikipedia.org/wiki/Orion_(space_telescope)
+three:
+  draft: false
+  newsletter_status: not sent
+  number: 239
+  title: DOWNLINK--Kyla Edison
+  slug: kyla-edison
+  publish_date: 2019-12-11
+  description: Kyla Edison is a geologist working for PISCES, and she\'s sintering basalt into structural tiles for applications on Earth and off-world ISRU.
+  notes: |-
+    Spaceflight news
+    * First results from Parker Solar Probe! (nasa.gov) (nature.com)
+    Short & Sweet
+    * Running Out of Fingers successfully tests key elements of rocket reuse techcrunch.com
+    * Huntsville gets a new solid rocket motor maker rocket.com
+    Interview
+    * Kyla Edison
+    * Geology and Material Science Technician for PISCES Hawaii
+    * linkedin.com
+    * pacificspacecenter.com
+    * instagram.com/geolo_geek
+    This week in SF history
+    * December 15, 1984: Launch of Vega 1 wikipedia.org
+    ** Balloon aerobot package nssdc.gsfc.nasa.gov
+    ** Structures and data article articles.adsabs.harvard.edu
+    * Next week in 1973 - What’s the point of a space telescope with a lifetime of less than a week?
+   
