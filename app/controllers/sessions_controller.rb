@@ -26,9 +26,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  def login
-  end
-
   def destroy
     reset_session
     redirect_to root_url
