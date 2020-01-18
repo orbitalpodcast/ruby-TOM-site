@@ -29,6 +29,7 @@ class Episode < ApplicationRecord
                               presence: true,
                               uniqueness: { case_sensitive: false },
                               length: { minimum: 5 }
+                              # (Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--){0,1}[\w\s]*
     e.validates :publish_date,
                 :description,
                 :notes,
