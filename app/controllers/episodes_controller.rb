@@ -208,14 +208,4 @@ class EpisodesController < ApplicationController
       params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description,
                                                         :notes, :audio, :draft, :newsletter_status, images: [])
     end
-
-    def convert_markup_to_HTML(markup)
-      # format URLs at ends of lines, including multiple URLs
-        # account for file type! (PDF: xxx)
-        # account for hat tips (HT Sam in the chat: xxx)
-        # allow escaped, full URLs?
-      # format in-line links
-      # format bold and itallics
-      # include some sort of escapement so that if all else fails, formatting can be written by hand. 
-    end
 end

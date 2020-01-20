@@ -70,4 +70,42 @@ class Episode < ApplicationRecord
   # Drop all non-alphanumeric characters, and change spaces to hyphens
     unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
   end
+
+  END_URL_REGEX = /(?<protocol>((http|https)\:\/\/)?(www\.)?)(?<domain>(?:[\w-]+)(?:\.[\w-]+)+)(?<path>[\w.,@?^=%&;:\/~+#\(-]*[\w@?^=%&;\/~+#\(?\h*?\)-])?$/i
+
+  def self.convert_markup_to_HTML(markup)
+    lines = markup.split(/\n/)
+    lines.map! {|l| l.rstrip} # split into lines and remove ending whitespace
+    output = ''
+    for line in lines do
+      # FORMAT END URLS
+      end_urls = []
+      while end_url = line.match(END_URL_REGEX) do
+        full_match = end_url[0]
+        # Build HTML for end URLs. Handle special cases where formatting should be slightly different.
+        if end_url[:domain].match? /^twitter\.com/i
+          # TWITTER
+          construction = " (<a href=\"#{full_match}\">#{end_url[:domain]}#{end_url[:path][/^\/\w+(?=\/)/i]}</a>)"
+        elsif end_url[:path].match? /\.pdf\/?$/i
+          # PDF
+          construction = " (PDF: <a href=\"#{full_match}\">#{end_url[:domain]}</a>)"
+        elsif end_url[:domain].match? /reddit\.com/i
+          # REDDIT
+          construction = " (<a href=\"#{full_match}\">#{end_url[:path].match(/\/r\/[^\/]+/i)}</a>)"
+        else
+          # ALL ELSE
+          construction = " (<a href=\"#{full_match}\">#{end_url[:domain]}</a>)"
+        end
+        end_urls.unshift construction   # add output to FRONT of end_urls because we're working from the end of the line forwards
+        line.chomp!(end_url[0]).rstrip! # removed our processed end_url from the line, then loop again
+      end
+      output << line.concat(*end_urls,"\n")
+      # DO OTHER FORMATTING
+
+    end
+    output.rstrip!
+  end
+
 end
+
+# logger.debug ">>>>>>> remaining before split: #{remaining}"
