@@ -71,7 +71,7 @@ class Episode < ApplicationRecord
     unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
   end
 
-  END_URL_REGEX = /(?<protocol>((http|https)\:\/\/)?(www\.)?)(?<domain>(?:[\w-]+)(?:\.[\w-]+)+)(?<path>[\w.,@?^=%&;:\/~+#\(-]*[\w@?^=%&;\/~+#\(?\h*?\)-])?$/i
+  END_URL_REGEX = /(?<opar>\([[:blank:]]*)?(?<protocol>((http|https)\:\/\/)?(www\.)?)(?<domain>(?:[\w-]+)(?:\.[\w-]+)+)(?<path>[\w.,@?^=%&;:\/~+#\(\)-]*(?(<opar>)[\w@?^=%&;\/~+#*?\)-](?=[[:blank:]]*\))|[\w@?^=%&;\/~+#?\h*?\)-]))?(?<cpar>(?(<opar>)[[:blank:]]*\)?))$/i
 
   def self.convert_markup_to_HTML(markup)
     lines = markup.split(/\n/)
@@ -81,7 +81,13 @@ class Episode < ApplicationRecord
       # FORMAT END URLS
       end_urls = []
       while end_url = line.match(END_URL_REGEX) do
-        full_match = end_url[0]
+        if end_url[:opar] # handle URLs already enclosed in parens
+          opar_len = end_url[:opar].length
+          cpar_len = -(end_url[:cpar].length+1)
+          full_match = end_url[0][opar_len..cpar_len]
+        else
+          full_match = end_url[0]
+        end
         # Build HTML for end URLs. Handle special cases where formatting should be slightly different.
         if end_url[:domain].match? /^twitter\.com/i
           # TWITTER

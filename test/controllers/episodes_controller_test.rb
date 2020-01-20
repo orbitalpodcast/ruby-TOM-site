@@ -35,25 +35,29 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @output, Episode.convert_markup_to_HTML(@string)
   end
 
-  # test "convert_markup_to_html format URLs, accounting for existing parens" do
-  #   @string = ["This week in SF history",
-  #              "* 29 October 1998: Launch of STS-95 (https://en.wikipedia.org/wiki/STS-95)",
-  #              "* Next week in 1974: Solidarity"].join("\n")
-  #   @output = ["This week in SF history",
-  #              "* 29 October 1998: Launch of STS-95 (<a href=\"https://en.wikipedia.org/wiki/STS-95\">en.wikipedia.org</a>)",
-  #              "* Next week in 1974: Solidarity"].join("\n")
-  #   assert_equal @output, Episode.convert_markup_to_HTML(@string)
-  # end
+  test "convert_markup_to_html format URLs, accounting for existing parens with no spaces" do
+    @string = ["This week in SF history",
+               "* 29 October 1998: Launch of STS-95 (https://en.wikipedia.org/wiki/STS-95)",
+               "* Next week in 1974: Solidarity"].join("\n")
+    @output = ["This week in SF history",
+               "* 29 October 1998: Launch of STS-95 (<a href=\"https://en.wikipedia.org/wiki/STS-95\">en.wikipedia.org</a>)",
+               "* Next week in 1974: Solidarity"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
 
-  # test "convert_markup_to_html format URLs, accounting for existing parens with padding spaces" do
-  #   @string = ["This week in SF history",
-  #              "* 29 October 1998: Launch of STS-95 (   https://en.wikipedia.org/wiki/STS-95 )",
-  #              "* Next week in 1974: Solidarity"].join("\n")
-  #   @output = ["This week in SF history",
-  #              "* 29 October 1998: Launch of STS-95 (<a href=\"https://en.wikipedia.org/wiki/STS-95\">en.wikipedia.org</a>)",
-  #              "* Next week in 1974: Solidarity"].join("\n")
-  #   assert_equal @output, Episode.convert_markup_to_HTML(@string)
-  # end
+  test "convert_markup_to_html format URLs, accounting for existing parens with padding spaces" do
+    @string = ["This week in SF history",
+               "* 29 October 1998: Launch of STS-95 (   http://foo.com/blah_blah_(wikipedia)_(again))",
+               "* 29 October 1998: Launch of STS-95 (http://foo.com/blah_blah_(wikipedia)_(again)   )",
+               "* 29 October 1998: Launch of STS-95 (   http://foo.com/blah_blah_(wikipedia)_(again) )",
+               "* Next week in 1974: Solidarity"].join("\n")
+    @output = ["This week in SF history",
+               "* 29 October 1998: Launch of STS-95 (<a href=\"http://foo.com/blah_blah_(wikipedia)_(again)\">foo.com</a>)",
+               "* 29 October 1998: Launch of STS-95 (<a href=\"http://foo.com/blah_blah_(wikipedia)_(again)\">foo.com</a>)",
+               "* 29 October 1998: Launch of STS-95 (<a href=\"http://foo.com/blah_blah_(wikipedia)_(again)\">foo.com</a>)",
+               "* Next week in 1974: Solidarity"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
 
   # test "convert_markup_to_html format URLs, accounting for hat tips" do
     # @string = [""].join("\n")
