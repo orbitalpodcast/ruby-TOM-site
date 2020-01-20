@@ -59,17 +59,23 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @output, Episode.convert_markup_to_HTML(@string)
   end
 
-  # test "convert_markup_to_html format URLs, accounting for hat tips" do
-    # @string = [""].join("\n")
-    # @output = [""].join("\n")
-    # assert_equal @output, Episode.convert_markup_to_HTML(@string)
-  # end
+  test "convert_markup_to_html format URLs, accounting for hat tips" do
+    @string = ["Spaceflight News",
+               "* Upgraded H3 rocket for lunar missions https://spacenews.com/mitsubishi-heavy-industries-mulls-upgraded-h3-rocket-variants-for-lunar-missions/",
+               "** H-IIA had a proposed asymmetric configuration as well as liquid boosters HT Sam in the chat: http://www.b14643.de/Spacerockets_1/Japan/H-IIA_Heavy/Description/Frame.htm"].join("\n")
+    @output = ["Spaceflight News",
+               "* Upgraded H3 rocket for lunar missions (<a href=\"https://spacenews.com/mitsubishi-heavy-industries-mulls-upgraded-h3-rocket-variants-for-lunar-missions/\">spacenews.com</a>)",
+               "** H-IIA had a proposed asymmetric configuration as well as liquid boosters (HT Sam in the chat: <a href=\"http://www.b14643.de/Spacerockets_1/Japan/H-IIA_Heavy/Description/Frame.htm\">b14643.de</a>)"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
 
-  # test "convert_markup_to_html format URLs, allowing escaped full URLs" do
-    # @string = [""].join("\n")
-    # @output = [""].join("\n")
-    # assert_equal @output, Episode.convert_markup_to_HTML(@string)
-  # end
+  test "convert_markup_to_html format URLs, allowing escaped full URLs" do
+    @string = ["Short & Sweet",
+               "* Virgin Orbit announces potential Martian cubesat missions. ///https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution"].join("\n")
+    @output = ["Short & Sweet",
+               "* Virgin Orbit announces potential Martian cubesat missions. (<a href=\"https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution\">https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution</a>)"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
 
   # test "convert_markup_to_html format in-line links" do
     # @string = [""].join("\n")

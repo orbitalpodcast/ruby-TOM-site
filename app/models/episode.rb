@@ -71,7 +71,7 @@ class Episode < ApplicationRecord
     unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
   end
 
-  END_URL_REGEX = /(?<opar>\([[:blank:]]*)?(?<protocol>((http|https)\:\/\/)?(www\.)?)(?<domain>(?:[\w-]+)(?:\.[\w-]+)+)(?<path>[\w.,@?^=%&;:\/~+#\(\)-]*(?(<opar>)[\w@?^=%&;\/~+#*?\)-](?=[[:blank:]]*\))|[\w@?^=%&;\/~+#?\h*?\)-]))?(?<cpar>(?(<opar>)[[:blank:]]*\)?))$/i
+  END_URL_REGEX = /(?<esc>\/\/\/)?(?<opar>\([[:blank:]]*)?(?<ht>HT.*: )?(?<protocol>((http|https)\:\/\/)?(www\.)?)(?<domain>(?:[\w-]+)(?:\.[\w-]+)+)(?<path>[\w.,@?^=%&;:\/~+#\(\)-]*(?(<opar>)[\w@?^=%&;\/~+#*?\)-](?=[[:blank:]]*\))|[\w@?^=%&;\/~+#?\h*?\)-]))?(?<cpar>(?(<opar>)[[:blank:]]*\)?))$/i
 
   def self.convert_markup_to_HTML(markup)
     lines = markup.split(/\n/)
@@ -81,26 +81,28 @@ class Episode < ApplicationRecord
       # FORMAT END URLS
       end_urls = []
       while end_url = line.match(END_URL_REGEX) do
-        if end_url[:opar] # handle URLs already enclosed in parens
-          opar_len = end_url[:opar].length
-          cpar_len = -(end_url[:cpar].length+1)
-          full_match = end_url[0][opar_len..cpar_len]
-        else
-          full_match = end_url[0]
-        end
+        url_match = end_url[:protocol] + end_url[:domain] + end_url[:path]
         # Build HTML for end URLs. Handle special cases where formatting should be slightly different.
         if end_url[:domain].match? /^twitter\.com/i
           # TWITTER
-          construction = " (<a href=\"#{full_match}\">#{end_url[:domain]}#{end_url[:path][/^\/\w+(?=\/)/i]}</a>)"
+          construction = "<a href=\"#{url_match}\">#{end_url[:domain]}#{end_url[:path][/^\/\w+(?=\/)/i]}</a>)"
         elsif end_url[:path].match? /\.pdf\/?$/i
           # PDF
-          construction = " (PDF: <a href=\"#{full_match}\">#{end_url[:domain]}</a>)"
+          construction = "PDF: <a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
         elsif end_url[:domain].match? /reddit\.com/i
           # REDDIT
-          construction = " (<a href=\"#{full_match}\">#{end_url[:path].match(/\/r\/[^\/]+/i)}</a>)"
+          construction = "<a href=\"#{url_match}\">#{end_url[:path].match(/\/r\/[^\/]+/i)}</a>)"
+        elsif end_url[:esc]
+          construction = "<a href=\"#{url_match}\">#{url_match}</a>)"
         else
           # ALL ELSE
-          construction = " (<a href=\"#{full_match}\">#{end_url[:domain]}</a>)"
+          construction = "<a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
+        end
+        # Finish building HTML. Handle hat tips
+        if end_url[:ht]
+          construction.prepend " (#{end_url[:ht]}"
+        else
+          construction.prepend " ("
         end
         end_urls.unshift construction   # add output to FRONT of end_urls because we're working from the end of the line forwards
         line.chomp!(end_url[0]).rstrip! # removed our processed end_url from the line, then loop again
