@@ -5,13 +5,13 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     @episode = episodes(:one)
   end
 
-  test "convert_markup_to_html format URLs, accounting for twitter usernames" do
-    @string = ["Spaceflight News",
-               "Starliner OFT https://www.nasaspaceflight.com/2019/12/starliner-mission-shortening-failure-successful-launch/ http://www.collectspace.com/news/news-122219a-boeing-starliner-oft-landing.html",
-               "IR video https://twitter.com/NASA/status/1208735543657320448"].join("\n")
-    @output = ["Spaceflight News",
-               "Starliner OFT (<a href=\"https://www.nasaspaceflight.com/2019/12/starliner-mission-shortening-failure-successful-launch/\">nasaspaceflight.com</a>) (<a href=\"http://www.collectspace.com/news/news-122219a-boeing-starliner-oft-landing.html\">collectspace.com</a>)",
-               "IR video (<a href=\"https://twitter.com/NASA/status/1208735543657320448\">twitter.com/NASA</a>)"].join("\n")
+  test "convert_markup_to_html format URLs, accounting for twitter and instagram and missing protocol" do
+    @string = [ "Interview -- Silvia Alba, Visual facilitator",
+                "* https://www.instagram.com/silvia.draws/",
+                "* twitter.com/silvia_draws"].join("\n")
+    @output = [ "Interview -- Silvia Alba, Visual facilitator",
+                "* (<a href=\"https://www.instagram.com/silvia.draws/\">instagram.com/silvia.draws</a>)",
+                "* (<a href=\"http://twitter.com/silvia_draws\">twitter.com/silvia_draws</a>)"].join("\n") # assume HTTP not HTTPS
     assert_equal @output, Episode.convert_markup_to_HTML(@string)
   end
 
