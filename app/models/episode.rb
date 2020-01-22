@@ -71,7 +71,24 @@ class Episode < ApplicationRecord
     unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
   end
 
-  END_URL_REGEX = /(?<esc>\/\/\/)?(?<opar>\([[:blank:]]*)?(?<ht>HT.*: )?(?<protocol>((http|https)\:\/\/)?(www\.)?)(?<domain>(?:[\w-]+)(?:\.[\w-]+)+)(?<path>[\w.,@?^=%&;:\/~+#\(\)-]*(?(<opar>)[\w@?^=%&;\/~+#*?\)-](?=[[:blank:]]*\))|[\w@?^=%&;\/~+#?\h*?\)-]))?(?<cpar>(?(<opar>)[[:blank:]]*\)?))$/i
+  END_URL_REGEX =  /(?<esc>\/\/\/)?                                   # set optional escapement named group
+                    (?<opar>\([[:blank:]]*)?                          # look for leading open parens and padding spaces
+                    (?<ht>HT.*:\ )?                                   # set optional hat tip named group. Escaped space BC free spacing
+                    (?<protocol>                                      # set optionaal protocol named group
+                      (?:(http|https)\:\/\/)?
+                      (?:www\.)?)
+                    (?<domain>                                        # set domain named group
+                      (?:[\w-]+)                                      # starts with a word group
+                      (?:\.[\w-]+)+)                                  # following groups are separated by dots
+                    (?<path>                                          # set path named group
+                      [\w.,@?^=%&;:\/~+#\(\)-]*                       # lots of characters allowed here, including parens
+                    (?(<opar>)                                        # if-then statement to handle close paren
+                      [\w@?^=%&;\/~+#*?\)-]                           # if opar, match the final path character then...
+                      (?=[[:blank:]]*\))                              # ... lookahead for those optional spaces and a close paren.
+                      |[\w@?^=%&;\/~+#?\h*?\)-]))?                    # if no opar, just match the last path character
+                    (?<cpar>                                          # set optional close paren named group
+                      (?(<opar>)[[:blank:]]*\)?))                     # actually match that cparen.
+                  $/ix
 
   def self.convert_markup_to_HTML(markup)
     lines = markup.split(/\n/)
@@ -91,7 +108,8 @@ class Episode < ApplicationRecord
           # PDF
           construction = "PDF: <a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
         elsif end_url[:domain].match? /reddit\.com/i
-          # USERNAMES BEFORE DOMAIN
+          # USERNAMES AFTER DOMAIN WITH IDENTIFIER
+          # TODO: generalize convert_markup_to_HTML to include all usernames after domain, but with things in the middle, like /r/ and /u/ 
           construction = "<a href=\"#{url_match}\">#{end_url[:path].match(/\/r\/[^\/]+/i)}</a>)"
         elsif end_url[:esc]
           construction = "<a href=\"#{url_match}\">#{url_match}</a>)"
