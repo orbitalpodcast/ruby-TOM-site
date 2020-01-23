@@ -88,13 +88,13 @@ class Episode < ApplicationRecord
                       |[\w@?^=%&;\/~+#?\h*?\)-]))?                    # if no opar, just match the last path character
                     (?<cpar>                                          # set optional close paren named group
                       (?(<opar>)[[:blank:]]*\)?))                     # actually match that cparen.
-                  $/ix
+                   $/ix                                               # match end of the line, be case insensitive, and allow free spacing
 
   def self.convert_markup_to_HTML(markup)
     lines = markup.split(/\n/)
     lines.map! {|l| l.rstrip} # split into lines and remove ending whitespace
     output = ''
-    for line in lines do
+    lines.each_with_index do |line, i|
       # FORMAT END URLS
       end_urls = []
       while end_url = line.match(END_URL_REGEX) do
@@ -126,9 +126,23 @@ class Episode < ApplicationRecord
         end_urls.unshift construction   # add output to FRONT of end_urls because we're working from the end of the line forwards
         line.chomp!(end_url[0]).rstrip! # removed our processed end_url from the line, then loop again
       end
-      output << line.concat(*end_urls,"\n")
-      # DO OTHER FORMATTING
+      line = line.concat(*end_urls).lstrip unless end_urls.empty? # If the line contained a URL and nothing else, it'll still have a leading space.
+      
+      # SET SECTION HEADERS
+      headers_regex = [Settings.markup.header_symbol, Settings.markup.header_symbol]
+      for header in Settings.markup.headers.each do
+        # TODO in markup settings, check if *** wildcard works anywhere other than the end of a line.
+        # TODO in convert_markup_to_html, add functionality to handle settings.header_symbol
+        if line.match? Regexp.new(header[0].to_s.gsub(/\*\*\*/, '[[:ascii:]]*'), true) # allow wildcards and case insensitivity
+          line = "<h3>#{header[1] || header[0]}</h3>"
+          break
+        end
+      end
 
+      # SET BULLET INDENTS
+      # SET BOLD AND ITALLICS
+      # ADD FINISHED LINE TO OUTPUT
+      output << line << "\n"
     end
     output.rstrip!
   end
