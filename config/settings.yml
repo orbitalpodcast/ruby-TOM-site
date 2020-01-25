@@ -6,7 +6,7 @@ newsletter:
   default_send_time: 12:00:00 -08:00
 
 markup:
-  header_symbol: '#' # Set a regex expression to indicate a line is a header not included in the list below. Use for uncommon headers.
+  header_symbol: '#' # Set a symbol to indicate a line is a header not included in the list below. Use for uncommon headers.
   # A list of common headers. Use 'shorthand':'output' to allow us to recognize shorthand or old forms. Just list an output if you don't need to handle alternatives.
   # This markup is CaSe AgNoStIc, so don't worry about including capitalization variations.
   # Use three asterisks as a wildcard, rendered as part of the title. Headers get specific formatting, so we don't recognize bold or italic or links in those sections.
