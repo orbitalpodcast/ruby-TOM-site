@@ -7,18 +7,18 @@ one:
   title: Clock Kerfuffle
   slug: clock-kerfuffle
   publish_date: 2019-12-24
-  description: Space software engineer and friend of the show Emory Stagmer joins us to discuss CST-100 Starliner\'s recent failure to rendezvous with ISS'
+  description: Space software engineer and friend of the show Emory Stagmer joins us to discuss CST-100 Starliner's recent failure to rendezvous with ISS'
   notes: |-
     Spaceflight News
     * Starliner OFT https://www.nasaspaceflight.com/2019/12/starliner-mission-shortening-failure-successful-launch/ http://www.collectspace.com/news/news-122219a-boeing-starliner-oft-landing.html
-    * IR video https://twitter.com/NASA/status/1208735543657320448\
-    * Re-entry video from the ground https://twitter.com/MrTutskey/status/1208184010377170944\
+    * IR video https://twitter.com/NASA/status/1208735543657320448
+    * Re-entry video from the ground https://twitter.com/MrTutskey/status/1208184010377170944
     Short & Sweet
     * Omega has a payload. https://www.spaceflightinsider.com/organizations/northrop-grumman/first-fight-of-omega-rocket-to-carry-ssn-payload/
     * ULA selected to launch next GOES mission. https://www.satellitetoday.com/government-military/2019/12/19/nasa-selects-ula-for-goes-t-mission/
     * SpaceX announces yet another Starlink launch. https://www.teslarati.com/spacex-starlink-internet-satellite-constellation-expands/
     This week in SF history
-    * December 23, 1968. Apollo 8 enters Lunar SOI https://en.wikipedia.org/wiki/Apollo_8\
+    * December 23, 1968. Apollo 8 enters Lunar SOI https://en.wikipedia.org/wiki/Apollo_8
     * Two weeks ahead in 2015: running out of juice
 
 two:
@@ -30,10 +30,10 @@ two:
   publish_date: 2019-12-17
   description: OSIRIS-Rex has set its sights on a crater called Nightingale, and will be headed down to grab some rocks from the surface of Asteroid Bennu in a year.
   notes: |-
-    Spaceflight news
+    Spaceflight News
     * Rocket Lab inaugurates LC 2 at Wallops. https://spacenews.com/rocket-lab-inaugurates-u-s-launch-site/
-    * Reuse footage from Running Out of Fingers https://youtu.be/QK9mQdar5_w?t=1144\
-    * OSIRIS-Rex landing site selected https://spacenews.com/nasa-selects-osiris-rex-asteroid-sampling-site/\">spacenews.com</a>)</p><p class=\"\">
+    * Reuse footage from Running Out of Fingers https://youtu.be/QK9mQdar5_w?t=1144
+    * OSIRIS-Rex landing site selected https://spacenews.com/nasa-selects-osiris-rex-asteroid-sampling-site/
     Short & Sweet
     * A new European rocket gets funding. http://www.parabolicarc.com/2019/12/13/isar-aerospace-closes-17-million-series-a-for-new-launch-vehicle/#more-71645
     * SLS core stage is complete https://spacenews.com/sls-core-stage-declared-ready-for-launch-in-2021/
@@ -49,9 +49,9 @@ three:
   title: DOWNLINK--Kyla Edison
   slug: kyla-edison
   publish_date: 2019-12-11
-  description: Kyla Edison is a geologist working for PISCES, and she\'s sintering basalt into structural tiles for applications on Earth and off-world ISRU.
+  description: Kyla Edison is a geologist working for PISCES, and she's sintering basalt into structural tiles for applications on Earth and off-world ISRU.
   notes: |-
-    Spaceflight news
+    Spaceflight News
     * First results from Parker Solar Probe! (nasa.gov) (nature.com)
     Short & Sweet
     * Running Out of Fingers successfully tests key elements of rocket reuse techcrunch.com
@@ -67,4 +67,162 @@ three:
     ** Balloon aerobot package nssdc.gsfc.nasa.gov
     ** Structures and data article articles.adsabs.harvard.edu
     * Next week in 1973 - What’s the point of a space telescope with a lifetime of less than a week?
-   
+
+four:
+  draft: false
+  newsletter_status: not sent
+  number: 238
+  title: Moon Prep
+  slug: moon-prep
+  publish_date: 2019-12-04
+  description: SLS and Orion are making progress towards Artemis!
+  notes: |-
+    Spaceflight News
+    * RS-25 integration
+    Short & Sweet
+    * Orion capsule ships to Ohio for testing
+    * Australian company 3D prints large rocket
+    Questions, comments, corrections
+    * Tempe meetup!
+    ** 5 pm Sunday, December 8th
+    ** tempe.laboccapizzeria.com
+    ** S. Mill Ave, Tempe, AZ 85281
+    This week in SF history
+    * December 4, 1945, Birth of Roberta Bondar
+    * Next week in 1984: What’s the point of a weather balloon with a sample rate of 75 seconds?
+
+five:
+  draft: false
+  newsletter_status: not sent
+  number: 237
+  title: DOWNLINK--Elena Zorzoli Rossi
+  slug: elena-zorzoli-rossi
+  publish_date: 2019-11-27
+  description: We met Elena at IAC 2019. She's the lead experimental engineer at ThrustMe, and has been testing their new solid fuel electric propulsion engine!
+  notes: |-
+    Spaceflight News
+    * Starship overpressure explosion https://spacenews.com/spacex-starship-suffers-testing-setback/
+    ** Rumors on 4Chan, via Reddit and NSF forum https://www.reddit.com/r/SpaceXLounge/comments/e055ej/i_can_partially_end_the_speculation_about_why/ https://forum.nasaspaceflight.com/index.php?topic=49114.1540
+    Short & Sweet
+    * Some insights into failed lunar landings have come out. https://spacenews.com/new-details-emerge-about-failed-lunar-landings/
+    * Starliner rolls out. https://www.americaspace.com/2019/11/22/starliner-joins-rocket-for-dec-launch-on-uncrewed-orbital-flight-test/
+    Questions, comments, corrections
+    * Congrats to our Soonish giveaway winners!
+    Interview
+    * After the interview, Spacety reported a successful firing of I2T5! https://spacenews.com/spacety-thrustme-cold-gas-test/
+    * Elena Zorzoli Rossi, lead experimental engineer, ThrustMe
+    ** https://www.thrustme.fr/
+    ** https://www.linkedin.com/company/thrustme.fr
+    This week in SF history
+    * November 28, 1964: Launch of Mariner 4 https://en.wikipedia.org/wiki/Mariner_4 https://www.jpl.nasa.gov/missions/mariner-4/
+    * Next week in 1945: You were discussing critical space stuff with your pals the other dayyyyyyyy
+
+six:
+  draft: false
+  newsletter_status: not sent
+  number: 236
+  title: Panel Jettison
+  slug: pannel-jettison
+  publish_date: 2019-12-17
+  description: This week we saw the beginning of a long series of EVAs to repair the Alpha Magnetic Spectrometer, which was not intended to be repaired on orbit.
+  notes: |-
+    Spaceflight News
+    * Spacewalk to repair AMS https://spacenews.com/nasa-prepares-for-complex-series-of-spacewalks-to-repair-ams/ https://www.youtube.com/watch?v=37b2Z6J0zKc
+    ** AMS overview https://www.nasa.gov/mission_pages/station/research/news/ams_how_it_works.html
+    ** Footage from the EVA
+    *** The cover is detached from the restraint clip https://youtu.be/evaBhht5uGA?t=13548
+    *** Jettisoning the cover https://youtu.be/evaBhht5uGA?t=13604
+    *** Chris Cassidy shows off a zip tie cutter/capture device https://youtu.be/evaBhht5uGA?t=17581
+    Short & Sweet
+    * Hayabusa2 departs Ryugu https://www.japantimes.co.jp/news/2019/11/13/national/science-health/japans-hayabusa2-leaves-asteroid
+    * SpaceX completes Crew Dragon Static Fire tests https://spacenews.com/spacex-tests-crew-dragon-abort-thrusters/
+    * Launcher gets funding from the Air Force. https://spacenews.com/launcher-af-pitch-award/
+    Questions, comments, corrections
+    * Win a book!
+    ** Zach and Kelly Weinersmith wrote Soonish: Ten Emerging Technologies That'll Improve and/or Ruin Everything.
+    ** We have signed copies to give away! In honor of the alternate first words featured on the new TV show For All Mankind, tweet at us with what your first words on Mars would be.
+    ** Random winners selected from Twitter and email.
+    * Episode 2 is missing!
+    ** Do you have a copy of episode-2.mp3 lying around? Squarespace ate our copy!
+    This week in SF history
+    * November 19, 1956 Birth of Eileen Collins https://en.wikipedia.org/wiki/Eileen_Collins
+    * Next week in 1964: The cold, dead 1%
+
+seven:
+  draft: false
+  newsletter_status: not sent
+  number: 235
+  title: DOWNLINK--Andrew Rader
+  slug: andrew-rader
+  publish_date: 2019-11-12
+  description: 'Andrew Rader is a mission manager at SpaceX, a game designer, a podcaster, and the author of many books, including his newest: Beyond the Known.'
+  notes: |-
+    Spaceflight News
+    * Starliner pad abort test complete https://spacenews.com/boeing-performs-starliner-pad-abort-test/ https://spaceflightnow.com/2019/11/07/boeing-identifies-cause-of-chute-malfunction-continues-preps-for-first-starliner-launch/
+    ** Chute failure caused by misplaced pin https://www.americaspace.com/2019/11/09/boeing-discloses-cause-of-starliner-parachute-anomaly/ https://spacenews.com/missing-pin-blamed-for-boeing-pad-abort-parachute-anomaly/
+    Short & Sweet
+    * SpaceX’s Mark 3 parachutes are almost ready to go! https://spacenews.com/spacex-trumpets-progress-on-commercial-crew-parachute-testing/
+    * China tests gridfins https://spacenews.com/china-tests-grid-fins-with-launch-of-gaofen-7-imaging-satellite/
+    * The ISS may see reduced crew for 6 and a half months. https://spacenews.com/astronaut-preparing-for-iss-mission-with-reduced-crew/
+    Interview: Andrew Rader, author, Beyond the Known
+    * https://andrew-rader.com/
+    * https://twitter.com/marsrader
+    * https://www.amazon.com/Beyond-Known-Exploration-Created-Modern/dp/1982123532
+    This week in SF history
+    * 15 November 1974 Launch of AMSAT-OSCAR 7 https://en.wikipedia.org/wiki/AMSAT-OSCAR_7 https://hackaday.com/2019/08/02/retrotechtacular-the-oscar-7-satellite-died-and-was-reborn-20-years-later/
+    ** List of all OSCAR satellites https://en.wikipedia.org/wiki/AMSAT#Satellites_previously_launched_by_AMSAT
+    * Next week in 1965: How about some nice lemon, gin and bob cut?
+
+eight:
+  draft: false
+  newsletter_status: not sent
+  number: 234
+  title: Irregular Nomenclature
+  slug: irregular-nomenclature
+  publish_date: 2019-11-05
+  description: Mitsubishi Heavy Industries' H3 rocket will be a lunar powerhouse; we talk about newly released information about the rocket and JAXA's moon plans.
+  notes: |-
+    This week in SF history
+    * 29 October 1998: Launch of STS-95 https://en.wikipedia.org/wiki/STS-95 PDF: https://www.nasa.gov/home/hqnews/presskit/1998/sts-95.pdf
+    * Next week in 1974: Solidarity
+    Spaceflight News
+    * Upgraded H3 rocket for lunar missions https://spacenews.com/mitsubishi-heavy-industries-mulls-upgraded-h3-rocket-variants-for-lunar-missions/
+    ** H-IIA had a proposed asymmetric configuration as well as liquid boosters HT Sam in the chat: http://www.b14643.de/Spacerockets_1/Japan/H-IIA_Heavy/Description/Frame.htm
+    Short & Sweet
+    * Chang’e-5 to launch late next year https://spacenews.com/china-targets-late-2020-for-lunar-sample-return-mission/
+    * The X-37 sets another record. https://spacenews.com/air-force-x-37b-secret-spaceplane-lands-after-780-days-in-orbit/
+    * NASA gives funding to look into extended mission to Pluto https://www.americaspace.com/2019/10/30/nasa-green-lights-study-for-orbital-mission-to-pluto/
+    * Another plot twist for the mole on Mars. https://spacenews.com/insight-heat-flow-probe-suffers-setback/
+
+nine:
+  draft: false
+  newsletter_status: not sent
+  title: IAC DC, 2019
+  publish_date: 2019-10-29
+  number: 233
+  slug: iac-dc-2019
+  description: This show is brought to you by just over one hundred supporters on Patreon. We couldn’t have done this without you, and we are so thankful for your confidence in our ability to bring you educational and entertaining content.
+  notes: |-
+    Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.
+    This show is brought to you by just over one hundred supporters on Patreon (and direct monthly supporters using Bitcoin and Paypal!) We couldn’t have done this without you, and we are so thankful for your confidence in our ability to bring you educational and entertaining content.
+
+ten:
+  draft: false
+  newsletter_status: not sent
+  publish_date: 2019-10-15
+  number: 232
+  title: Full Panic Ensued
+  slug: full-panic-ensued
+  notes: |-
+    This week in SF history
+    * October 17, 1956: Birth of Mae Jemison https://en.wikipedia.org/wiki/Mae_Jemison
+    Spaceflight News
+    * Battery replacement EVAs https://www.americaspace.com/2019/10/07/spacewalkers-begin-three-week-eva-marathon-to-replace-space-station-batteries/
+    * Commercial crew update https://arstechnica.com/science/2019/10/spacex-targeting-abort-test-late-this-year-crew-flight-soon-after/ https://spacenews.com/nasa-and-spacex-agree-commercial-crew-development-is-the-highest-priority/
+    ** Eric Berger says "full panic has ensued" https://twitter.com/SciGuySpace/status/1181572161917607948
+    ** Dragon done in 10 weeks? https://twitter.com/elonmusk/status/1181579173388673025\">twitter.com/elonmusk
+    Short & Sweet
+    * Virgin Orbit announces potential Martian cubesat missions. https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution?bxid=5d892338fc942d4788847f4d&amp;cndid=&amp;esrc=
+    * Stratolaunch is now under new ownership. https://spacenews.com/stratolaunch-gets-mystery-new-owner/
+    * The Jason-2 mission has ended, but its satellite will remain. https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries
+    description: Commercial Crew has fallen behind, but SpaceX is rushing to get Crew Dragon out the door.

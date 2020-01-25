@@ -35,7 +35,7 @@ class EpisodesController < ApplicationController
   def draft
     unless logged_in? # All other paths should pretend like unauthorized requests don't ever work. This needs special handling.
       session[:pre_login_request] = '/draft'
-      redirect_to login_path 
+      redirect_to login_path and return
     end
     if Episode.draft_waiting?
       @episode = Episode.most_recent_draft.take
