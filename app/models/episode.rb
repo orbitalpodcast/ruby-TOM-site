@@ -93,7 +93,8 @@ class Episode < ApplicationRecord
   def self.convert_markup_to_HTML(markup)
     lines = markup.split(/\n/)
     lines.map! {|l| l.rstrip} # split into lines and remove ending whitespace
-    output = ''
+    output = []
+    previous_indent = 0 # used by SET BULLET INDENTS. We need to pass the previous bullet level to the next loop, or otherwise calculate it inside the loop, which would require a lot of backtracking to previous output lines.
     lines.each_with_index do |line, i|
       # FORMAT END URLS
       end_urls = []
@@ -133,18 +134,44 @@ class Episode < ApplicationRecord
       for header in Settings.markup.headers.each do
         # TODO in markup settings, check if *** wildcard works anywhere other than the end of a line.
         # TODO in convert_markup_to_html, add functionality to handle settings.header_symbol
-        if line.match? Regexp.new(header[0].to_s.gsub(/\*\*\*/, '[[:ascii:]]*'), true) # allow wildcards and case insensitivity
-          line = "<h3>#{header[1] || header[0]}</h3>"
+        if line.strip =~ Regexp.new(header[0].to_s.gsub(/\*\*\*/, '([[:ascii:]]*)'), true) # allow wildcards and case insensitivity
+          correct_header = header[1] || header[0]
+          correct_header = correct_header.to_s
+          wildcard_content = $~[1] || ''
+          correct_header.gsub!(/\*\*\*/, wildcard_content)
+          line = "<h3>#{correct_header}</h3>"
           break
         end
       end
 
       # SET BULLET INDENTS
+      indent_level = 0
+      indent_level += 1 while line.gsub! /^ *\*/, '' # count up and chomp off leading asterisks, ignoring spaces
+      line.strip! # presumably the line will have a space between the bullet asterisks and the text.
+      if indent_level > 0
+        next_indent = 0
+        if next_line = lines[i+1].dup # if we're on the last line, line+1.dupe will return nil and we won't change the value of next_indent 
+          next_indent += 1 while next_line.gsub! /^ *\*/, '' # We might have consecutive *s elsewhere in the string, so better to gsub than scan.
+        end 
+        open_ul  = (indent_level - previous_indent).clamp 0,10  # TODO can convert_markup_to_html > set bullets safely only increase indent by one from line to line?
+        close_ul = (indent_level - next_indent    ).clamp 0,10
+        line = "#{"<ul>"*open_ul}<li>#{line}</li>#{"</ul>"*close_ul}"
+      end
+      previous_indent = indent_level
+      
       # SET BOLD AND ITALLICS
+      # This is specifically done after setting bullets, so that we get rid of pesky leading asterisks
+      if line =~ /\*\*.*\*\*/
+        line.gsub! /\*\*.*\*\*/, "<strong>#{$~[0][2..-3]}</strong>" # Here, $~ actually pulls the match from the =~ above. Can we DRY the regex?
+      end
+      if line =~ /\*.*\*/
+        line.gsub! /\*.*\*/, "<i>#{$~[0][1..-2]}</i>"
+      end
+
       # ADD FINISHED LINE TO OUTPUT
-      output << line << "\n"
+      output << line + "\n"
     end
-    output.rstrip!
+    output.join.rstrip!
   end
 
 end

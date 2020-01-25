@@ -63,29 +63,56 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @output, Episode.convert_markup_to_HTML(@string)
   end
 
-  test "convert_markup_to_html handle headers and alternates" do
-    @string = ["Short & Sweet",
-               "Spaceflight News",
-               "questions, comments, corrections"].join("\n")
-    @output = ["<h3>Short & Sweet</h3>",
-               "<h3>Spaceflight News</h3>",
-               "<h3>Questions, Comments and Correction Burns</h3>"].join("\n")
-    assert_equal @output, Episode.convert_markup_to_HTML(@string)
-  end
-
-    assert_equal @output, Episode.convert_markup_to_HTML(@string)
-  end
-
+  # Not sure what I want this functionality to look like yet, so I'm just leaving this here for now.
   # test "convert_markup_to_html format in-line links" do
     # @string = [""].join("\n")
     # @output = [""].join("\n")
     # assert_equal @output, Episode.convert_markup_to_HTML(@string)
   # end
 
-  # test "convert_markup_to_html format bold and itallics" do
-    # @string = [""].join("\n")
-    # @output = [""].join("\n")
-    # assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  test "convert_markup_to_html handle headers and alternates and leading spaces" do
+    @string = ["Short & Sweet",
+               "      Spaceflight News",
+               "questions, comments, corrections",
+               "This week in SF history"].join("\n")
+    @output = ["<h3>Short & Sweet</h3>",
+               "<h3>Spaceflight News</h3>",
+               "<h3>Questions, Comments and Correction Burns</h3>",
+               "<h3>This Week in Spaceflight History</h3>"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
+
+    test "convert_markup_to_html handle headers with wildcards in settings" do
+    @string = ["Interview -- Dr. Marc Rayman",
+               "interview -- Dr. Marc Rayman"].join("\n")
+
+    @output = ["<h3>Interview -- Dr. Marc Rayman</h3>",
+               "<h3>Interview -- Dr. Marc Rayman</h3>"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
+
+  test "convert_markup_to_html handle various levels of bullets" do
+    @string = ["* topic 1",
+               "* topic 2",
+               "** topic 2a",
+               "* topic 3",
+               "** topic 3a",
+               "*** topic 3ai"].join("\n")
+    @output = ["<ul><li>topic 1</li>",
+               "<li>topic 2</li>",
+               "<ul><li>topic 2a</li></ul>",
+               "<li>topic 3</li>",
+               "<ul><li>topic 3a</li>",
+               "<ul><li>topic 3ai</li></ul></ul></ul>"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
+
+  test "convert_markup_to_html format bold and itallics" do
+    @string = ["This show was brought to you by our **patreon supporters** who we simply *love*."].join("\n")
+    @output = ["This show was brought to you by our <strong>patreon supporters</strong> who we simply <i>love</i>."].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
+
   # end
 
   # test "convert_markup_to_html format escapement for HTML" do
