@@ -102,18 +102,19 @@ class Episode < ApplicationRecord
         url_protocol = end_url[:protocol].presence || "http://"
         url_match = url_protocol + end_url[:domain] + end_url[:path]
         # Build HTML for end URLs. Handle special cases where formatting should be slightly different.
-        if end_url[:domain].match? /^(twitter\.com)|(instagram\.com)/i
+        if end_url[:esc]
+          # ESCAPED FULL URLS
+          construction = "<a href=\"#{url_match}\">#{url_match}</a>)"
+        elsif end_url[:domain].match? /^(twitter\.com)|(instagram\.com)/i
           # USERNAMES AFTER DOMAIN
           construction = "<a href=\"#{url_match}\">#{end_url[:domain]}#{end_url[:path][/^\/[^\/]+/i]}</a>)"
-        elsif end_url[:path].match? /\.pdf\/?$/i
-          # PDF
-          construction = "PDF: <a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
         elsif end_url[:domain].match? /reddit\.com/i
           # USERNAMES AFTER DOMAIN WITH IDENTIFIER
           # TODO: generalize convert_markup_to_HTML to include all usernames after domain, but with things in the middle, like /r/ and /u/ 
           construction = "<a href=\"#{url_match}\">#{end_url[:path].match(/\/r\/[^\/]+/i)}</a>)"
-        elsif end_url[:esc]
-          construction = "<a href=\"#{url_match}\">#{url_match}</a>)"
+        elsif end_url[:path].match? /\.pdf\/?$/i
+          # PDF
+          construction = "PDF: <a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
         else
           # ALL ELSE
           construction = "<a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
