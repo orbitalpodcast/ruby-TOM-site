@@ -91,6 +91,15 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @output, Episode.convert_markup_to_HTML(@string)
   end
 
+  test "convert_markup_to_html handle uncommon headers" do
+    @string = ["# Brand New Segment",
+               "    # A different new segment"].join("\n")
+
+    @output = ["<h3>Brand New Segment</h3>",
+               "<h3>A different new segment</h3>"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
+
   test "convert_markup_to_html handle various levels of bullets" do
     @string = ["* topic 1",
                "* topic 2",
@@ -126,8 +135,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
                "* Stratolaunch is now under new ownership. https://spacenews.com/stratolaunch-gets-mystery-new-owner/",
                "* The Jason-2 mission has ended, but its satellite will remain. https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries",
                "interview -- Silvia Alba",
-               "* ///https://www.instagram.com/silvia.draws/",
-               ""].join("\n")
+               "* ///https://www.instagram.com/silvia.draws/"].join("\n")
     @output = ["<h3>This Week in Spaceflight History</h3>",
                "<ul><li>October 17, 1956: Birth of Mae Jemison (<a href=\"https://en.wikipedia.org/wiki/Mae_Jemison\">en.wikipedia.org</a>)</li></ul>",
                "<h3>Spaceflight News</h3>",

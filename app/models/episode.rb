@@ -71,24 +71,24 @@ class Episode < ApplicationRecord
     unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
   end
 
-  END_URL_REGEX =  /(?<esc>\/\/\/)?                                   # set optional escapement named group
-                    (?<opar>\([[:blank:]]*)?                          # look for leading open parens and padding spaces
-                    (?<ht>HT.*:\ )?                                   # set optional hat tip named group. Escaped space BC free spacing
-                    (?<protocol>                                      # set optionaal protocol named group
+  END_URL_REGEX =  /(?<esc>\/\/\/)?                # set optional escapement named group
+                    (?<opar>\([[:blank:]]*)?       # look for leading open parens and padding spaces
+                    (?<ht>HT.*:\ )?                # set optional hat tip named group. Escaped space BC free spacing
+                    (?<protocol>                   # set optionaal protocol named group
                       (?:(http|https)\:\/\/)?
                       (?:www\.)?)
-                    (?<domain>                                        # set domain named group
-                      (?:[\w-]+)                                      # starts with a word group
-                      (?:\.[\w-]+)+)                                  # following groups are separated by dots
-                    (?<path>                                          # set path named group
-                      [\w.,@?^=%&;:\/~+#\(\)-]*                       # lots of characters allowed here, including parens
-                    (?(<opar>)                                        # if-then statement to handle close paren
-                      [\w@?^=%&;\/~+#*?\)-]                           # if opar, match the final path character then...
-                      (?=[[:blank:]]*\))                              # ... lookahead for those optional spaces and a close paren.
-                      |[\w@?^=%&;\/~+#?\h*?\)-]))?                    # if no opar, just match the last path character
-                    (?<cpar>                                          # set optional close paren named group
-                      (?(<opar>)[[:blank:]]*\)?))                     # actually match that cparen.
-                   $/ix                                               # match end of the line, be case insensitive, and allow free spacing
+                    (?<domain>                     # set domain named group
+                      (?:[\w-]+)                   # starts with a word group
+                      (?:\.[\w-]+)+)               # following groups are separated by dots
+                    (?<path>                       # set path named group
+                      [\w.,@?^=%&;:\/~+#\(\)-]*    # lots of characters allowed here, including parens
+                    (?(<opar>)                     # if-then statement to handle close paren
+                      [\w@?^=%&;\/~+#*?\)-]        # if opar, match the final path character then...
+                      (?=[[:blank:]]*\))           # ... lookahead for those optional spaces and a close paren.
+                      |[\w@?^=%&;\/~+#?\h*?\)-]))? # if no opar, just match the last path character
+                    (?<cpar>                       # set optional close paren named group
+                      (?(<opar>)[[:blank:]]*\)?))  # actually match that cparen.
+                   $/ix                            # match end of the line, be case insensitive, and allow free spacing
 
   def self.convert_markup_to_HTML(markup)
     lines = markup.split(/\n/)
@@ -120,7 +120,7 @@ class Episode < ApplicationRecord
           construction = "<a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
         end
         # Finish building HTML. Handle hat tips
-        if end_url[:ht]
+        if end_url[:ht] # TODO: in markup_to_html, instead of adding parens while deciding on HTs, is it better to add parens in construction and insert the HT after?
           construction.prepend " (#{end_url[:ht]}"
         else
           construction.prepend " ("
@@ -131,11 +131,14 @@ class Episode < ApplicationRecord
       line = line.concat(*end_urls).lstrip unless end_urls.empty? # If the line contained a URL and nothing else, it'll still have a leading space.
       
       # SET SECTION HEADERS
-      headers_regex = [Settings.markup.header_symbol, Settings.markup.header_symbol]
       for header in Settings.markup.headers.each do
         # TODO in markup settings, check if *** wildcard works anywhere other than the end of a line.
         # TODO in convert_markup_to_html, add functionality to handle settings.header_symbol
-        if line.strip =~ Regexp.new(header[0].to_s.gsub(/\*\*\*/, '([[:ascii:]]*)'), true) # allow wildcards and case insensitivity
+        if line.strip =~ Regexp.new("^[[:blank:]]*" + Settings.markup.header_symbol + "[[:blank:]]*(?<header>.*)$")
+          correct_header = $~[1].strip
+          line = "<h3>#{correct_header}</h3>"
+          break
+        elsif line.strip =~ Regexp.new( header[0].to_s.gsub(/\*\*\*/, '([[:ascii:]]*)'), true) # allow wildcards and case insensitivity
           correct_header = header[1] || header[0]
           correct_header = correct_header.to_s
           wildcard_content = $~[1] || ''
