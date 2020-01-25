@@ -113,6 +113,30 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @output, Episode.convert_markup_to_HTML(@string)
   end
 
+  # test "convert_markup_to_html can do everything all at once." do
+  #   @string = ["This week in SF history",
+  #              "* October 17, 1956: Birth of Mae Jemison https://en.wikipedia.org/wiki/Mae_Jemison",
+  #              "Spaceflight News",
+  #              "* Battery replacement EVAs https://www.americaspace.com/2019/10/07/spacewalkers-begin-three-week-eva-marathon-to-replace-space-station-batteries/",
+  #              "    * Commercial crew update https://arstechnica.com/science/2019/10/spacex-targeting-abort-test-late-this-year-crew-flight-soon-after/ https://spacenews.com/nasa-and-spacex-agree-commercial-crew-development-is-the-highest-priority/",
+  #              "** Eric Berger says *full panic has ensued* (https://twitter.com/SciGuySpace/status/1181572161917607948)",
+  #              "** Dragon done in 10 weeks? HT someone on Twitter: https://twitter.com/elonmusk/status/1181579173388673025",
+  #              "Short & Sweet",
+  #              "* Virgin Orbit announces potential Martian cubesat missions. https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution?bxid=5d892338fc942d4788847f4d&amp;cndid=&amp;esrc=",
+  #              "* Stratolaunch is now under new ownership. https://spacenews.com/stratolaunch-gets-mystery-new-owner/",
+  #              "* The Jason-2 mission has ended, but its satellite will remain. https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries"].join("\n")
+  #   @output = ["This week in SF history",
+  #              "* October 17, 1956: Birth of Mae Jemison https://en.wikipedia.org/wiki/Mae_Jemison",
+  #              "Spaceflight News",
+  #              "* Battery replacement EVAs https://www.americaspace.com/2019/10/07/spacewalkers-begin-three-week-eva-marathon-to-replace-space-station-batteries/",
+  #              "* Commercial crew update https://arstechnica.com/science/2019/10/spacex-targeting-abort-test-late-this-year-crew-flight-soon-after/ https://spacenews.com/nasa-and-spacex-agree-commercial-crew-development-is-the-highest-priority/",
+  #              "** Eric Berger says "full panic has ensued" https://twitter.com/SciGuySpace/status/1181572161917607948",
+  #              "** Dragon done in 10 weeks? https://twitter.com/elonmusk/status/1181579173388673025\">twitter.com/elonmusk",
+  #              "Short & Sweet",
+  #              "* Virgin Orbit announces potential Martian cubesat missions. https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution?bxid=5d892338fc942d4788847f4d&amp;cndid=&amp;esrc=",
+  #              "* Stratolaunch is now under new ownership. https://spacenews.com/stratolaunch-gets-mystery-new-owner/",
+  #              "* The Jason-2 mission has ended, but its satellite will remain. https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries"].join("\n")
+  #   assert_equal @output, Episode.convert_markup_to_HTML(@string)
   # end
 
   # test "convert_markup_to_html format escapement for HTML" do
