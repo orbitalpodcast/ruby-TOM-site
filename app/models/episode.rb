@@ -39,6 +39,7 @@ class Episode < ApplicationRecord
   end
 # Validations before publishing an episode
   with_options if: -> { not self.draft? } do |e|
+    # pass
   end
 
 
@@ -69,6 +70,18 @@ class Episode < ApplicationRecord
   def self.slugify(unslug)
   # Drop all non-alphanumeric characters, and change spaces to hyphens
     unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
+  end
+  def next_episode()
+    Episode.find_by number: self.number+1
+  end
+  def previous_episode()
+    Episode.find_by number: self.number-1
+  end
+  def notes_as_html()
+    Episode.convert_markup_to_HTML(self.notes)
+  end
+  def full_title()
+    "Episode #{self.number}: #{self.title}"
   end
 
   END_URL_REGEX =  /(?<esc>\/\/\/)?                # set optional escapement named group
@@ -177,14 +190,6 @@ class Episode < ApplicationRecord
       output << line + "\n"
     end
     output.join.rstrip!
-  end
-
-  def notes_as_html()
-    Episode.convert_markup_to_HTML(self.notes)
-  end
-
-  def full_title()
-    "Episode #{self.number}: #{self.title}"
   end
 
 end
