@@ -15,5 +15,7 @@ module Blog
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    config.twitter = config_for(:twitter) # load config/twitter.yml and store it in this namespace
   end
 end

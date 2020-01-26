@@ -131,6 +131,8 @@ class EpisodesController < ApplicationController
       # Called on successful updates. Picks up where handle_submit_button leaves off.
       unless @episode.draft?
         logger.debug ">>>>>>> I would have published the episode"
+        logger.debug ">>>>>>> #{@episode.description} #{episode_url(@episode)}"
+        # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
       end
     end
 
