@@ -38,7 +38,7 @@
 
 <% if @logged_in and Episode.draft_waiting? %>
   <% Episode.where(draft: true).each do |episode| %>
-      <h2><%= link_to "Episode #{episode.number}: #{episode.title}", episode_path(episode) %></h2>
+      <h2><%= link_to episode.full_title, episode_path(episode) %></h2>
       <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) %>
       <%= episode.description %>
     </p>
