@@ -24,7 +24,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version
 
     @episodes.each do |episode|
       xml.item do
-        xml.title "Episode #{episode.number}: #{episode.title}"
+        xml.title episode.full_title
         # xml.enclosure :url => episode.audio_file, :length => episode.audio_file.length, :type => 'audio/mp3'
         xml.guid episode_url(episode) # TODO: implement RSS GUID override for episodes still on the Squarespace feed at publish time. Include isPermaLink="false" when overriding
         xml.pubDate episode.publish_date.to_s(:rfc822)

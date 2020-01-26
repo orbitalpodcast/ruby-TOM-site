@@ -1,15 +1,15 @@
-<% if logged_in? and @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p> <% end %>
+<%= link_to 'Previous Episode', @episode.previous_episode if @episode.previous_episode %><%= ' | ' if @episode.next_episode and @episode.previous_episode %><%= link_to 'Next Episode', @episode.next_episode if @episode.next_episode %>
+
+<h2><% if logged_in? and @episode.draft? %> DRAFT <% end %></h2>
+<h2><%= @episode.full_title %></h2>
+<p><i><%= @episode.publish_date %></i></p>
+<p><strong><%= @episode.description %></strong></p>
+<br>
 
 <p>
   <strong>Has audio attached:</strong>
   <%= @episode.audio.attached? %>
 </p>
-
-<h2><%= @episode.full_title %></h2>
-<p><i><%= @episode.publish_date %></i></p>
-<p><strong><%= @episode.description %></strong></p>
-
-<br>
 
 <p><%=raw @episode.notes_as_html %></p>
 
