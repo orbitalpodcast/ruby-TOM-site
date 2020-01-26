@@ -99,20 +99,20 @@ class Episode < ApplicationRecord
       # FORMAT END URLS
       end_urls = []
       while end_url = line.match(END_URL_REGEX) do
-        url_protocol = end_url[:protocol].presence || "http://"
-        url_match = url_protocol + end_url[:domain] + end_url[:path]
+        url_path = end_url[:path].presence || '' # Path needs to be optional here and when referenced later.
+        url_match = ( end_url[:protocol].presence || "http://" ) + end_url[:domain] + url_path # Protocol needs to be optional!
         # Build HTML for end URLs. Handle special cases where formatting should be slightly different.
         if end_url[:esc]
           # ESCAPED FULL URLS
           construction = "<a href=\"#{url_match}\">#{url_match}</a>)"
         elsif end_url[:domain].match? /^(twitter\.com)|(instagram\.com)/i
           # USERNAMES AFTER DOMAIN
-          construction = "<a href=\"#{url_match}\">#{end_url[:domain]}#{end_url[:path][/^\/[^\/]+/i]}</a>)"
+          construction = "<a href=\"#{url_match}\">#{end_url[:domain]}#{url_path[/^\/[^\/]+/i]}</a>)"
         elsif end_url[:domain].match? /reddit\.com/i
           # USERNAMES AFTER DOMAIN WITH IDENTIFIER
           # TODO: generalize convert_markup_to_HTML to include all usernames after domain, but with things in the middle, like /r/ and /u/ 
-          construction = "<a href=\"#{url_match}\">#{end_url[:path].match(/\/r\/[^\/]+/i)}</a>)"
-        elsif end_url[:path].match? /\.pdf\/?$/i
+          construction = "<a href=\"#{url_match}\">#{url_path.match(/\/r\/[^\/]+/i)}</a>)"
+        elsif url_path.match? /\.pdf\/?$/i
           # PDF
           construction = "PDF: <a href=\"#{url_match}\">#{end_url[:domain]}</a>)"
         else
@@ -165,6 +165,7 @@ class Episode < ApplicationRecord
       
       # SET BOLD AND ITALLICS
       # This is specifically done after setting bullets, so that we get rid of pesky leading asterisks
+      # TODO: markup: fix nested issue in ep 233
       if line =~ /\*\*.*\*\*/
         line.gsub! /\*\*.*\*\*/, "<strong>#{$~[0][2..-3]}</strong>" # Here, $~ actually pulls the match from the =~ above. Can we DRY the regex?
       end
