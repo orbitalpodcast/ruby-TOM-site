@@ -6,7 +6,17 @@ episode_list = [
     slug: 'clock-kerfuffle',
     publish_date: '2019-12-24',
     description: 'Space software engineer and friend of the show Emory Stagmer joins us to discuss CST-100 Starliner\'s recent failure to rendezvous with ISS',
-    notes: "<p class=\"\">Spaceflight news</p><p class=\"\">— Starliner OFT (<a href=\"https://www.nasaspaceflight.com/2019/12/starliner-mission-shortening-failure-successful-launch/\">nasaspaceflight.com</a>) (<a href=\"http://www.collectspace.com/news/news-122219a-boeing-starliner-oft-landing.html\">collectspace.com</a>)</p><p class=\"\">    — IR video (<a href=\"https://twitter.com/NASA/status/1208735543657320448\">twitter.com/NASA</a>)</p><p class=\"\">    — Re-entry video from the ground (<a href=\"https://twitter.com/MrTutskey/status/1208184010377170944\">twitter.com/MrTutskey</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Omega has a payload. (<a href=\"https://www.spaceflightinsider.com/organizations/northrop-grumman/first-fight-of-omega-rocket-to-carry-ssn-payload/\">spaceflightinsider.com</a>)</p><p class=\"\">— ULA selected to launch next GOES mission. (<a href=\"https://www.satellitetoday.com/government-military/2019/12/19/nasa-selects-ula-for-goes-t-mission/\">satellitetoday.com</a>)</p><p class=\"\">— SpaceX announces yet another Starlink launch. (<a href=\"https://www.teslarati.com/spacex-starlink-internet-satellite-constellation-expands/\">teslarati.com</a>)</p><p class=\"\">This week in SF history</p><p class=\"\">— December 23, 1968. Apollo 8 enters Lunar SOI (<a href=\"https://en.wikipedia.org/wiki/Apollo_8\">wikipedia.org</a>)</p><p class=\"\">— Two weeks ahead in 2015: running out of juice</p>"},
+    notes: "Spaceflight news
+          * Starliner OFT https://www.nasaspaceflight.com/2019/12/starliner-mission-shortening-failure-successful-launch/ http://www.collectspace.com/news/news-122219a-boeing-starliner-oft-landing.html
+          ** IR video https://twitter.com/NASA/status/1208735543657320448
+          ** Re-entry video from the ground https://twitter.com/MrTutskey/status/1208184010377170944
+          Short & Sweet
+          * Omega has a payload. https://www.spaceflightinsider.com/organizations/northrop-grumman/first-fight-of-omega-rocket-to-carry-ssn-payload/
+          * ULA selected to launch next GOES mission. https://www.satellitetoday.com/government-military/2019/12/19/nasa-selects-ula-for-goes-t-mission/
+          * SpaceX announces yet another Starlink launch. https://www.teslarati.com/spacex-starlink-internet-satellite-constellation-expands/
+          This week in SF history
+          * December 23, 1968. Apollo 8 enters Lunar SOI https://en.wikipedia.org/wiki/Apollo_8
+          * Two weeks ahead in 2015: running out of juice"},
     {draft: false,
     newsletter_status: 'not sent',
     number: 240,
@@ -14,15 +24,42 @@ episode_list = [
     slug: 'nightingale',
     publish_date: '2019-12-17',
     description: 'OSIRIS-Rex has set its sights on a crater called Nightingale, and will be headed down to grab some rocks from the surface of Asteroid Bennu in a year.',
-    notes: "<p class=\"\">Spaceflight news</p><p class=\"\">— Rocket Lab inaugurates LC 2 at Wallops. (<a href=\"https://spacenews.com/rocket-lab-inaugurates-u-s-launch-site/\">spacenews.com</a>)</p><p class=\"\">    — Reuse footage from Running Out of Fingers (<a href=\"https://youtu.be/QK9mQdar5_w?t=1144\">youtu.be</a>)</p><p class=\"\">— OSIRIS-Rex landing site selected (<a href=\"https://spacenews.com/nasa-selects-osiris-rex-asteroid-sampling-site/\">spacenews.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— A new European rocket gets funding. (<a href=\"http://www.parabolicarc.com/2019/12/13/isar-aerospace-closes-17-million-series-a-for-new-launch-vehicle/#more-71645\">parabolicarc.com</a>)</p><p class=\"\">— SLS core stage is complete (<a href=\"https://spacenews.com/sls-core-stage-declared-ready-for-launch-in-2021/\">spacenews.com</a>)</p><p class=\"\">— Vector files for chapter 11. (<a href=\"https://spacenews.com/vector-files-for-chapter-11-bankruptcy/\">spacenews.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Art in aerospace?</p><p class=\"\">This week in SF history</p><p class=\"\">— 18 December 1973: Launch of the Orion 2 space telescope onboard Soyuz 13 (<a href=\"https://en.wikipedia.org/wiki/Soyuz_13\">wikipedia.org</a>) (<a href=\"https://en.wikipedia.org/wiki/Orion_(space_telescope)\">wikipedia.org</a>)</p>"},
+    notes: "Spaceflight news
+            * Rocket Lab inaugurates LC 2 at Wallops. https://spacenews.com/rocket-lab-inaugurates-u-s-launch-site/
+            ** Reuse footage from Running Out of Fingers https://youtu.be/QK9mQdar5_w?t=1144
+            * OSIRIS-Rex landing site selected https://spacenews.com/nasa-selects-osiris-rex-asteroid-sampling-site/
+            Short & Sweet
+            * A new European rocket gets funding. http://www.parabolicarc.com/2019/12/13/isar-aerospace-closes-17-million-series-a-for-new-launch-vehicle/#more-71645
+            * SLS core stage is complete https://spacenews.com/sls-core-stage-declared-ready-for-launch-in-2021/
+            * Vector files for chapter 11. https://spacenews.com/vector-files-for-chapter-11-bankruptcy/
+            Questions, comments, corrections
+            * Art in aerospace?
+            This week in SF history
+            * 18 December 1973: Launch of the Orion 2 space telescope onboard Soyuz 13 https://en.wikipedia.org/wiki/Soyuz_13 https://en.wikipedia.org/wiki/Orion_(space_telescope)"},
     {draft: false,
     newsletter_status: 'not sent',
     number: 239,
     title: 'DOWNLINK--Kyla Edison',
     slug: 'kyla-edison',
     publish_date: '2019-12-11',
-    description: "Kyla Edison is a geologist working for PISCES, and she\'s sintering basalt into structural tiles for applications on Earth and off-world ISRU.",
-    notes: "Sorry about the links not working! Squarespace knows about the issue, but still hasn’t fixed it. Visit theorbitalmechanics.com/show-notes/kyla-edison for links and photos! </p><p class=\"\">Spaceflight news</p><p class=\"\">— First results from Parker Solar Probe! (nasa.gov) (nature.com)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Running Out of Fingers successfully tests key elements of rocket reuse (techcrunch.com)</p><p class=\"\">— Huntsville gets a new solid rocket motor maker (rocket.com)</p><p class=\"\">Interview</p><p class=\"\">— Kyla Edison</p><p class=\"\">— Geology and Material Science Technician for PISCES Hawaii</p><p class=\"\">— (linkedin.com)</p><p class=\"\">— (pacificspacecenter.com)</p><p class=\"\">— (instagram.com/geolo_geek)</p><p class=\"\">This week in SF history</p><p class=\"\">— December 15, 1984: Launch of Vega 1 (wikipedia.org)</p><p class=\"\">— Balloon aerobot package (nssdc.gsfc.nasa.gov)</p><p class=\"\">— Structures and data article (articles.adsabs.harvard.edu)</p><p class=\"\">— Next week in 1973 - What’s the point of a space telescope with a lifetime of less than a week?</p>"},
+    description: "Kyla Edison is a geologist working for PISCES, and she's sintering basalt into structural tiles for applications on Earth and off-world ISRU.",
+    notes: "Sorry about the links not working! Squarespace knows about the issue, but still hasn’t fixed it. Visit theorbitalmechanics.com/show-notes/kyla-edison for links and photos! 
+            Spaceflight news
+            * First results from Parker Solar Probe! (nasa.gov) (nature.com)
+            Short & Sweet
+            * Running Out of Fingers successfully tests key elements of rocket reuse (techcrunch.com)
+            * Huntsville gets a new solid rocket motor maker (rocket.com)
+            Interview
+            * Kyla Edison
+            * Geology and Material Science Technician for PISCES Hawaii
+            * (linkedin.com)
+            * (pacificspacecenter.com)
+            * (instagram.com/geolo_geek)
+            This week in SF history
+            * December 15, 1984: Launch of Vega 1 (wikipedia.org)
+            * Balloon aerobot package (nssdc.gsfc.nasa.gov)
+            * Structures and data article (articles.adsabs.harvard.edu)
+            * Next week in 1973 - What’s the point of a space telescope with a lifetime of less than a week?"},
     {draft: false,
     newsletter_status: 'not sent',
     number: 238,
@@ -30,7 +67,21 @@ episode_list = [
     slug: 'moon-prep',
     publish_date: '2019-12-04',
     description: "SLS and Orion are making progress towards Artemis!",
-    notes: "<p class=\"\">Sorry there are no links in this episode! Squarespace has broken that feature. Please visit theorbitalmechanics.com/show-notes/moon-prep for links and photos.</p><p class=\"\"></p><p class=\"\">Spaceflight news</p><p class=\"\">— RS-25 integration</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Orion capsule ships to Ohio for testing</p><p class=\"\">— Australian company 3D prints large rocket</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Tempe meetup!</p><p class=\"\">    — 5 pm Sunday, December 8th</p><p class=\"\">    — tempe.laboccapizzeria.com</p><p class=\"\">    — S. Mill Ave, Tempe, AZ 85281</p><p class=\"\">This week in SF history</p><p class=\"\">— December 4, 1945, Birth of Roberta Bondar</p><p class=\"\">Next week in 1984: What’s the point of a weather balloon with a sample rate of 75 seconds?</p>"},
+    notes: "Sorry there are no links in this episode! Squarespace has broken that feature. Please visit theorbitalmechanics.com/show-notes/moon-prep for links and photos.
+
+            Spaceflight news
+            * RS-25 integration
+            Short & Sweet
+            * Orion capsule ships to Ohio for testing
+            * Australian company 3D prints large rocket
+            Questions, comments, corrections
+            * Tempe meetup!
+            ** 5 pm Sunday, December 8th
+            ** tempe.laboccapizzeria.com
+            ** S. Mill Ave, Tempe, AZ 85281
+            This week in SF history
+            * December 4, 1945, Birth of Roberta Bondar
+            * Next week in 1984: What’s the point of a weather balloon with a sample rate of 75 seconds?"},
     {draft: false,
     newsletter_status: 'not sent',
     number: 237,
@@ -38,7 +89,22 @@ episode_list = [
     slug: 'elena-zorzoli-rossi',
     publish_date: '2019-11-27',
     description: "We met Elena at IAC 2019. She\'s the lead experimental engineer at ThrustMe, and has been testing their new solid fuel electric propulsion engine!",
-    notes: "<p class=\"\">Spaceflight news</p><p class=\"\">— Starship overpressure explosion (<a href=\"https://spacenews.com/spacex-starship-suffers-testing-setback/\">spacenews.com</a>)</p><p class=\"\">    — Rumors on 4Chan, via Reddit and NSF forum (<a href=\"https://www.reddit.com/r/SpaceXLounge/comments/e055ej/i_can_partially_end_the_speculation_about_why/\">reddit.com/r/SpaceXLounge</a>)(<a href=\"https://forum.nasaspaceflight.com/index.php?topic=49114.1540\">forum.nasaspaceflight.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Some insights into failed lunar landings have come out. (<a href=\"https://spacenews.com/new-details-emerge-about-failed-lunar-landings/\">spacenews.com</a>)</p><p class=\"\">— Starliner rolls out. (<a href=\"https://www.americaspace.com/2019/11/22/starliner-joins-rocket-for-dec-launch-on-uncrewed-orbital-flight-test/\">americaspace.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Congrats to our Soonish giveaway winners!</p><p class=\"\">Interview</p><p class=\"\">— After the interview, Spacety reported a successful firing of I2T5! (<a href=\"https://spacenews.com/spacety-thrustme-cold-gas-test/\">spacenews.com</a>)</p><p class=\"\">— Elena Zorzoli Rossi, lead experimental engineer, ThrustMe</p><p class=\"\">    — <a href=\"https://www.thrustme.fr/\">Thrustme.fr</a></p><p class=\"\">    — <a href=\"https://www.linkedin.com/company/thrustme.fr\">linkedin.com</a></p><p class=\"\">This week in SF history</p><p class=\"\">— November 28, 1964: Launch of Mariner 4 (<a href=\"https://en.wikipedia.org/wiki/Mariner_4\">wikipedia.org</a>) (<a href=\"https://www.jpl.nasa.gov/missions/mariner-4/\">nasa.gov</a>)</p><p class=\"\">— Next week in 1945: You were discussing critical space stuff with your pals the other dayyyyyyyy</p>"},
+    notes: "Spaceflight news
+            * Starship overpressure explosion https://spacenews.com/spacex-starship-suffers-testing-setback/
+            ** Rumors on 4Chan, via Reddit and NSF forum https://www.reddit.com/r/SpaceXLounge/comments/e055ej/i_can_partially_end_the_speculation_about_why/
+            Short & Sweet
+            * Some insights into failed lunar landings have come out. https://spacenews.com/new-details-emerge-about-failed-lunar-landings/
+            * Starliner rolls out. https://www.americaspace.com/2019/11/22/starliner-joins-rocket-for-dec-launch-on-uncrewed-orbital-flight-test/
+            Questions, comments, corrections
+            * Congrats to our Soonish giveaway winners!
+            Interview
+            * After the interview, Spacety reported a successful firing of I2T5! https://spacenews.com/spacety-thrustme-cold-gas-test/
+            * Elena Zorzoli Rossi, lead experimental engineer, ThrustMe
+            ** https://www.thrustme.fr/
+            ** https://www.linkedin.com/company/thrustme.fr
+            This week in SF history
+            * November 28, 1964: Launch of Mariner 4 https://en.wikipedia.org/wiki/Mariner_4 https://www.jpl.nasa.gov/missions/mariner-4/
+            * Next week in 1945: You were discussing critical space stuff with your pals the other dayyyyyyyy"},
     {draft: false,
     newsletter_status: 'not sent',
     number: 236,
@@ -46,7 +112,27 @@ episode_list = [
     slug: 'pannel-jettison',
     publish_date: '2019-12-17',
     description: "This week we saw the beginning of a long series of EVAs to repair the Alpha Magnetic Spectrometer, which was not intended to be repaired on orbit.",
-    notes: "<p class=\"\">Spaceflight news</p><p class=\"\">— Spacewalk to repair AMS (<a href=\"https://spacenews.com/nasa-prepares-for-complex-series-of-spacewalks-to-repair-ams/\">spacenews.com</a>) (<a href=\"https://www.youtube.com/watch?v=37b2Z6J0zKc\">youtube.com</a>)</p><p class=\"\">    — AMS overview (<a href=\"https://www.nasa.gov/mission_pages/station/research/news/ams_how_it_works.html\">nasa.gov</a>)</p><p class=\"\">    — Footage from the EVA</p><p class=\"\">        — The cover is detached from the restraint clip (<a href=\"https://youtu.be/evaBhht5uGA?t=13548\">youtu.be</a>)</p><p class=\"\">        — Jettisoning the cover (<a href=\"https://youtu.be/evaBhht5uGA?t=13604\">youtu.be</a>)</p><p class=\"\">        — Chris Cassidy shows off a zip tie cutter/capture device (<a href=\"https://youtu.be/evaBhht5uGA?t=17581\">youtu.be</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Hayabusa2 departs Ryugu (<a href=\"https://www.japantimes.co.jp/news/2019/11/13/national/science-health/japans-hayabusa2-leaves-asteroid\">japantimes.co.jp</a>)</p><p class=\"\">— SpaceX completes Crew Dragon Static Fire tests (<a href=\"https://spacenews.com/spacex-tests-crew-dragon-abort-thrusters/\">spacenews.com</a>)</p><p class=\"\">— Launcher gets funding from the Air Force. (<a href=\"https://spacenews.com/launcher-af-pitch-award/\">spacenews.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Win a book!</p><p class=\"\">    — Zach and Kelly Weinersmith wrote Soonish: Ten Emerging Technologies That\'ll Improve and/or Ruin Everything.</p><p class=\"\">    — We have signed copies to give away! In honor of the alternate first words featured on the new TV show For All Mankind, tweet at us with what your first words on Mars would be.</p><p class=\"\">    — Random winners selected from Twitter and email.</p><p class=\"\">— Episode 2 is missing!</p><p class=\"\">    — Do you have a copy of episode-2.mp3 lying around? Squarespace ate our copy!</p><p class=\"\">This week in SF history</p><p class=\"\">— November 19, 1956 Birth of Eileen Collins (<a href=\"https://en.wikipedia.org/wiki/Eileen_Collins\">wikipedia.org</a>)</p><p class=\"\">— Next week in 1964: The cold, dead 1%</p>"},
+    notes: "Spaceflight news
+            * Spacewalk to repair AMS https://spacenews.com/nasa-prepares-for-complex-series-of-spacewalks-to-repair-ams/ https://www.youtube.com/watch?v=37b2Z6J0zKc
+            ** AMS overview https://www.nasa.gov/mission_pages/station/research/news/ams_how_it_works.html
+            ** Footage from the EVA
+            *** The cover is detached from the restraint clip https://youtu.be/evaBhht5uGA?t=13548
+            *** Jettisoning the cover https://youtu.be/evaBhht5uGA?t=13604
+            *** Chris Cassidy shows off a zip tie cutter/capture device https://youtu.be/evaBhht5uGA?t=17581
+            Short & Sweet
+            * Hayabusa2 departs Ryugu https://www.japantimes.co.jp/news/2019/11/13/national/science-health/japans-hayabusa2-leaves-asteroid
+            * SpaceX completes Crew Dragon Static Fire tests https://spacenews.com/spacex-tests-crew-dragon-abort-thrusters/
+            * Launcher gets funding from the Air Force. https://spacenews.com/launcher-af-pitch-award/
+            Questions, comments, corrections
+            * Win a book!
+            ** Zach and Kelly Weinersmith wrote Soonish: Ten Emerging Technologies That'll Improve and/or Ruin Everything.
+            ** We have signed copies to give away! In honor of the alternate first words featured on the new TV show For All Mankind, tweet at us with what your first words on Mars would be.
+            ** Random winners selected from Twitter and email.
+            * Episode 2 is missing!
+            ** Do you have a copy of episode-2.mp3 lying around? Squarespace ate our copy!
+            This week in SF history
+            * November 19, 1956 Birth of Eileen Collins https://en.wikipedia.org/wiki/Eileen_Collins
+            * Next week in 1964: The cold, dead 1%"},
     {draft: false,
     newsletter_status: 'not sent',
     number: 235,
@@ -54,7 +140,21 @@ episode_list = [
     slug: 'andrew-rader',
     publish_date: '2019-11-12',
     description: "Andrew Rader is a mission manager at SpaceX, a game designer, a podcaster, and the author of many books, including his newest: Beyond the Known.",
-    notes: "<p class=\"\">Spaceflight news</p><p class=\"\">— Starliner pad abort test complete (<a href=\"https://spacenews.com/boeing-performs-starliner-pad-abort-test/\">spacenews.com</a>) (<a href=\"https://spaceflightnow.com/2019/11/07/boeing-identifies-cause-of-chute-malfunction-continues-preps-for-first-starliner-launch/\">spaceflightnow.com</a>)</p><p class=\"\">    — Chute failure caused by misplaced pin (<a href=\"https://www.americaspace.com/2019/11/09/boeing-discloses-cause-of-starliner-parachute-anomaly/\">americaspace.com</a>) (<a href=\"https://spacenews.com/missing-pin-blamed-for-boeing-pad-abort-parachute-anomaly/\">spacenews.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— SpaceX’s Mark 3 parachutes are almost ready to go! (<a href=\"https://spacenews.com/spacex-trumpets-progress-on-commercial-crew-parachute-testing/\">spacenews.com</a>)</p><p class=\"\">— China tests gridfins (<a href=\"https://spacenews.com/china-tests-grid-fins-with-launch-of-gaofen-7-imaging-satellite/\">spacenews.com</a>)</p><p class=\"\">— The ISS may see reduced crew for 6 and a half months. (<a href=\"https://spacenews.com/astronaut-preparing-for-iss-mission-with-reduced-crew/\">spacenews.com</a>)</p><p class=\"\">Interview: Andrew Rader, author, Beyond the Known</p><p class=\"\">— <a href=\"https://andrew-rader.com/\">andrew-rader.com</a></p><p class=\"\">— <a href=\"https://twitter.com/marsrader\">twitter.com/marsrader</a></p><p class=\"\">— (<a href=\"https://www.amazon.com/Beyond-Known-Exploration-Created-Modern/dp/1982123532\">amazon.com</a>)</p><p class=\"\">This week in SF history</p><p class=\"\">— 15 November 1974 Launch of AMSAT-OSCAR 7 (<a href=\"https://en.wikipedia.org/wiki/AMSAT-OSCAR_7\">wikipedia.org</a>) (<a href=\"https://hackaday.com/2019/08/02/retrotechtacular-the-oscar-7-satellite-died-and-was-reborn-20-years-later/\">hackaday.com</a>)</p><p class=\"\">    — List of all OSCAR satellites (<a href=\"https://en.wikipedia.org/wiki/AMSAT#Satellites_previously_launched_by_AMSAT\">wikipedia.org</a>)</p><p class=\"\">— Next week in 1965: How about some nice lemon, gin and bob cut?</p>"},
+    notes: "Spaceflight news
+            * Starliner pad abort test complete https://spacenews.com/boeing-performs-starliner-pad-abort-test/ https://spaceflightnow.com/2019/11/07/boeing-identifies-cause-of-chute-malfunction-continues-preps-for-first-starliner-launch/
+            ** Chute failure caused by misplaced pin https://www.americaspace.com/2019/11/09/boeing-discloses-cause-of-starliner-parachute-anomaly/ https://spacenews.com/missing-pin-blamed-for-boeing-pad-abort-parachute-anomaly/
+            Short & Sweet
+            * SpaceX’s Mark 3 parachutes are almost ready to go! https://spacenews.com/spacex-trumpets-progress-on-commercial-crew-parachute-testing/
+            * China tests gridfins https://spacenews.com/china-tests-grid-fins-with-launch-of-gaofen-7-imaging-satellite/
+            * The ISS may see reduced crew for 6 and a half months. https://spacenews.com/astronaut-preparing-for-iss-mission-with-reduced-crew/
+            Interview: Andrew Rader, author, Beyond the Known
+            * https://andrew-rader.com
+            * https://twitter.com/marsrader
+            * https://www.amazon.com/Beyond-Known-Exploration-Created-Modern/dp/1982123532
+            This week in SF history
+            * 15 November 1974 Launch of AMSAT-OSCAR 7 https://en.wikipedia.org/wiki/AMSAT-OSCAR_7 https://hackaday.com/2019/08/02/retrotechtacular-the-oscar-7-satellite-died-and-was-reborn-20-years-later/
+            ** List of all OSCAR satellites https://en.wikipedia.org/wiki/AMSAT#Satellites_previously_launched_by_AMSAT
+            * Next week in 1965: How about some nice lemon, gin and bob cut?"},
     {draft: false,
     newsletter_status: 'not sent',
     number: 234,
@@ -62,14 +162,25 @@ episode_list = [
     slug: 'irregular-nomenclature',
     publish_date: '2019-11-05',
     description: "Mitsubishi Heavy Industries\' H3 rocket will be a lunar powerhouse; we talk about newly released information about the rocket and JAXA\'s moon plans.",
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 29 October 1998: Launch of STS-95 (<a href=\"https://en.wikipedia.org/wiki/STS-95\">wikipedia.org</a>) (PDF: <a href=\"https://www.nasa.gov/home/hqnews/presskit/1998/sts-95.pdf\">nasa.gov</a>)</p><p class=\"\">— Next week in 1974: Solidarity</p><p class=\"\">Spaceflight news</p><p class=\"\">— Upgraded H3 rocket for lunar missions (<a href=\"https://spacenews.com/mitsubishi-heavy-industries-mulls-upgraded-h3-rocket-variants-for-lunar-missions/\">spacenews.com</a>)</p><p class=\"\">    — H-IIA had a proposed asymmetric configuration as well as liquid boosters (HT Sam in the chat: <a href=\"http://www.b14643.de/Spacerockets_1/Japan/H-IIA_Heavy/Description/Frame.htm\">b14643.de</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Chang’e-5 to launch late next year (<a href=\"https://spacenews.com/china-targets-late-2020-for-lunar-sample-return-mission/\">spacenews.com</a>)</p><p class=\"\">— The X-37 sets another record. (<a href=\"https://spacenews.com/air-force-x-37b-secret-spaceplane-lands-after-780-days-in-orbit/\">spacenews.com</a>)</p><p class=\"\">— NASA gives funding to look into extended mission to Pluto (<a href=\"https://www.americaspace.com/2019/10/30/nasa-green-lights-study-for-orbital-mission-to-pluto/\">americaspace.com</a>)</p><p class=\"\">— Another plot twist for the mole on Mars. (<a href=\"https://spacenews.com/insight-heat-flow-probe-suffers-setback/\">spacenews.com</a>)</p>"},
+    notes: "This week in SF history
+            * 29 October 1998: Launch of STS-95 https://en.wikipedia.org/wiki/STS-95 https://www.nasa.gov/home/hqnews/presskit/1998/sts-95.pdf
+            * Next week in 1974: Solidarity
+            Spaceflight news
+            * Upgraded H3 rocket for lunar missions https://spacenews.com/mitsubishi-heavy-industries-mulls-upgraded-h3-rocket-variants-for-lunar-missions/
+            ** H-IIA had a proposed asymmetric configuration as well as liquid boosters (HT Sam in the chat: http://www.b14643.de/Spacerockets_1/Japan/H-IIA_Heavy/Description/Frame.htm)
+            Short & Sweet
+            * Chang’e-5 to launch late next year https://spacenews.com/china-targets-late-2020-for-lunar-sample-return-mission/
+            * The X-37 sets another record. https://spacenews.com/air-force-x-37b-secret-spaceplane-lands-after-780-days-in-orbit/
+            * NASA gives funding to look into extended mission to Pluto https://www.americaspace.com/2019/10/30/nasa-green-lights-study-for-orbital-mission-to-pluto/
+            * Another plot twist for the mole on Mars. https://spacenews.com/insight-heat-flow-probe-suffers-setback/"},
     {draft: false,
     newsletter_status: 'not sent',
     title: 'IAC DC, 2019',
     publish_date: '2019-10-29',
     number: 233,
     slug: 'iac-dc-2019',
-    notes: "<p class=\"\">Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.</p><p class=\"\">This show is brought to you by just over one hundred <strong>supporters on Patreon    </strong> (and direct monthly supporters using Bitcoin and Paypal!) <strong>We couldn’t have done this without you </strong>, and we are so thankful for your confidence in our ability to bring you educational and entertaining content.</p>",
+    notes: "Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.
+This show is brought to you by just over one hundred **supporters on Patreon** (and direct monthly supporters using Bitcoin and Paypal!) **We couldn’t have done this without you**, and we are so thankful for your confidence in our ability to bring you educational and entertaining content.",
     description: "This show is brought to you by just over one hundred supporters on Patreon. We couldn’t have done this without you, and we are so thankful for your confidence in our ability to bring you educational and entertaining content."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -77,7 +188,17 @@ episode_list = [
     number: 232,
     title: 'Full Panic Ensued',
     slug: 'full-panic-ensued',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— October 17, 1956: Birth of Mae Jemison (<a href=\"https://en.wikipedia.org/wiki/Mae_Jemison\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Battery replacement EVAs (<a href=\"https://www.americaspace.com/2019/10/07/spacewalkers-begin-three-week-eva-marathon-to-replace-space-station-batteries/\">americaspace.com</a>)</p><p class=\"\">— Commercial crew update (<a href=\"https://arstechnica.com/science/2019/10/spacex-targeting-abort-test-late-this-year-crew-flight-soon-after/\">arstechnica.com</a>) (<a href=\"https://spacenews.com/nasa-and-spacex-agree-commercial-crew-development-is-the-highest-priority/\">spacenews.com</a>)</p><p class=\"\">    — Eric Berger says \"full panic has ensued\" (<a href=\"https://twitter.com/SciGuySpace/status/1181572161917607948\">twitter.com/SciGuySpace</a>)</p><p class=\"\">    — Dragon done in 10 weeks? (<a href=\"https://twitter.com/elonmusk/status/1181579173388673025\">twitter.com/elonmusk</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Virgin Orbit announces potential Martian cubesat missions. (<a href=\"https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution?bxid=5d892338fc942d4788847f4d&amp;cndid=&amp;esrc=\">theverge.com</a>)</p><p class=\"\">— Stratolaunch is now under new ownership. (<a href=\"https://spacenews.com/stratolaunch-gets-mystery-new-owner/\">spacenews.com</a>)</p><p class=\"\">— The Jason-2 mission has ended, but its satellite will remain. (<a href=\"https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries/\">spacenews.com</a>)</p>",
+    notes: "This week in SF history
+            * October 17, 1956: Birth of Mae Jemison https://en.wikipedia.org/wiki/Mae_Jemison
+            Spaceflight news
+            * Battery replacement EVAs https://www.americaspace.com/2019/10/07/spacewalkers-begin-three-week-eva-marathon-to-replace-space-station-batteries/
+            * Commercial crew update https://arstechnica.com/science/2019/10/spacex-targeting-abort-test-late-this-year-crew-flight-soon-after/ https://spacenews.com/nasa-and-spacex-agree-commercial-crew-development-is-the-highest-priority/
+            ** Eric Berger says *full panic has ensued* https://twitter.com/SciGuySpace/status/1181572161917607948
+            ** Dragon done in 10 weeks? https://twitter.com/elonmusk/status/1181579173388673025
+            Short & Sweet
+            * Virgin Orbit announces potential Martian cubesat missions. https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution?bxid=5d892338fc942d4788847f4d&amp;cndid=&amp;esrc=
+            * Stratolaunch is now under new ownership. https://spacenews.com/stratolaunch-gets-mystery-new-owner/
+            * The Jason-2 mission has ended, but its satellite will remain. https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries/",
     description: "Commercial Crew has fallen behind, but SpaceX is rushing to get Crew Dragon out the door."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -85,15 +206,46 @@ episode_list = [
     number: 231 ,
     title: 'Fewer gyros, more problems',
     slug: 'fewer-gyros-more-problems',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 2000 October 9: HETE-2, first orbital launch from Kwajalein (<a href=\"https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer\">wikipedia.org</a>)</p><p class=\"\">— Next week in 1956: listen in for an audio clue.</p><p class=\"\">Spaceflight news</p><p class=\"\">— Plans in place to fix DSCOVR (<a href=\"https://spacenews.com/software-fix-planned-to-restore-dscovr/\">spacenews.com</a>)</p><p class=\"\">    — We first reported on this on <a href=\"https://docs.google.com/document/d/1RAydcXcHFi7QiPkSLhdxuc-ILNNSTZwJGbsqpnabcdg/edit\">Ep 218</a> as a S&amp;S (<a href=\"https://spacenews.com/dscovr-spacecraft-in-safe-mode/\">spacenews.com</a>)</p><p class=\"\">    — Faulty gyro? (<a href=\"https://twitter.com/simoncarn/status/1175823150984126464\">twitter.com/simoncarn</a>)</p><p class=\"\">        — Triana engineers considered laser gyro failures (PDF: <a href=\"https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf\">nasa.gov</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— NASA Mars 2020 tests descent stage separation (<a href=\"https://www.jpl.nasa.gov/news/news.php?feature=7513\">jpl.nasa.gov</a>)</p><p class=\"\">— NASA issues request for information on xEMU. (<a href=\"https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/\">nasaspaceflight.com</a>)</p><p class=\"\">— New Shepard will likely not fly humans in 2019. (<a href=\"https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/\">spacenews.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— <a href=\"https://twitter.com/search?q=%23tomiac2019&amp;f=live\">#TOMIAC2019</a></p><p class=\"\">    — Sunday: Off Nominal meetups (<a href=\"https://events.offnominal.space/\">events.offnominal.space</a>)</p><p class=\"\">    — Monday: museum day</p><p class=\"\">        — Udvar-Hazy and downtown Air and Space Museum</p><p class=\"\">    — Thursday: Dinner meetup</p><p class=\"\">        — <a href=\"https://www.mcgintyspublichouse.com/\">mcgintyspublichouse.com</a></p><p class=\"\">        — 911 Ellsworth Dr, Silver Spring, MD 20910</p><p class=\"\">    — Friday: IAC no-ticket open day</p>",
-    description: "DSCOVR\'s safehold seems to be connected to a gryo, but there\'s a fix coming down the line."},
+    notes: "This week in SF history
+            * 2000 October 9: HETE-2, first orbital launch from Kwajalein https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer
+            * Next week in 1956: listen in for an audio clue.
+            Spaceflight news
+            * Plans in place to fix DSCOVR https://spacenews.com/software-fix-planned-to-restore-dscovr/
+            ** We first reported on this on https://docs.google.com/document/d/1RAydcXcHFi7QiPkSLhdxuc-ILNNSTZwJGbsqpnabcdg/edit Ep 218 as a S&S https://spacenews.com/dscovr-spacecraft-in-safe-mode/
+            ** Faulty gyro? https://twitter.com/simoncarn/status/1175823150984126464
+            *** Triana engineers considered laser gyro failures https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf
+            Short & Sweet
+            * NASA Mars 2020 tests descent stage separation https://www.jpl.nasa.gov/news/news.php?feature=7513
+            * NASA issues request for information on xEMU. https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/
+            * New Shepard will likely not fly humans in 2019. https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/
+            Questions, comments, corrections
+            * https://twitter.com/search?q=%23tomiac2019&amp;f=live
+            ** Sunday: Off Nominal meetups https://events.offnominal.space/
+            ** Monday: museum day
+            *** Udvar-Hazy and downtown Air and Space Museum
+            ** Thursday: Dinner meetup
+            *** https://www.mcgintyspublichouse.com/
+            *** 911 Ellsworth Dr, Silver Spring, MD 20910
+            ** Friday: IAC no-ticket open day",
+    description: "DSCOVR's safehold seems to be connected to a gryo, but there's a fix coming down the line."},
     {draft: false,
     newsletter_status: 'not sent',
     publish_date: '2019-10-01',
     number: 230,
     title: 'Starship InSight',
     slug: 'starship-insight',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— October 1, 1958: NASA begins operations (<a href=\"https://en.wikipedia.org/wiki/NASA#Creation\">wikipedia.org</a>) (<a href=\"https://www.archives.gov/global-pages/larger-image.html?i=/historical-docs/doc-content/images/natl-aero-space-act-1958-l.jpg&amp;c=/historical-docs/doc-content/images/natl-aero-space-act-1958.caption.html\">archives.gov</a>)</p><p class=\"\">— Next week in 2000: Sometimes a good explosion is exactly what you need</p><p class=\"\">Spaceflight news</p><p class=\"\">— InSight scientists presents three new discoveries (<a href=\"https://www.americaspace.com/2019/09/27/nasas-insight-lander-on-mars-discovers-odd-magnetic-pulses-and-water/\">americaspace.com</a>) (<a href=\"https://meetingorganizer.copernicus.org/EPSC-DPS2019/EPSC-DPS2019-336-2.pdf\">copernicus.org</a>)</p><p class=\"\">    — Images show scoop packing down regolith around mole? (<a href=\"https://twitter.com/InSightImageBot/status/1178208165613244417\">twitter.com</a>)</p><p class=\"\">— Starship update (<a href=\"https://spacenews.com/spacex-to-update-starship-progress/\">spacenews.com</a>) (<a href=\"https://www.youtube.com/watch?v=cIQ36Kt7UVg\">youtube.com</a>) (<a href=\"https://spaceflightnow.com/2019/09/30/photos-spacexs-first-full-size-starship-prototype/\">spaceflightnow.com</a>)</p><p class=\"\">    — Our interview with Tess Caswell on CDRA (<a href=\"https://theorbitalmechanics.com/show-notes/tess-caswell\">theorbitalmechanics.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— NASA awards a long-term contract to Lockheed Martin. (<a href=\"https://spacenews.com/nasa-awards-long-term-orion-production-contract-to-lockheed-martin/\">spacenews.com</a>)</p><p class=\"\">— Korea Pathfinder Lunar Orbiter delayed to 2022 (<a href=\"https://spaceflightnow.com/2019/09/20/launch-of-south-korean-lunar-orbiter-delayed-to-2022/\">spaceflightnow.com</a>)</p><p class=\"\">— NEO mission confirmed (<a href=\"https://spacenews.com/nasa-to-develop-mission-to-search-for-near-earth-asteroids/\">spacenews.com</a>)</p>",
+    notes: "This week in SF history
+            * October 1, 1958: NASA begins operations https://en.wikipedia.org/wiki/NASA#Creation https://www.archives.gov/global-pages/larger-image.html?i=/historical-docs/doc-content/images/natl-aero-space-act-1958-l.jpg&amp;c=/historical-docs/doc-content/images/natl-aero-space-act-1958.caption.html
+            * Next week in 2000: Sometimes a good explosion is exactly what you need
+            Spaceflight news
+            * InSight scientists presents three new discoveries https://www.americaspace.com/2019/09/27/nasas-insight-lander-on-mars-discovers-odd-magnetic-pulses-and-water/ https://meetingorganizer.copernicus.org/EPSC-DPS2019/EPSC-DPS2019-336-2.pdf
+            ** Images show scoop packing down regolith around mole? https://twitter.com/InSightImageBot/status/1178208165613244417
+            * Starship update https://spacenews.com/spacex-to-update-starship-progress/ https://www.youtube.com/watch?v=cIQ36Kt7UVg https://spaceflightnow.com/2019/09/30/photos-spacexs-first-full-size-starship-prototype/
+            ** Our interview with Tess Caswell on CDRA https://theorbitalmechanics.com/show-notes/tess-caswell
+            Short & Sweet
+            * NASA awards a long-term contract to Lockheed Martin. https://spacenews.com/nasa-awards-long-term-orion-production-contract-to-lockheed-martin/
+            * Korea Pathfinder Lunar Orbiter delayed to 2022 https://spaceflightnow.com/2019/09/20/launch-of-south-korean-lunar-orbiter-delayed-to-2022/
+            * NEO mission confirmed https://spacenews.com/nasa-to-develop-mission-to-search-for-near-earth-asteroids/",
     description: "Starship, headed to Mars one day, got shown off to the public. Insight, already on Mars, learned some interesting things about the magnetosphere."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -101,7 +253,19 @@ episode_list = [
     number: 229,
     title: 'Somewhat Rectilinear',
     slug: 'somewhat-rectilinear',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— September 27 2003: last flight of Ariane 5 G, launching E-Bird</p><p class=\"\">    — First A5 flight, 1996, failed spectacularly (<a href=\"https://youtu.be/PK_yguLapgA?t=60\">youtu.be</a>) (<a href=\"https://en.wikipedia.org/wiki/Cluster_(spacecraft)\">wikipedia.org</a>) (<a href=\"https://hownot2code.com/2016/09/02/a-space-error-370-million-for-an-integer-overflow/\">hownot2code.com</a>)</p><p class=\"\">    — Next week in 1958: Twelve pages</p><p class=\"\">Spaceflight news</p><p class=\"\">— NASA planning on placing a cubesat in a Lunar near-rectilinear halo orbit (<a href=\"https://spacenews.com/nasa-cubesat-to-test-lunar-gateway-orbit/\">spacenews.com</a>) (<a href=\"https://www.youtube.com/watch?v=X5O77OV9_ek\">youtube.com</a>)</p><p class=\"\">    — Meanwhile some Congressfolk are suggesting killing Lunar Gateway altogether (<a href=\"https://arstechnica.com/science/2019/09/some-nasa-contractors-appear-to-be-trying-to-kill-the-lunar-gateway/\">arstechnica.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Updates on Rocket Lab and Blue Origin launch complexes (<a href=\"https://www.rocketlabusa.com/news/updates/rocket-lab-readies-launch-complex-2-for-electron-launches-from-u-s-soil/\">rocketlabusa.com</a>) (<a href=\"https://www.nasaspaceflight.com/2019/09/blue-origin-work-new-glenn-launch-facilities/\">nasaspaceflight.com</a>)</p><p class=\"\">— SpaceX is offering a buyout. (<a href=\"https://www.space.com/spacex-starship-boca-chica-property-buyouts.html\">space.com</a>)</p><p class=\"\">— Japan seeks to double its launch capacity. (<a href=\"https://rocketrundown.com/japan-plans-to-double-orbital-launch-capacity-by-2020/\">rocketrundown.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Off-Nominal DC (aka “inside the beltway”) meetup (<a href=\"https://events.offnominal.space/\">events.offnominal.space</a>)</p>",
+    notes: "This week in SF history
+            * September 27 2003: last flight of Ariane 5 G, launching E-Bird
+            ** First A5 flight, 1996, failed spectacularly https://youtu.be/PK_yguLapgA?t=60 https://en.wikipedia.org/wiki/Cluster_(spacecraft) https://hownot2code.com/2016/09/02/a-space-error-370-million-for-an-integer-overflow/
+            ** Next week in 1958: Twelve pages
+            Spaceflight news
+            * NASA planning on placing a cubesat in a Lunar near-rectilinear halo orbit https://spacenews.com/nasa-cubesat-to-test-lunar-gateway-orbit/ https://www.youtube.com/watch?v=X5O77OV9_ek
+            ** Meanwhile some Congressfolk are suggesting killing Lunar Gateway altogether https://arstechnica.com/science/2019/09/some-nasa-contractors-appear-to-be-trying-to-kill-the-lunar-gateway/
+            Short & Sweet
+            * Updates on Rocket Lab and Blue Origin launch complexes https://www.rocketlabusa.com/news/updates/rocket-lab-readies-launch-complex-2-for-electron-launches-from-u-s-soil/ https://www.nasaspaceflight.com/2019/09/blue-origin-work-new-glenn-launch-facilities/
+            * SpaceX is offering a buyout. https://www.space.com/spacex-starship-boca-chica-property-buyouts.html
+            * Japan seeks to double its launch capacity. https://rocketrundown.com/japan-plans-to-double-orbital-launch-capacity-by-2020/
+            Questions, comments, corrections
+            * Off-Nominal DC (aka “inside the beltway”) meetup https://events.offnominal.space/",
     description: "NASA wants to put a cubesat in a near-rectilinear halo orbit. Also, lots of updates on private space launch facilities."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -109,23 +273,55 @@ episode_list = [
     number: 228,
     title: 'Fired Up',
     slug: 'fired-up',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 21 September 1968: Landing of zond 5 (<a href=\"https://en.wikipedia.org/wiki/Zond_5\">wikipedia.org</a>) (<a href=\"http://www.russianspaceweb.com/zond5.html\">russianspaceweb.com</a>)</p><p class=\"\">— Next week in 2003: generic no longer</p><p class=\"\">Spaceflight news</p><p class=\"\">— H-IIB launch pad fire (<a href=\"https://www.youtube.com/watch?v=tI5u0x7toTU\">youtube.com</a>) (<a href=\"https://spacenews.com/launch-pad-fire-scrubs-japanese-iss-launch/\">spacenews.com</a>) (HT Sam in the chat: <a href=\"https://twitter.com/mageshiman1025/status/1171535119905017856\">twitter.com/mageshiman1025</a>)</p><p class=\"\">— NASA conducts ground test of the B330. (<a href=\"https://www.space.com/bigelow-aerospace-space-habitat-nasa-test.html\">space.com</a>)</p><p class=\"\">    — Tour of B330 (Mars Transporter Testing Unit) and Olympus B2100 (<a href=\"https://www.youtube.com/watch?v=BXLk4wWilpA\">youtube.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Tianhe passes final review, though delays are still likely (<a href=\"https://spacenews.com/chinese-space-station-core-module-passes-review-but-faces-delays/\">spacenews.com</a>)</p><p class=\"\">— NASA’s LRO to take images of the Vikram Lander (<a href=\"https://spaceflightnow.com/2019/09/12/nasa-lunar-orbiter-to-image-chandrayaan-2-landing-site-next-week/\">spaceflightnow.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— GOES-13 correction from Kevin Smith (<a href=\"https://skyriddles.wordpress.com/2019/09/10/goes-13-gets-drafted/\">skyriddles.wordpress.com</a>) (<a href=\"https://spacenews.com/noaa-continues-weather-satellite-discussions-with-the-air-force/\">spacenews.com</a>)</p>",
-    description: "H-IIB had a literal fire lit under its butt, and more info about Bigelow\'s expandable space stations."},
+    notes: "This week in SF history
+            * 21 September 1968: Landing of zond 5 https://en.wikipedia.org/wiki/Zond_5 http://www.russianspaceweb.com/zond5.html
+            * Next week in 2003: generic no longer
+            Spaceflight news
+            * H-IIB launch pad fire https://www.youtube.com/watch?v=tI5u0x7toTU https://spacenews.com/launch-pad-fire-scrubs-japanese-iss-launch/ HT Sam in the chat: https://twitter.com/mageshiman1025/status/1171535119905017856
+            * NASA conducts ground test of the B330. https://www.space.com/bigelow-aerospace-space-habitat-nasa-test.html
+            ** Tour of B330 (Mars Transporter Testing Unit) and Olympus B2100 https://www.youtube.com/watch?v=BXLk4wWilpA
+            Short & Sweet
+            * Tianhe passes final review, though delays are still likely https://spacenews.com/chinese-space-station-core-module-passes-review-but-faces-delays/
+            * NASA’s LRO to take images of the Vikram Lander https://spaceflightnow.com/2019/09/12/nasa-lunar-orbiter-to-image-chandrayaan-2-landing-site-next-week/
+            Questions, comments, corrections
+            * GOES-13 correction from Kevin Smith https://skyriddles.wordpress.com/2019/09/10/goes-13-gets-drafted/ https://spacenews.com/noaa-continues-weather-satellite-discussions-with-the-air-force/",
+    description: "H-IIB had a literal fire lit under its butt, and more info about Bigelow's expandable space stations."},
     {draft: false,
     newsletter_status: 'not sent',
     publish_date: '2019-09-10',
     number: 227,
     title: "Successful Orbiter",
     slug: 'successful-orbiter',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 12 September 1959: Launch of Luna 2 (<a href=\"https://en.wikipedia.org/wiki/Luna_2\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Chandrayaan-2’s successful orbiter mission? (<a href=\"https://www.space.com/india-loses-contact-with-vikram-moon-lander-chandrayaan-2.html\">space.com</a>) (<a href=\"https://www.reddit.com/r/spaceflight/comments/d0fx3d/chandrayaan_2_vikram_lander_will_be_attempting/\">reddit.com</a>)</p><p class=\"\">    — Doppler curves (<a href=\"https://twitter.com/cgbassa/status/1170069055140765700\">twitter.com/cgbassa</a>)</p><p class=\"\">    — Lander crash site located (<a href=\"https://www.thehindu.com/news/national/chandrayaan-2-vikram-lander-located-on-lunar-surface-isro-chairman/article29367136.ece\">thehindu.com</a>) (<a href=\"https://www.ndtv.com/india-news/efforts-to-make-contact-with-chandrayaan-2-lander-will-go-on-for-14-days-isro-chief-k-sivan-2097325\">ndtv.com</a>)</p><p class=\"\">    — Aeolus dodges a Starlink. (<a href=\"https://www.space.com/spacex-starlink-esa-satellite-collision-avoidance.html\">space.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Target marker operation and dress rehearsal postponed for Hayabusa2 (<a href=\"http://www.hayabusa2.jaxa.jp/en/topics/20190903e_TM/\">hayabusa2.jaxa.jp</a>)</p><p class=\"\">— WFIRST passes PDR (<a href=\"https://spacenews.com/wfirst-telescope-passes-preliminary-design-review/\">spacenews.com</a>)</p>",
-    description: "Chandrayaan-2\'s lander made it to the surface a little sooner than planned. Also, more Hayabusa2 news and WFIRST inches towards reality."},
+    notes: "This week in SF history
+            * 12 September 1959: Launch of Luna 2 https://en.wikipedia.org/wiki/Luna_2
+            Spaceflight news
+            * Chandrayaan-2’s successful orbiter mission? https://www.space.com/india-loses-contact-with-vikram-moon-lander-chandrayaan-2.html https://www.reddit.com/r/spaceflight/comments/d0fx3d/chandrayaan_2_vikram_lander_will_be_attempting/
+            ** Doppler curves https://twitter.com/cgbassa/status/1170069055140765700
+            ** Lander crash site located https://www.thehindu.com/news/national/chandrayaan-2-vikram-lander-located-on-lunar-surface-isro-chairman/article29367136.ece https://www.ndtv.com/india-news/efforts-to-make-contact-with-chandrayaan-2-lander-will-go-on-for-14-days-isro-chief-k-sivan-2097325
+            ** Aeolus dodges a Starlink. https://www.space.com/spacex-starlink-esa-satellite-collision-avoidance.html
+            Short & Sweet
+            * Target marker operation and dress rehearsal postponed for Hayabusa2 http://www.hayabusa2.jaxa.jp/en/topics/20190903e_TM/
+            * WFIRST passes PDR https://spacenews.com/wfirst-telescope-passes-preliminary-design-review/",
+    description: "Chandrayaan-2's lander made it to the surface a little sooner than planned. Also, more Hayabusa2 news and WFIRST inches towards reality."},
     {draft: false,
     newsletter_status: 'not sent',
     publish_date: '2019-09-03',
     number: 226,
     title: 'Duricrust',
     slug: 'duricrust',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 7 September 1914: Birth of James Van Allen (<a href=\"https://en.wikipedia.org/wiki/James_Van_Allen\">wikipedia.org</a>)</p><p class=\"\">— Next week in 1962: cloud-based navigation</p><p class=\"\">Spaceflight news</p><p class=\"\">— Starhopper Completes Test Flight (<a href=\"https://spacenews.com/spacexs-starhopper-completes-test-flight/\">spacenews.com</a>)</p><p class=\"\">    — Scott Manley’s excellent coverage (<a href=\"https://www.youtube.com/watch?v=T29ybqjv8-U\">youtube.com</a>)</p><p class=\"\">    — More detailed photos (<a href=\"https://twitter.com/bocachicagal/status/1151851534533242880\">twitter.com/bocachicagal</a>)</p><p class=\"\">    — Updates from Elon Musk (<a href=\"https://twitter.com/elonmusk/status/1166860032052539392\">twitter.com/elonmusk</a>)</p><p class=\"\">— InSight mole update (<a href=\"https://spacenews.com/insight-mission-seeking-new-ways-to-fix-heat-flow-probe/\">spacenews.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— The completed Rosalind Franklin rover displayed by Airbus engineers! (<a href=\"https://www.bbc.com/news/science-environment-49469225\">bbc.com</a>)</p><p class=\"\">— Mars 2020 helicopter integrated into the rover (<a href=\"https://www.bbc.com/news/science-environment-49512101\">bbc.com</a>)</p><p class=\"\">— JWST has now been physically assembled (<a href=\"https://www.nasa.gov/feature/goddard/2019/nasa-s-james-webb-space-telescope-has-been-assembled-for-the-first-time\">nasa.gov</a>)</p>",
+    notes: "This week in SF history
+            * 7 September 1914: Birth of James Van Allen https://en.wikipedia.org/wiki/James_Van_Allen
+            * Next week in 1962: cloud-based navigation
+            Spaceflight news
+            * Starhopper Completes Test Flight https://spacenews.com/spacexs-starhopper-completes-test-flight/
+            ** Scott Manley’s excellent coverage https://www.youtube.com/watch?v=T29ybqjv8-U
+            ** More detailed photos https://twitter.com/bocachicagal/status/1151851534533242880
+            ** Updates from Elon Musk https://twitter.com/elonmusk/status/1166860032052539392
+            * InSight mole update https://spacenews.com/insight-mission-seeking-new-ways-to-fix-heat-flow-probe/
+            Short & Sweet
+            * The completed Rosalind Franklin rover displayed by Airbus engineers! https://www.bbc.com/news/science-environment-49469225
+            * Mars 2020 helicopter integrated into the rover https://www.bbc.com/news/science-environment-49512101
+            * JWST has now been physically assembled https://www.nasa.gov/feature/goddard/2019/nasa-s-james-webb-space-telescope-has-been-assembled-for-the-first-time",
     description: "Insight is slowly getting closer to a successful mole deployment, and Starhopper showed off its stuff!"},
     {draft: false,
     newsletter_status: 'not sent',
@@ -133,7 +329,26 @@ episode_list = [
     number: 225,
     title: "DATA RELAY--Hot Structures",
     slug: 'hot-structure',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— August 30, 1931. Birth of Jack Swigert (<a href=\"https://en.wikipedia.org/wiki/Jack_Swigert\">wikipedia.org</a>)</p><p class=\"\">— Next week in 1914: You know what might have killed Swigert….</p><p class=\"\">Spaceflight news</p><p class=\"\">— Uncrewed Soyuz aborts docking. (<a href=\"https://spacenews.com/uncrewed-soyuz-aborts-iss-docking/\">spacenews.com</a>)</p><p class=\"\">    — Second attempt delayed to free up a new docking port. (<a href=\"https://twitter.com/roscosmos/status/1165297078987317248\">twitter.com/roscosmos</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Astrobotic chooses ULA’s Vulcan Centaur rocket to deliver its lunar lander (<a href=\"https://www.astrobotic.com/2019/8/19/astrobotic-selects-united-launch-alliance-vulcan-centaur-rocket-to-launch-its-first-mission-to-the-moon\">astrobotic.com</a>)</p><p class=\"\">— Sierra-Nevada selects ULA. (<a href=\"https://spacenews.com/sierra-nevada-corp-selects-ula-vulcan-for-dream-chaser-missions/\">spacenews.com</a>)</p><p class=\"\">— Europa Clipper passes Key Decision Point-C (<a href=\"https://arstechnica.com/science/2019/08/the-ambitious-europa-clipper-has-cleared-an-important-step-toward-flight/\">arstechnica.com</a>)</p><p class=\"\">Data Relay—Hot Structures</p><p class=\"\">— Thanks to Ben Crews for researching and presenting this topic! (<a href=\"https://www.linkedin.com/in/ben-crews-966778101/\">linkedin.com</a>)</p><p class=\"\">— X-15 Hardware Design Challenges (PDF: <a href=\"https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19910010760.pdf\">nasa.gov</a>)</p><p class=\"\">— NASA solicitation for research on hot structures (<a href=\"https://www.sbir.gov/sbirsearch/detail/1547839\">sbir.gov</a>)</p><p class=\"\">— Multifunctional Hot Structure (HOST) Heat Shield (<a href=\"https://www.techbriefs.com/component/content/article/tb/techbriefs/mechanics-and-machinery/27691\">techbriefs.com</a>)</p><p class=\"\">— Heat Shield Concepts and Materials for Reentry Vehicles (includes some familiar lifting-body vehicle form proposals!) (PDF: <a href=\"https://apps.dtic.mil/dtic/tr/fulltext/u2/439449.pdf\">dtic.mil</a>)</p><p class=\"\">— Advances in Hot Structure Development (Brief with link to PDF: <a href=\"https://ntrs.nasa.gov/search.jsp?R=20060020757\">nasa.gov</a>)</p><p class=\"\">— Thermal-Structural Optimization of Integrated Tanks for RLV (embedded PDF: <a href=\"https://arc.aiaa.org/doi/abs/10.2514/6.2004-1931\">aiaa.org</a>)</p><p class=\"\">— Tim Dodd’s discussion on Starship transpiration cooling (<a href=\"https://www.youtube.com/watch?v=LogE40_wR9k\">youtube.com</a>)</p><p class=\"\">/— u/spacerfirstclass speculates on Spaceship’s use of hot structures. (<a href=\"https://www.reddit.com/r/spacex/comments/a4l6pp/the_new_design_is_metal_could_spacex_be_using/\">reddit.com/r/spacex</a>)</p>",
+    notes: "This week in SF history
+            * August 30, 1931. Birth of Jack Swigert https://en.wikipedia.org/wiki/Jack_Swigert
+            * Next week in 1914: You know what might have killed Swigert….
+            Spaceflight news
+            * Uncrewed Soyuz aborts docking. https://spacenews.com/uncrewed-soyuz-aborts-iss-docking/
+            ** Second attempt delayed to free up a new docking port. https://twitter.com/roscosmos/status/1165297078987317248
+            Short & Sweet
+            * Astrobotic chooses ULA’s Vulcan Centaur rocket to deliver its lunar lander https://www.astrobotic.com/2019/8/19/astrobotic-selects-united-launch-alliance-vulcan-centaur-rocket-to-launch-its-first-mission-to-the-moon
+            * Sierra-Nevada selects ULA. https://spacenews.com/sierra-nevada-corp-selects-ula-vulcan-for-dream-chaser-missions/
+            * Europa Clipper passes Key Decision Point-C https://arstechnica.com/science/2019/08/the-ambitious-europa-clipper-has-cleared-an-important-step-toward-flight/
+            Data Relay -- Hot Structures
+            * Thanks to Ben Crews for researching and presenting this topic! https://www.linkedin.com/in/ben-crews-966778101/
+            * X-15 Hardware Design Challenges https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19910010760.pdf
+            * NASA solicitation for research on hot structures https://www.sbir.gov/sbirsearch/detail/1547839
+            * Multifunctional Hot Structure (HOST) Heat Shield https://www.techbriefs.com/component/content/article/tb/techbriefs/mechanics-and-machinery/27691
+            * Heat Shield Concepts and Materials for Reentry Vehicles (includes some familiar lifting-body vehicle form proposals! https://apps.dtic.mil/dtic/tr/fulltext/u2/439449.pdf
+            * Advances in Hot Structure Development https://ntrs.nasa.gov/search.jsp?R=20060020757
+            * Thermal-Structural Optimization of Integrated Tanks for RLV https://arc.aiaa.org/doi/abs/10.2514/6.2004-1931
+            * Tim Dodd’s discussion on Starship transpiration cooling https://www.youtube.com/watch?v=LogE40_wR9k
+            * /u/spacerfirstclass speculates on Spaceship’s use of hot structures. https://www.reddit.com/r/spacex/comments/a4l6pp/the_new_design_is_metal_could_spacex_be_using/",
     description: "Why have a structure with a heat shield on top, when you could just make a structure that does both jobs?"},
     {draft: false,
     newsletter_status: 'not sent',
@@ -141,7 +356,19 @@ episode_list = [
     number: 224,
     title: 'Downward Vector',
     slug: 'downward-vector',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— August 21, 1959. Little Joe 1 failure (<a href=\"http://www-pao.ksc.nasa.gov/history/mercury/lj-1/lj-1.htm\">pao.ksc.nasa.gov</a>) (<a href=\"https://en.wikipedia.org/wiki/Little_Joe_1\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Linkspace hover test (<a href=\"https://spacenews.com/chinese-linkspace-reaches-300-meters-with-launch-and-landing-test/\">spacenews.com</a>)</p><p class=\"\">— ESA confirms second Exomars parachute test has failed (<a href=\"https://spacenews.com/esa-confirms-second-exomars-parachute-test-failure/\">spacenews.com</a>)</p><p class=\"\">— Vector Launch closes its doors (<a href=\"https://spacenews.com/vector-replaces-ceo-amid-reports-of-financial-problems/\">spacenews.com</a>) (PDF: <a href=\"https://vector-launch.com/wp-content/uploads/2019/08/vector-statement.pdf\">vector-launch.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— OSIRIS-REx mission selects candidate sampling sites (<a href=\"https://www.nasa.gov/press-release/nasa-mission-selects-final-four-site-candidates-for-asteroid-sample-return\">nasa.gov</a>)</p><p class=\"\">— Robonaut returns to Station. (<a href=\"https://spacenews.com/robonaut-to-return-to-iss/\">https://spacenews.com/robonaut-to-return-to-iss/</a>)</p><p class=\"\">— BEAM to stay on ISS (<a href=\"https://spacenews.com/nasa-planning-to-keep-beam-module-on-iss-for-the-long-haul/\">spacenews.com</a>)</p><p class=\"\">— Virgin Galactic updates (<a href=\"http://www.parabolicarc.com/2019/08/14/virgin-galactic-completes-wing-for-third-spaceshiptwo/\">parabolicarc.com</a>) (<a href=\"https://www.engadget.com/2019/08/15/virgin-galactic-spaceport-america-vms-eve/?guccounter=1\">engadget.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Come play an RPG with us! Friday August 30 at 5.30pm PT/8.30pm ET (<a href=\"https://www.patreon.com/posts/rpg-night-28311838\">patreon.com</a>)</p>",
+    notes: "This week in SF history
+            * August 21, 1959. Little Joe 1 failure http://www-pao.ksc.nasa.gov/history/mercury/lj-1/lj-1.htm https://en.wikipedia.org/wiki/Little_Joe_1
+            Spaceflight news
+            * Linkspace hover test https://spacenews.com/chinese-linkspace-reaches-300-meters-with-launch-and-landing-test/
+            * ESA confirms second Exomars parachute test has failed https://spacenews.com/esa-confirms-second-exomars-parachute-test-failure/
+            * Vector Launch closes its doors https://spacenews.com/vector-replaces-ceo-amid-reports-of-financial-problems/ https://vector-launch.com/wp-content/uploads/2019/08/vector-statement.pdf
+            Short & Sweet
+            * OSIRIS-REx mission selects candidate sampling sites https://www.nasa.gov/press-release/nasa-mission-selects-final-four-site-candidates-for-asteroid-sample-return
+            * Robonaut returns to Station. https://spacenews.com/robonaut-to-return-to-iss/
+            * BEAM to stay on ISS https://spacenews.com/nasa-planning-to-keep-beam-module-on-iss-for-the-long-haul/
+            * Virgin Galactic updates http://www.parabolicarc.com/2019/08/14/virgin-galactic-completes-wing-for-third-spaceshiptwo/ https://www.engadget.com/2019/08/15/virgin-galactic-spaceport-america-vms-eve/?guccounter=1
+            Questions, comments, corrections
+            * Come play an RPG with us! Friday August 30 at 5.30pm PT/8.30pm ET https://www.patreon.com/posts/rpg-night-28311838",
     description: "Linkspace successfully hovers, Exomars struggles with parachutes, and Vector Launch closes its doors."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -149,7 +376,17 @@ episode_list = [
     number: 223,
     title: 'DOWNLINK--Ella Atkins',
     slug: 'ella-atkins',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— August 17, 1962: Carl Sagan advocates for sterilizing spacecraft (<a href=\"https://spacemedicineassociation.org/history1962/\">spacemedicineassociation.org</a>) (PDF: <a href=\"https://www.pnas.org/content/pnas/46/4/396.full.pdf\">pnas.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Rocketlab reuse (<a href=\"https://spacenews.com/rocket-lab-to-attempt-to-reuse-electron-first-stage/\">spacenews.com</a>) (<a href=\"https://arstechnica.com/science/2019/08/heres-why-rocket-lab-changed-its-mind-on-reusable-launch/\">arstechnica.com</a>) (<a href=\"https://www.youtube.com/watch?v=ZIaDWCK2Bmk\">youtube.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— First ion thruster use on a 1U cubesat (<a href=\"https://spacenews.com/electric-thrusters-changed-attitude-of-university-wurzburg-cubesat/\">spacenews.com</a>)</p><p class=\"\">Interview-- Ella Atkins</p><p class=\"\">— Thanks to IEEE for arranging this interview! (<a href=\"https://www.ieee.org/\">IEEE.org</a>)</p><p class=\"\">— Dr. Atkins’ profile and CV (<a href=\"https://aero.engin.umich.edu/people/ella-atkins/\">umich.edu</a>)</p><p class=\"\">— (<a href=\"https://robotics.umich.edu/\">robotics.umich.edu</a>)</p><p class=\"\">— (<a href=\"https://www.aiaa.org/\">aiaa.org</a>)</p>",
+    notes: "This week in SF history
+            * August 17, 1962: Carl Sagan advocates for sterilizing spacecraft https://spacemedicineassociation.org/history1962/ https://www.pnas.org/content/pnas/46/4/396.full.pdf
+            Spaceflight news
+            * Rocketlab reuse https://spacenews.com/rocket-lab-to-attempt-to-reuse-electron-first-stage/ https://arstechnica.com/science/2019/08/heres-why-rocket-lab-changed-its-mind-on-reusable-launch/ https://www.youtube.com/watch?v=ZIaDWCK2Bmk
+            Short & Sweet
+            * First ion thruster use on a 1U cubesat https://spacenews.com/electric-thrusters-changed-attitude-of-university-wurzburg-cubesat/
+            Interview-- Ella Atkins
+            * Thanks to IEEE for arranging this interview! https://www.ieee.org/
+            * Dr. Atkins’ profile and CV https://aero.engin.umich.edu/people/ella-atkins/
+            * https://robotics.umich.edu/
+            * https://www.aiaa.org/",
     description: "Ella Atkins is an aerospace engineering professor who has a rich history studying and designing automated systems in space and in the air."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -157,15 +394,31 @@ episode_list = [
     number: 222,
     title: 'Heat Sunk',
     slug: 'heat-sunk',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 9 August 2005: Landing of STS-114 (<a href=\"https://en.wikipedia.org/wiki/STS-114#6_August\">wikipedia.org</a>)(<a href=\"https://www.space.com/1346-nasa-returns-flight-discovery-reaches-orbit.html\">space.com</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Cause of GOES-17 satellite issue identified by NOAA+NASA (<a href=\"https://www.satellitetoday.com/imagery-and-sensing/2019/08/02/nasa-noaa-discover-cause-of-goes-17-issue/\">satellitetoday.com</a>, <a href=\"https://www.nasa.gov/sites/default/files/atoms/files/goes-17_mib_releasable_summary_final.pdf\">nasa.gov</a>)</p><p class=\"\">    — Issue first publicly declared in May 2018 (<a href=\"https://arstechnica.com/science/2018/05/newest-noaa-weather-satellite-suffers-critical-malfunction/\">arstechnica.com</a>)</p><p class=\"\">    — GOES-West live data (<a href=\"https://www.goes.noaa.gov/goes-w.html\">goes.noaa.gov</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Elon Musk to give update on Starship in three weeks (<a href=\"https://arstechnica.com/science/2019/08/elon-musk-will-update-the-status-of-starship-development-on-august-24/\">arstechnica.com</a>)</p><p class=\"\">— OneWeb opens for production in Florida. (<a href=\"https://www.spaceflightinsider.com/missions/commercial/oneweb-and-airbus-open-facility-for-mass-production-of-communication-satellites/\">spaceflightinsider.com</a>)</p><p class=\"\">— EDRS shows off its abilities. (<a href=\"http://www.parabolicarc.com/2019/08/02/european-space-data-relay-system-shows-its-speed/\">parabolicarc.com</a>)</p>",
-    description: "A GOES malfunction has now been explained. We\'re gearing up to hear more about Starship. OneWeb is opening its doors, and EDRS is performing well."},
+    notes: "This week in SF history
+            * 9 August 2005: Landing of STS-114 https://en.wikipedia.org/wiki/STS-114#6_August
+            Spaceflight news
+            * Cause of GOES-17 satellite issue identified by NOAA+NASA https://www.satellitetoday.com/imagery-and-sensing/2019/08/02/nasa-noaa-discover-cause-of-goes-17-issue https://www.nasa.gov/sites/default/files/atoms/files/goes-17_mib_releasable_summary_final.pdf
+            ** Issue first publicly declared in May 2018 https://arstechnica.com/science/2018/05/newest-noaa-weather-satellite-suffers-critical-malfunction/
+            ** GOES-West live data https://www.goes.noaa.gov/goes-w.html
+            Short & Sweet
+            * Elon Musk to give update on Starship in three weeks https://arstechnica.com/science/2019/08/elon-musk-will-update-the-status-of-starship-development-on-august-24/
+            * OneWeb opens for production in Florida. https://www.spaceflightinsider.com/missions/commercial/oneweb-and-airbus-open-facility-for-mass-production-of-communication-satellites/
+            * EDRS shows off its abilities. http://www.parabolicarc.com/2019/08/02/european-space-data-relay-system-shows-its-speed/",
+    description: "A GOES malfunction has now been explained. We're gearing up to hear more about Starship. OneWeb is opening its doors, and EDRS is performing well."},
     {draft: false,
     newsletter_status: 'not sent',
     publish_date: '2019-07-30',
     number: 221,
     title: 'Soul Source',
     slug: 'soul-source',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 30 July 2008, first full firing of a Falcon 9 with all nine engines (<a href=\"https://www.spacex.com/press/2012/12/19-1\">spacex.com</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— NASA issues rare sole source contract to NGIS (<a href=\"https://spacenews.com/nasa-to-sole-source-gateway-habitation-module-to-northrop-grumman/\">spacenews.com</a>, <a href=\"https://www.fbo.gov/index?s=opportunity&amp;mode=form&amp;tab=core&amp;id=36ebf3fc4d57c88b6bd8c94d1806dfb9&amp;_cview=0\">fbo.gov</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Starhopper hopped (<a href=\"https://twitter.com/elonmusk/status/1155415096387969024\">twitter.com/elonmusk</a>) (<a href=\"https://youtu.be/NCMpd7-Cp24?t=282\">youtu.be</a>)</p><p class=\"\">— Blue Origin fires its BE-7 lunar lander engine (<a href=\"https://www.geekwire.com/2019/one-step-moon-blue-origin-fires-7-lander-engine-full-6-minutes/\">geekwire.com</a>)</p><p class=\"\">— Lightsail-2 successfully deploys its sail and sends back imagery (<a href=\"http://www.planetary.org/blogs/jason-davis/ls2-deploys-sail.html\">planetary.org</a>)</p>",
+    notes: "This week in SF history
+            * 30 July 2008, first full firing of a Falcon 9 with all nine engines https://www.spacex.com/press/2012/12/19-1
+            Spaceflight news
+            * NASA issues rare sole source contract to NGIS https://spacenews.com/nasa-to-sole-source-gateway-habitation-module-to-northrop-grumman/ https://www.fbo.gov/index?s=opportunity&amp;mode=form&amp;tab=core&amp;id=36ebf3fc4d57c88b6bd8c94d1806dfb9&amp;_cview=0
+            Short & Sweet
+            * Starhopper hopped https://twitter.com/elonmusk/status/1155415096387969024 https://youtu.be/NCMpd7-Cp24?t=282
+            * Blue Origin fires its BE-7 lunar lander engine https://www.geekwire.com/2019/one-step-moon-blue-origin-fires-7-lander-engine-full-6-minutes/
+            * Lightsail-2 successfully deploys its sail and sends back imagery http://www.planetary.org/blogs/jason-davis/ls2-deploys-sail.html",
     description: "Northrop Grumman got a sole source contract to build a habitat module for the lunar gateway station."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -173,23 +426,58 @@ episode_list = [
     number: 220,
     title: 'DOWNLINK--Ron Burkey',
     slug: 'ron-burkey',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 25 July 1962: Statement of work issued for LEM (<a href=\"https://www.hq.nasa.gov/office/pao/History/SP-4009/v1p3d.htm\">hq.nasa.gov</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Crew Dragon Explosion Conclusion (<a href=\"https://www.spaceflightinsider.com/organizations/space-exploration-technologies/spacex-reveals-cause-of-crew-dragon-explosion/\">spaceflightinsider.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Eight key space observatories renewed (<a href=\"https://www.nasa.gov/feature/nasa-extends-exploration-of-universe-for-eight-astrophysics-missions\">nasa.gov</a>)</p><p class=\"\">— Starhopper static fire (<a href=\"https://www.nasaspaceflight.com/2019/07/spacex-resume-starhopper-tests/\">nasaspaceflight.com</a>)</p><p class=\"\">Interview-- Ron Burkey</p><p class=\"\">— Virtual AGC (<a href=\"http://www.ibiblio.org/apollo/\">ibiblio.org</a>)</p><p class=\"\">— Java port (<a href=\"http://svtsim.com/moonjs/agc.html\">svtsim.com</a>)</p><p class=\"\">— Scanned original documents (<a href=\"https://archive.org/details/virtualagcproject\">archive.org</a>)</p><p class=\"\">— Transcribed code (<a href=\"https://github.com/virtualagc/virtualagc\">github.com</a>)</p>",
-    description: "The Apollo Guidance Computer is famous, but the code it ran likely would have slipped into the fog of history if it wasn\'t for Ron Burkey\'s archives."},
+    notes: "This week in SF history
+            * 25 July 1962: Statement of work issued for LEM https://www.hq.nasa.gov/office/pao/History/SP-4009/v1p3d.htm
+            Spaceflight news
+            * Crew Dragon Explosion Conclusion https://www.spaceflightinsider.com/organizations/space-exploration-technologies/spacex-reveals-cause-of-crew-dragon-explosion/
+            Short & Sweet
+            * Eight key space observatories renewed https://www.nasa.gov/feature/nasa-extends-exploration-of-universe-for-eight-astrophysics-missions
+            * Starhopper static fire https://www.nasaspaceflight.com/2019/07/spacex-resume-starhopper-tests/
+            Interview-- Ron Burkey
+            * Virtual AGC http://www.ibiblio.org/apollo/
+            * Java port http://svtsim.com/moonjs/agc.html
+            * Scanned original documents https://archive.org/details/virtualagcproject
+            * Transcribed code https://github.com/virtualagc/virtualagc",
+    description: "The Apollo Guidance Computer is famous, but the code it ran likely would have slipped into the fog of history if it wasn't for Ron Burkey's archives."},
     {draft: false,
     newsletter_status: 'not sent',
     publish_date: '2019-07-16',
     number: 219,
     title: 'Future Imperfect',
     slug: 'future-imperfect',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 18 July 1980: first successful launch of SLV, lofting Rohini RS-1 to orbit. (<a href=\"https://en.wikipedia.org/wiki/Satellite_Launch_Vehicle\">wikipedia.org</a>)(<a href=\"https://en.wikipedia.org/wiki/Rohini_(satellite)\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Chandrayaan-2 summary (<a href=\"http://www.planetary.org/blogs/guest-blogs/2019/chandrayaan-2-what-to-expect.html\">planetary.org</a>)(<a href=\"https://en.wikipedia.org/wiki/Chandrayaan-2\">wikipedia.org</a>)</p><p class=\"\">— InSight Lander’s heat probe is stuck. (<a href=\"https://www.nasaspaceflight.com/2019/07/rescue-insight-landers-stuck-probe-underway/\">nasaspaceflight.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— First Starhopper test hop coming up (<a href=\"https://spacenews.com/spacex-preparing-for-first-starship-test-flight/\">spacenews.com</a>)</p><p class=\"\">— Firefly partners up to build a lunar lander. (<a href=\"https://spacenews.com/firefly-to-partner-with-iai-on-lunar-lander/\">spacenews.com</a>)</p><p class=\"\">— Tiangong-2 is ready to deorbit. (<a href=\"https://spacenews.com/china-set-to-carry-out-controlled-deorbiting-of-tiangong-2-space-lab/\">spacenews.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— RPG night scheduled! (<a href=\"https://www.patreon.com/posts/rpg-night-28311838\">patreon.com</a>)</p><p class=\"\">    — Friday August 30 at 5.30pm PT/8.30pm ET</p><p class=\"\">    — Same setting, new game! (Risus)</p>",
-    description: "India\'s headed to the Moon, though their launch was delayed after we recorded this episode."},
+    notes: "This week in SF history
+            * 18 July 1980: first successful launch of SLV, lofting Rohini RS-1 to orbit. https://en.wikipedia.org/wiki/Satellite_Launch_Vehicle
+            Spaceflight news
+            * Chandrayaan-2 summary http://www.planetary.org/blogs/guest-blogs/2019/chandrayaan-2-what-to-expect.html
+            * InSight Lander’s heat probe is stuck. https://www.nasaspaceflight.com/2019/07/rescue-insight-landers-stuck-probe-underway/
+            Short & Sweet
+            * First Starhopper test hop coming up https://spacenews.com/spacex-preparing-for-first-starship-test-flight/
+            * Firefly partners up to build a lunar lander. https://spacenews.com/firefly-to-partner-with-iai-on-lunar-lander/
+            * Tiangong-2 is ready to deorbit. https://spacenews.com/china-set-to-carry-out-controlled-deorbiting-of-tiangong-2-space-lab/
+            Questions, comments, corrections
+            * RPG night scheduled! https://www.patreon.com/posts/rpg-night-28311838
+            ** Friday August 30 at 5.30pm PT/8.30pm ET
+            ** Same setting, new game! (Risus)",
+    description: "India's headed to the Moon, though their launch was delayed after we recorded this episode."},
     {draft: false,
     newsletter_status: 'not sent',
     publish_date: '2019-06-10',
     number: 218,
     title: 'Low-flying Starlink',
     slug: 'low-flying-starlink',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 10 July, 1992: Giotto flies past 26P/Grigg-Skjellerup (<a href=\"https://en.wikipedia.org/wiki/Giotto_(spacecraft)\">wikipedia.org</a>)</p><p class=\"\">    — Ten instruments onboard (<a href=\"https://www.nature.com/articles/321313a0\">nature.com</a>)</p><p class=\"\">    — Magnetometer experiment results (<a href=\"http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1993A%26A...268L...5N&amp;amp;data_type=PDF_HIGH&amp;amp;whole_paper=YES&amp;amp;type=PRINTER&amp;amp;filetype=.pdf\">articles.adsabs.harvard.edu</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Orion Abort test is a success (<a href=\"https://spacenews.com/orion-abort-system-passes-in-flight-abort-test/\">spacenews.com</a>)</p><p class=\"\">— Three Starlink satellites goes silent (<a href=\"https://spacenews.com/contact-lost-with-three-starlink-satellites-other-57-healthy/\">spacenews.com</a>)</p><p class=\"\">    — Jeff Bezos files with FCC for Kuiper constellation (<a href=\"https://www.geekwire.com/2019/amazon-asks-fcc-approval-project-kuiper-broadband-satellite-operation/\">geekwire.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— ExoMars 2020 suffers parachute problem (<a href=\"https://spacenews.com/european-mars-lander-suffers-parachute-damage-in-test/\">spacenews.com</a>)</p><p class=\"\">— DSCOVR is in safehold. (<a href=\"https://spacenews.com/dscovr-spacecraft-in-safe-mode/\">spacenews.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Andrew Zdanowicz via email: Dragonfly - why not a helicopter?</p>",
+    notes: "This week in SF history
+            * 10 July, 1992: Giotto flies past 26P/Grigg-Skjellerup https://en.wikipedia.org/wiki/Giotto_(spacecraft)
+            ** Ten instruments onboard https://www.nature.com/articles/321313a0
+            ** Magnetometer experiment results http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1993A%26A...268L...5N&amp;amp;data_type=PDF_HIGH&amp;amp;whole_paper=YES&amp;amp;type=PRINTER&amp;amp;filetype=.pdf
+            Spaceflight news
+            * Orion Abort test is a success https://spacenews.com/orion-abort-system-passes-in-flight-abort-test/
+            * Three Starlink satellites goes silent https://spacenews.com/contact-lost-with-three-starlink-satellites-other-57-healthy/
+            ** Jeff Bezos files with FCC for Kuiper constellation https://www.geekwire.com/2019/amazon-asks-fcc-approval-project-kuiper-broadband-satellite-operation/
+            Short & Sweet
+            * ExoMars 2020 suffers parachute problem https://spacenews.com/european-mars-lander-suffers-parachute-damage-in-test/
+            * DSCOVR is in safehold. https://spacenews.com/dscovr-spacecraft-in-safe-mode/
+            Questions, comments, corrections
+            * Andrew Zdanowicz via email: Dragonfly - why not a helicopter?",
     description: "Orion successfully abort, three Starlinks don\'t wake up, Exomars and DSCOVR get a little crash-y."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -197,7 +485,22 @@ episode_list = [
     number: 217,
     title: 'Ms. Tree Snags the Fly!',
     slug: 'ms-tree-snags-the-fly',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— July 2, 1952: birth of Linda Godwin (<a href=\"https://en.wikipedia.org/wiki/Linda_M._Godwin\">wikipedia.org</a>)</p><p class=\"\">    — STS-37 (<a href=\"https://en.wikipedia.org/wiki/STS-37\">wikipedia.org</a>)</p><p class=\"\">    — STS-59 (<a href=\"https://en.wikipedia.org/wiki/STS-59\">wikipedia.org</a>)</p><p class=\"\">    — STS-76 (<a href=\"https://en.wikipedia.org/wiki/STS-76\">wikipedia.org</a>)</p><p class=\"\">    — STS-108 (<a href=\"https://en.wikipedia.org/wiki/STS-108\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Dragonfly (<a href=\"http://www.planetary.org/blogs/jason-davis/nasa-greenlights-dragonfly.html\">planetary.org</a>) (<a href=\"https://www.americaspace.com/2019/06/27/nasas-dragonfly-mission-will-soar-the-skies-of-titan-in-search-of-lifes-origins/\">americaspace.com</a>) (<a href=\"https://spacenews.com/nasa-selects-titan-drone-for-next-new-frontiers-mission/\">spacenews.com</a>) (<a href=\"http://dragonfly.jhuapl.edu/News-and-Resources/docs/34_03-Lorenz.pdf\">jhuapl.edu</a>)</p><p class=\"\">— Falcon Heavy successfully flies STP-2 mission (<a href=\"https://spacenews.com/spacex-to-demonstrate-falcon-heavy-capabilities-in-difficult-test-flight/\">spacenews.com</a>) (<a href=\"https://www.teslarati.com/spacex-surprise-falcon-heavy-booster-landing-distance-record/\">teslarati.com</a>)</p><p class=\"\">    — Center core TVC failure (<a href=\"https://twitter.com/elonmusk/status/1143690145255841797\">twitter.com/elonmusk</a>)</p><p class=\"\">    — Ms. Tree caught half a fairing (<a href=\"https://twitter.com/Erdayastronaut/status/1143426488307462144\">twitter.com/Erdayastronaut/</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Help name the Mars 2020 rover! (<a href=\"https://www.futureengineers.org/registration/judge/nametherover\">futureengineers.org</a>)</p><p class=\"\">— <a href=\"https://twitter.com/hashtag/Mars2020\">twitter.com/hashtag/Mars2020</a></p><p class=\"\">— Clara Ma’s winning entry for Curiosity (<a href=\"https://www.nasa.gov/mission_pages/msl/essay-20090527.html\">nasa.gov</a>)</p><p class=\"\">— <a href=\"https://twitter.com/call_him_bob\">twitter.com/call_him_bob</a></p>",
+    notes: "This week in SF history
+            * July 2, 1952: birth of Linda Godwin https://en.wikipedia.org/wiki/Linda_M._Godwin
+            ** STS-37 https://en.wikipedia.org/wiki/STS-37
+            ** STS-59 https://en.wikipedia.org/wiki/STS-59
+            ** STS-76 https://en.wikipedia.org/wiki/STS-76
+            ** STS-108 https://en.wikipedia.org/wiki/STS-108
+            Spaceflight news
+            * Dragonfly http://www.planetary.org/blogs/jason-davis/nasa-greenlights-dragonfly.html https://www.americaspace.com/2019/06/27/nasas-dragonfly-mission-will-soar-the-skies-of-titan-in-search-of-lifes-origins/ https://spacenews.com/nasa-selects-titan-drone-for-next-new-frontiers-mission/ http://dragonfly.jhuapl.edu/News-and-Resources/docs/34_03-Lorenz.pdf
+            * Falcon Heavy successfully flies STP-2 mission https://spacenews.com/spacex-to-demonstrate-falcon-heavy-capabilities-in-difficult-test-flight/ https://www.teslarati.com/spacex-surprise-falcon-heavy-booster-landing-distance-record/
+            ** Center core TVC failure https://twitter.com/elonmusk/status/1143690145255841797
+            ** Ms. Tree caught half a fairing https://twitter.com/Erdayastronaut/status/1143426488307462144
+            Questions, comments, corrections
+            * Help name the Mars 2020 rover! https://www.futureengineers.org/registration/judge/nametherover
+            * https://twitter.com/hashtag/Mars2020
+            * Clara Ma’s winning entry for Curiosity https://www.nasa.gov/mission_pages/msl/essay-20090527.html
+            * https://twitter.com/call_him_bob",
     description: "Falcon Heavy had a TVC failure that resulted in the loss of another center core, but they finally caught a fairing. Also, Mars 2020 needs your help!"},
     {draft: false,
     newsletter_status: 'not sent',
@@ -205,7 +508,49 @@ episode_list = [
     number: 216,
     title: 'Look to Windward',
     slug: 'look-to-windward',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 28 June 1969. First flight of Black Arrow (<a href=\"https://en.wikipedia.org/wiki/Black_Arrow\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Upcoming non-Earth science missions</p><p class=\"\">    — 2019</p><p class=\"\">        — Chandrayaan-2 (<a href=\"https://en.wikipedia.org/wiki/Chandrayaan-2\">wikipedia.org</a>)</p><p class=\"\">        — Spektr-RG (<a href=\"https://en.wikipedia.org/wiki/Spektr-RG\">wikipedia.org</a>)</p><p class=\"\">        — CHEOPS (<a href=\"https://en.wikipedia.org/wiki/CHEOPS\">wikipedia.org</a>)</p><p class=\"\">        — Chang’e 5 (<a href=\"https://en.wikipedia.org/wiki/Chang%27e_5\">wikipedia.org</a>)</p><p class=\"\">        — Lunar Scout / MX-1E (<a href=\"https://en.wikipedia.org/wiki/Moon_Express\">wikipedia.org</a>)</p><p class=\"\">    — 2020</p><p class=\"\">        — Solar Orbiter (<a href=\"https://en.wikipedia.org/wiki/Solar_Orbiter\">wikipedia.org</a>)</p><p class=\"\">        — PROBA-3 (<a href=\"https://en.wikipedia.org/wiki/PROBA-3\">wikipedia.org</a>)</p><p class=\"\">        — Aditya-L1 (<a href=\"https://en.wikipedia.org/wiki/Aditya-L1\">wikipedia.org</a>)</p><p class=\"\">        — Exomars (<a href=\"https://en.wikipedia.org/wiki/Rosalind_Franklin_(rover)\">wikipedia.org/Rosalind_Franklin</a>, <a href=\"https://en.wikipedia.org/wiki/Kazachok\">wikipedia.org/Kazachok</a>)</p><p class=\"\">        — Hope Mars Mission (<a href=\"https://en.wikipedia.org/wiki/Hope_Mars_Mission\">wikipedia.org</a>)</p><p class=\"\">        — Mars 2020 (<a href=\"https://en.wikipedia.org/wiki/Mars_2020\">en.wikipedia.org</a>)</p><p class=\"\">        — Korea Pathfinder Lunar Orbiter (<a href=\"https://en.wikipedia.org/wiki/Korea_Pathfinder_Lunar_Orbiter\">wikipedia.org</a>)</p><p class=\"\">    — 2021</p><p class=\"\">        — Astrobotic M1 (<a href=\"https://en.wikipedia.org/wiki/Astrobotic_Technology#Lunar_missions\">wikipedia.org</a>)</p><p class=\"\">        — Luna 25 (<a href=\"https://en.wikipedia.org/wiki/Luna_25\">wikipedia.org</a>)</p><p class=\"\">        — SLIM (<a href=\"https://en.wikipedia.org/wiki/Smart_Lander_for_Investigating_Moon\">wikipedia.org</a>)</p><p class=\"\">        — XRISM (<a href=\"https://en.wikipedia.org/wiki/X-Ray_Imaging_and_Spectroscopy_Mission\">wikipedia.org</a>)</p><p class=\"\">        — IXPE (<a href=\"https://en.wikipedia.org/wiki/Imaging_X-ray_Polarimetry_Explorer\">wikipedia.org</a>)</p><p class=\"\">        — JWST (<a href=\"https://en.wikipedia.org/wiki/James_Webb_Space_Telescope\">wikipedia.org</a>)</p><p class=\"\">        — Double Asteroid Redirection Test (<a href=\"https://en.wikipedia.org/wiki/Double_Asteroid_Redirection_Test\">wikipedia.org</a>)</p><p class=\"\">        — ASTER (<a href=\"https://en.wikipedia.org/wiki/ASTER_(spacecraft)\">wikipedia.org</a>)</p><p class=\"\">        — Lucy (<a href=\"https://en.wikipedia.org/wiki/Lucy_(spacecraft)\">wikipedia.org</a>)</p><p class=\"\">    — 2022</p><p class=\"\">        — PUNCH (<a href=\"https://en.wikipedia.org/wiki/Polarimeter_to_Unify_the_Corona_and_Heliosphere\">wikipedia.org</a>)</p><p class=\"\">        — EUCLID (<a href=\"https://en.wikipedia.org/wiki/Euclid_(spacecraft)\">wikipedia.org</a>)</p><p class=\"\">        — MOM 2 (<a href=\"https://en.wikipedia.org/wiki/Mars_Orbiter_Mission_2\">wikipedia.org</a>)</p><p class=\"\">        — TEREX (<a href=\"https://en.wikipedia.org/wiki/Tera-hertz_Explorer\">wikipedia.org</a>)</p><p class=\"\">        — DESTINY+ (<a href=\"https://en.wikipedia.org/wiki/DESTINY%2B\">wikipedia.org</a>)</p><p class=\"\">        — Psyche (<a href=\"https://en.wikipedia.org/wiki/Psyche_(spacecraft)\">wikipedia.org</a>)</p><p class=\"\">        — JUICE (<a href=\"https://en.wikipedia.org/wiki/Jupiter_Icy_Moons_Explorer\">wikipedia.org</a>)</p><p class=\"\">— Comet Interceptor mission approved (<a href=\"https://spaceflightnow.com/2019/06/21/european-space-mission-to-get-close-up-view-of-new-comet/\">spaceflightnow.com</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— Stratolaunch is up for sale (<a href=\"https://www.cnbc.com/2019/06/14/vulcan-selling-stratolaunch-worlds-largest-airplane-for-400-million.html\">cnbc.com</a>)</p><p class=\"\">— Firefly is offering free rides. (<a href=\"https://spaceflightnow.com/2019/06/18/firefly-offering-free-launch-for-research-and-educational-payloads/\">spaceflightnow.com</a>)</p><p class=\"\">— Worries raised about U.K. spaceport site in Scotland (<a href=\"https://www.bbc.com/news/uk-scotland-highlands-islands-48667772\">bbc.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— <a href=\"https://www.arahanga.space/\">arahanga.space</a></p>",
+    notes: "This week in SF history
+            * 28 June 1969. First flight of Black Arrow https://en.wikipedia.org/wiki/Black_Arrow
+            Spaceflight news
+            * Upcoming non-Earth science missions
+            ** 2019
+            *** Chandrayaan-2 https://en.wikipedia.org/wiki/Chandrayaan-2
+            *** Spektr-RG https://en.wikipedia.org/wiki/Spektr-RG
+            *** CHEOPS https://en.wikipedia.org/wiki/CHEOPS
+            *** Chang’e 5 https://en.wikipedia.org/wiki/Chang%27e_5
+            *** Lunar Scout / MX-1E https://en.wikipedia.org/wiki/Moon_Express
+            ** 2020
+            *** Solar Orbiter https://en.wikipedia.org/wiki/Solar_Orbiter
+            *** PROBA-3 https://en.wikipedia.org/wiki/PROBA-3
+            *** Aditya-L1 https://en.wikipedia.org/wiki/Aditya-L1
+            *** Exomars https://en.wikipedia.org/wiki/Rosalind_Franklin_(rover) https://en.wikipedia.org/wiki/Kazachok
+            *** Hope Mars Mission https://en.wikipedia.org/wiki/Hope_Mars_Mission
+            *** Mars 2020 https://en.wikipedia.org/wiki/Mars_2020
+            *** Korea Pathfinder Lunar Orbiter https://en.wikipedia.org/wiki/Korea_Pathfinder_Lunar_Orbiter
+            ** 2021
+            *** Astrobotic M1 https://en.wikipedia.org/wiki/Astrobotic_Technology#Lunar_missions
+            *** Luna 25 https://en.wikipedia.org/wiki/Luna_25
+            *** SLIM https://en.wikipedia.org/wiki/Smart_Lander_for_Investigating_Moon
+            *** XRISM https://en.wikipedia.org/wiki/X-Ray_Imaging_and_Spectroscopy_Mission
+            *** IXPE https://en.wikipedia.org/wiki/Imaging_X-ray_Polarimetry_Explorer
+            *** JWST https://en.wikipedia.org/wiki/James_Webb_Space_Telescope
+            *** Double Asteroid Redirection Test https://en.wikipedia.org/wiki/Double_Asteroid_Redirection_Test
+            *** ASTER https://en.wikipedia.org/wiki/ASTER_(spacecraft)
+            *** Lucy https://en.wikipedia.org/wiki/Lucy_(spacecraft)
+            ** 2022
+            *** PUNCH https://en.wikipedia.org/wiki/Polarimeter_to_Unify_the_Corona_and_Heliosphere
+            *** EUCLID https://en.wikipedia.org/wiki/Euclid_(spacecraft)
+            *** MOM 2 https://en.wikipedia.org/wiki/Mars_Orbiter_Mission_2
+            *** TEREX https://en.wikipedia.org/wiki/Tera-hertz_Explorer
+            *** DESTINY+ https://en.wikipedia.org/wiki/DESTINY%2B
+            *** Psyche https://en.wikipedia.org/wiki/Psyche_(spacecraft)
+            *** JUICE https://en.wikipedia.org/wiki/Jupiter_Icy_Moons_Explorer
+            * Comet Interceptor mission approved https://spaceflightnow.com/2019/06/21/european-space-mission-to-get-close-up-view-of-new-comet/
+            Short & Sweet
+            * Stratolaunch is up for sale https://www.cnbc.com/2019/06/14/vulcan-selling-stratolaunch-worlds-largest-airplane-for-400-million.html
+            * Firefly is offering free rides. https://spaceflightnow.com/2019/06/18/firefly-offering-free-launch-for-research-and-educational-payloads/
+            * Worries raised about U.K. spaceport site in Scotland https://www.bbc.com/news/uk-scotland-highlands-islands-48667772
+            Questions, comments, corrections
+            * https://www.arahanga.space/",
     description: "While we wait out a slow news week, we look to the future and summarize upcoming non-Earth science missions."},
     {draft: false,
     newsletter_status: 'not sent',
@@ -213,15 +558,41 @@ episode_list = [
     number: 215,
     title: 'Shibboleth',
     slug: 'episode-215-shibboleth',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 22 June 1978. Discovery of Pluto’s moon Charon by John Christy (<a href=\"https://en.wikipedia.org/wiki/Charon_(moon)\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Psyche review/preview (<a href=\"https://spacenews.com/psyche-mission-clears-review/\">spacenews.com</a>)</p><p class=\"\">    — Just passed Key Decision Point C (PDF: <a href=\"https://www.nasa.gov/sites/default/files/atoms/files/nasa_systems_engineering_handbook_0.pdf\">nasa.gov</a>)</p><p class=\"\">    — Multispectral Imager is based on MSL’s Mastcam, MAHLI, and MARDI (<a href=\"https://www.hou.usra.edu/meetings/lpsc2016/pdf/1366.pdf\">hou.usra.edu</a>)</p><p class=\"\">    — Deep space laser communication demo (<a href=\"https://en.wikipedia.org/wiki/Deep_Space_Optical_Communications\">wikipedia.org</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— India’s Chandrayaan-2 has launch date (<a href=\"https://theprint.in/science/why-chandrayaan-2-is-isros-most-complex-mission-so-far/249252/\">theprint.in</a>)</p><p class=\"\">— India has plans for its own space station. (<a href=\"http://www.parabolicarc.com/2019/06/15/india-eyes-space-station-earth-orbit/\">parabolicarc.com</a>)</p><p class=\"\">— SOFIA improvements (<a href=\"https://spacenews.com/nasa-to-adjust-sofia-operations-to-improve-productivity/\">spacenews.com</a>)</p><p class=\"\">Questions, comments, corrections</p><p class=\"\">— Valentin Frank: follow up on Tereshkova’s head injury</p><p class=\"\">— /u/MomoSapiensAD: Herschel mission time correction (<a href=\"https://www.reddit.com/r/orbitalpodcast/comments/bzgcnq/episode_214_spitzering_nails/er0na11/\">reddit.com/r/orbitalpodcast</a>)</p><p class=\"\">— Apollo / Mariner / Viking / Voyager oral history (<a href=\"https://twitter.com/jccwrt/status/1139384759719624706\">twitter.com/jccwrt</a>)</p><p class=\"\">— Support the Rocket Cat fund! (<a href=\"https://www.gofundme.com/f/rocket-cat-medical-fund\">gofundme.com</a>)</p>",
-    description: "Are you ready to visit the asteroid belt\'s metallic tooth? We sure are!"},
+    notes: "This week in SF history
+            * 22 June 1978. Discovery of Pluto’s moon Charon by John Christy https://en.wikipedia.org/wiki/Charon_(moon)
+            Spaceflight news
+            * Psyche review/preview https://spacenews.com/psyche-mission-clears-review/
+            ** Just passed Key Decision Point C https://www.nasa.gov/sites/default/files/atoms/files/nasa_systems_engineering_handbook_0.pdf
+            ** Multispectral Imager is based on MSL’s Mastcam, MAHLI, and MARDI https://www.hou.usra.edu/meetings/lpsc2016/pdf/1366.pdf
+            ** Deep space laser communication demo https://en.wikipedia.org/wiki/Deep_Space_Optical_Communications
+            Short & Sweet
+            * India’s Chandrayaan-2 has launch date https://theprint.in/science/why-chandrayaan-2-is-isros-most-complex-mission-so-far/249252/
+            * India has plans for its own space station. http://www.parabolicarc.com/2019/06/15/india-eyes-space-station-earth-orbit/
+            * SOFIA improvements https://spacenews.com/nasa-to-adjust-sofia-operations-to-improve-productivity/
+            Questions, comments, corrections
+            * Valentin Frank: follow up on Tereshkova’s head injury
+            * /u/MomoSapiensAD: Herschel mission time correction https://www.reddit.com/r/orbitalpodcast/comments/bzgcnq/episode_214_spitzering_nails/er0na11/
+            * Apollo / Mariner / Viking / Voyager oral history https://twitter.com/jccwrt/status/1139384759719624706
+            * Support the Rocket Cat fund! https://www.gofundme.com/f/rocket-cat-medical-fund",
+    description: "Are you ready to visit the asteroid belt's metallic tooth? We sure are!"},
     {draft: false,
     newsletter_status: 'not sent',
     publish_date: '2019-05-11',
     number: 214,
     title: 'Spitzering Nails',
     slug: 'spitzering-nails',
-    notes: "<p class=\"\">This week in SF history</p><p class=\"\">— 16 June 1963. Launch of Vostok 6 with Valentina Tereshkova (<a href=\"https://en.wikipedia.org/wiki/Vostok_6\">wikipedia.org</a>)</p><p class=\"\">Spaceflight news</p><p class=\"\">— Planned retirement of Spitzer (<a href=\"https://spaceflightnow.com/2019/05/30/nasa-to-shut-down-spitzer-space-telescope-early-next-year/\">spaceflightnow.com</a>)</p><p class=\"\">    — Final GO, launched in 2003 at ~1:30am (<a href=\"https://boeing.mediaroom.com/2003-08-25-Last-of-NASAs-Great-Observatories-Launched-by-300th-Boeing-Delta-Rocket\">boeing.mediaroom.com</a>)</p><p class=\"\">    — Private Funding (<a href=\"https://spaceflightnow.com/2017/07/22/nasa-might-privatize-one-of-its-great-observatories/\">spaceflightnow.com</a>)</p><p class=\"\">    — Iconic image of Andromeda Galaxy (<a href=\"http://www.spitzer.caltech.edu/images/1493-ssc2005-20a1-Andromeda-in-the-Infrared\">spitzer.caltech.edu</a>)</p><p class=\"\">    — Another iconic image, the Helix Nebula (<a href=\"http://www.spitzer.caltech.edu/uploaded_files/other_files/0006/0551/NASA_HiddenUniverse_04.jpg\">spitzer.caltech.edu</a>)</p><p class=\"\">Short &amp; Sweet</p><p class=\"\">— ISS wants to go commercial (<a href=\"https://spacenews.com/nasa-releases-iss-commercialization-plan/\">spacenews.com</a>)</p><p class=\"\">— NASA tries new strategy for stuck Martian instrument (<a href=\"https://mars.nasa.gov/news/8445/insights-team-tries-new-strategy-to-help-the-mole/\">mars.nasa.gov</a>)</p><p class=\"\">— China carries out a successful sea launch. (<a href=\"https://spacenews.com/china-gains-new-flexible-launch-capabilities-with-first-sea-launch/\">spacenews.com</a>)</p>",
+    notes: "This week in SF history
+            * 16 June 1963. Launch of Vostok 6 with Valentina Tereshkova https://en.wikipedia.org/wiki/Vostok_6
+            Spaceflight news
+            * Planned retirement of Spitzer https://spaceflightnow.com/2019/05/30/nasa-to-shut-down-spitzer-space-telescope-early-next-year/
+            ** Final GO, launched in 2003 at ~1:30am https://boeing.mediaroom.com/2003-08-25-Last-of-NASAs-Great-Observatories-Launched-by-300th-Boeing-Delta-Rocket
+            ** Private Funding https://spaceflightnow.com/2017/07/22/nasa-might-privatize-one-of-its-great-observatories/
+            ** Iconic image of Andromeda Galaxy http://www.spitzer.caltech.edu/images/1493-ssc2005-20a1-Andromeda-in-the-Infrared
+            ** Another iconic image, the Helix Nebula http://www.spitzer.caltech.edu/uploaded_files/other_files/0006/0551/NASA_HiddenUniverse_04.jpg
+            Short & Sweet
+            * ISS wants to go commercial https://spacenews.com/nasa-releases-iss-commercialization-plan/
+            * NASA tries new strategy for stuck Martian instrument https://mars.nasa.gov/news/8445/insights-team-tries-new-strategy-to-help-the-mole/
+            * China carries out a successful sea launch. https://spacenews.com/china-gains-new-flexible-launch-capabilities-with-first-sea-launch/",
     description: "Spitzer is being retired at long last. Also, a commercial ISS, an HP3 troubleshooting idea, and a launch from sea."}
 ]
 
