@@ -27,6 +27,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use DJ as a queuing backend
 gem 'delayed_job_active_record', '~> 4.1.4'
 
+# Twitter API
+gem 'twitter', '~>6.2.0'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
