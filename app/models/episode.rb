@@ -179,6 +179,14 @@ class Episode < ApplicationRecord
     output.join.rstrip!
   end
 
+  def notes_as_html()
+    Episode.convert_markup_to_HTML(self.notes)
+  end
+
+  def full_title()
+    "Episode #{self.number}: #{self.title}"
+  end
+
 end
 
 # logger.debug ">>>>>>> remaining before split: #{remaining}"
