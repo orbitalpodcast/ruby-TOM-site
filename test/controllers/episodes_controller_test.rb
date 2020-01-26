@@ -5,6 +5,14 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     @episode = episodes(:one)
   end
 
+  test "convert_markup_to_html format URLs" do
+    @string = ["First results from Parker Solar Probe! nasa.gov",
+               "Here's a link to a Verge article https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution"].join("\n")
+    @output = ["First results from Parker Solar Probe! (<a href=\"http://nasa.gov\">nasa.gov</a>)",
+               "Here's a link to a Verge article (<a href=\"https://www.theverge.com/2019/10/9/20906657/virgin-orbit-mars-vehicle-deep-space-satellite-missions-launcherone-satrevolution\">theverge.com</a>)"].join("\n")
+    assert_equal @output, Episode.convert_markup_to_HTML(@string)
+  end
+
   test "convert_markup_to_html format URLs, accounting for twitter and instagram and missing protocol" do
     @string = ["https://www.instagram.com/silvia.draws/",
                "twitter.com/silvia_draws"].join("\n")
