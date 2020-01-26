@@ -16,7 +16,8 @@ markup:
             'Questions, Comments, Corrections':'Questions, Comments and Correction Burns',
             'Interview -- ***',
             'This Week in Spaceflight History',
-            'This week in SF history':'This Week in Spaceflight History'}
+            'This week in SF history':'This Week in Spaceflight History',
+            'Data Relay -- ***'}
 
 # Definitions from https://help.apple.com/itc/podcasts_connect/#/itcb54353390
 rss:
