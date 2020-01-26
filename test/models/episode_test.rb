@@ -3,28 +3,33 @@ require 'test_helper'
 class EpisodeTest < ActiveSupport::TestCase
 
   ep_params = {draft: false,
-      newsletter_status: 'scheduled',
-      number: 237,
-      title: 'DOWNLINK--Elena Zorzoli Rossi',
-      slug: 'elena-zorzoli-rossi',
-      publish_date: '2019-11-27',
-      description: "We met Elena at IAC 2019. She\'s the lead experimental engineer at ThrustMe, and has been testing their new solid fuel electric propulsion engine!",
-      notes: "Spaceflight news
-      * Starship overpressure explosion https://spacenews.com/spacex-starship-suffers-testing-setback
-      * Rumors on 4Chan, via Reddit and NSF forum https://www.reddit.com/r/SpaceXLounge/comments/e055ej/i_can_partially_end_the_speculation_about_why/ https://forum.nasaspaceflight.com/index.php?topic=49114.1540
-      Short & Sweet
-      * Some insights into failed lunar landings have come out. https://spacenews.com/new-details-emerge-about-failed-lunar-landings/
-      * Starliner rolls out. https://www.americaspace.com/2019/11/22/starliner-joins-rocket-for-dec-launch-on-uncrewed-orbital-flight-test/
-      Questions, comments, corrections
-      * Congrats to our Soonish giveaway winners!
-      Interview
-      * After the interview, Spacety reported a successful firing of I2T5! https://spacenews.com/spacety-thrustme-cold-gas-test/
-      * Elena Zorzoli Rossi, lead experimental engineer, ThrustMe
-      * https://www.thrustme.fr/
-      * https://www.linkedin.com/company/thrustme.fr
-      This week in SF history
-      * November 28, 1964: Launch of Mariner 4 https://en.wikipedia.org/wiki/Mariner_4 https://www.jpl.nasa.gov/missions/mariner-4/
-      * Next week in 1945: You were discussing critical space stuff with your pals the other dayyyyyyyy"}
+  newsletter_status: 'not sent',
+  publish_date: '2019-10-8',
+  number: 231 ,
+  title: 'Fewer gyros, more problems',
+  slug: 'fewer-gyros-more-problems',
+  description: "DSCOVR's safehold seems to be connected to a gryo, but there's a fix coming down the line.",
+  notes: "This week in SF history
+          * 2000 October 9: HETE-2, first orbital launch from Kwajalein https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer
+          * Next week in 1956: listen in for an audio clue.
+          Spaceflight news
+          * Plans in place to fix DSCOVR https://spacenews.com/software-fix-planned-to-restore-dscovr/
+          ** We first reported on this on https://docs.google.com/document/d/1RAydcXcHFi7QiPkSLhdxuc-ILNNSTZwJGbsqpnabcdg/edit Ep 218 as a S&S https://spacenews.com/dscovr-spacecraft-in-safe-mode/
+          ** Faulty gyro? https://twitter.com/simoncarn/status/1175823150984126464
+          *** Triana engineers considered laser gyro failures https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf
+          Short & Sweet
+          * NASA Mars 2020 tests descent stage separation https://www.jpl.nasa.gov/news/news.php?feature=7513
+          * NASA issues request for information on xEMU. https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/
+          * New Shepard will likely not fly humans in 2019. https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/
+          Questions, comments, corrections
+          * https://twitter.com/search?q=%23tomiac2019&amp;f=live
+          ** Sunday: Off Nominal meetups https://events.offnominal.space/
+          ** Monday: museum day
+          *** Udvar-Hazy and downtown Air and Space Museum
+          ** Thursday: Dinner meetup
+          *** https://www.mcgintyspublichouse.com/
+          *** 911 Ellsworth Dr, Silver Spring, MD 20910
+          ** Friday: IAC no-ticket open day"}
    
   test "should save valid episode" do
     episode = Episode.new(ep_params)

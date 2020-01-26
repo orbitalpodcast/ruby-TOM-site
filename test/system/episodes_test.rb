@@ -78,7 +78,6 @@ class EpisodesTest < ApplicationSystemTestCase
     visit episodes_url
     click_on "Edit", match: :first
 
-    page.save_screenshot('tmp/screenshots/state_before_filling_in.png')
     fill_in "Number",       with: @episode[:number]
     fill_in "Title",        with: @episode[:title]
     fill_in "Slug",         with: @episode[:slug]
