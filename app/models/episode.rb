@@ -39,7 +39,9 @@ class Episode < ApplicationRecord
   end
 # Validations before publishing an episode
   with_options if: -> { not self.draft? } do |e|
-    # pass
+    e.validates :newsletter_status,
+                                    presence: true,
+                                    inclusion: { in: NEWSLETTER_STATUSES[-2..-1] } # Wish I could use _at_least? here, but this is cleaner than a custom method.
   end
 
 
