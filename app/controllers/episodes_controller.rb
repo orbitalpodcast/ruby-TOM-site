@@ -158,19 +158,20 @@ class EpisodesController < ApplicationController
 
     def handle_submit_button
       # Used when a form is submitted to update the episode.draft attribute depending on which button was selected.
-      if params[:commit] == 'Save as draft'
+      logger.debug ">>>>>>> handle_submit_button here. params[:commit] = #{params[:commit]}"
+      if params[:commit] == ('Save as draft' || 'Revert to draft')
         logger.debug ">>>>>>> save as draft clicked"
         @episode.draft = true
       elsif params[:commit] == 'Draft and schedule newsletter'
-        @episode.newsletter_status = 'scheduling'
         logger.debug ">>>>>>> draft and schedule clicked"
+        @episode.draft = true
+        @episode.newsletter_status = 'scheduling'
       elsif params[:commit] == 'Cancel scheduled newsletter'
-        @episode.newsletter_status = 'canceling'
         logger.debug ">>>>>>> cancel newsletter clicked"
-      elsif params[:commit] == 'Publish'
-        @episode.draft = false
+        @episode.newsletter_status = 'canceling'
+      elsif params[:commit] == ('Publish' || 'Publish changes')
         logger.debug ">>>>>>> published clicked"
-        publish
+        @episode.draft = false
       end
     end
 
