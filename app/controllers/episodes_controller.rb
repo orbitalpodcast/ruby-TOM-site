@@ -52,11 +52,11 @@ class EpisodesController < ApplicationController
     @episode = Episode.new(episode_params)
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
-      if @episode.draft? and @episode.save
-        format.html { redirect_to draft_path, notice: 'Draft was successfully created.' }
+      if @episode.save
+        # We never publish episodes from create, so we want to redirect to edit, not to show.
+        format.html { redirect_to edit_episode_path @episode, notice: 'Draft was successfully created.' }
       else
-        @episode.slug = previous_slug
-        format.html { render :draft }
+        format.html { render :new }
       end
     end
   end
