@@ -3,7 +3,7 @@ class Episode < ApplicationRecord
   has_many :images, dependent: :destroy
   has_one_attached :audio
 
-  NEWESLETTER_STATUSES =  ['not scheduled',  # when newly created, and not ready to email
+  NEWSLETTER_STATUSES =  ['not scheduled',  # when newly created, and not ready to email
                            'scheduling',     # when scheduling requested, but not completed
                            'canceling',      # when canceling a scheduled send requested, but not completed
                            'scheduled',      # when notes are done, and an email is scheduled
@@ -22,7 +22,7 @@ class Episode < ApplicationRecord
   validates :draft,
                             inclusion: { in: [true, false] }
   validates :newsletter_status,
-                            inclusion: { in: NEWESLETTER_STATUSES }
+                            inclusion: { in: NEWSLETTER_STATUSES }
 # Validations before schduling an episode newsletter
   with_options if: -> { self.newsletter_status and self.newsletter_status_at_least 'scheduling' } do |e|
     e.validates :title,
@@ -49,11 +49,11 @@ class Episode < ApplicationRecord
   end
   def newsletter_status_at_least(target_status)
   # Check progression of newsletter status through the expected stages.
-    NEWESLETTER_STATUSES.find_index(target_status) <= NEWESLETTER_STATUSES.find_index(self.newsletter_status)
+    NEWSLETTER_STATUSES.find_index(target_status) <= NEWLETTER_STATUSES.find_index(self.newsletter_status)
   end
   def newsletter_status_before(target_status)
   # Check progression of newsletter status through the expected stages.
-    NEWESLETTER_STATUSES.find_index(target_status) > NEWESLETTER_STATUSES.find_index(self.newsletter_status)
+    NEWSLETTER_STATUSES.find_index(target_status) > NEWSLETTER_STATUSES.find_index(self.newsletter_status)
   end
   def self.most_recent_draft
   # Mostly used by episodes#set_episode when :slug_or_number.blank?
