@@ -24,12 +24,12 @@ class Episode < ApplicationRecord
   validates :newsletter_status,
                             inclusion: { in: NEWSLETTER_STATUSES }
 # Validations before schduling an episode newsletter
-  with_options if: -> { self.newsletter_status and self.newsletter_status_at_least 'scheduling' } do |e|
+  with_options if: -> { self.newsletter_status and self.newsletter_status_at_least? 'scheduling' } do |e|
     e.validates :title,
                               presence: true,
                               uniqueness: { case_sensitive: false },
                               length: { minimum: 5 }
-                              # (Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--){0,1}[\w\s]*
+                              # (Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]*
     e.validates :publish_date,
                 :description,
                 :notes,
@@ -47,25 +47,25 @@ class Episode < ApplicationRecord
   # Overrides default behavior, and constructs episode_path by using the slug.
     slug
   end
-  def newsletter_status_at_least(target_status)
+  def newsletter_status_at_least?(target_status)
   # Check progression of newsletter status through the expected stages.
-    NEWSLETTER_STATUSES.find_index(target_status) <= NEWLETTER_STATUSES.find_index(self.newsletter_status)
+    NEWSLETTER_STATUSES.find_index(target_status) <= NEWSLETTER_STATUSES.find_index(self.newsletter_status)
   end
-  def newsletter_status_before(target_status)
+  def newsletter_status_before?(target_status)
   # Check progression of newsletter status through the expected stages.
     NEWSLETTER_STATUSES.find_index(target_status) > NEWSLETTER_STATUSES.find_index(self.newsletter_status)
   end
   def self.most_recent_draft
   # Mostly used by episodes#set_episode when :slug_or_number.blank?
-    where(draft: true).limit(1)
+    order(:draft).last # eager loads the object
   end
   def self.draft_waiting?
   # Used by routes to determine where to send GET /draft
-    where(draft: true).length > 0
+    where(draft: true).length > 0 # only accesses activerecord relation, so lazy loads
   end
   def self.most_recent_published(number_of_posts)
   # Get X number of most recent posts. Used on the index.
-    where(draft: false).order(publish_date: :desc).limit(number_of_posts)
+    order(:draft).first(number_of_posts) # eager loads the objects
   end
   def self.slugify(unslug)
   # Drop all non-alphanumeric characters, and change spaces to hyphens
@@ -193,5 +193,3 @@ class Episode < ApplicationRecord
   end
 
 end
-
-# logger.debug ">>>>>>> remaining before split: #{remaining}"

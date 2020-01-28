@@ -1,5 +1,5 @@
 class EpisodesController < ApplicationController
-  skip_before_action :authorized,         only: [:index, :show, :draft]
+  skip_before_action :authorized,         only: [:index, :show, :draft] # allow not logged in users to access index and show. Draft logs in by hand.
   before_action :set_episode,             except: [:index, :draft] # allow URL to reference slug or episode number
   before_action :handle_submit_button,    only: :update
   after_action  :create_photo_objects,
@@ -38,7 +38,7 @@ class EpisodesController < ApplicationController
       redirect_to login_path and return
     end
     if Episode.draft_waiting?
-      @episode = Episode.most_recent_draft.take
+      @episode = Episode.most_recent_draft
       redirect_to edit_episode_path @episode
     else
       @episode = Episode.new
@@ -72,14 +72,15 @@ class EpisodesController < ApplicationController
     previous_slug = episode_params[:slug]
     new_slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
-      if @episode.update(episode_params.merge!(slug: new_slug, # new slugs are generated in the controller instead of in JS.
-                                               newsletter_status: @episode.newsletter_status # persist new newsletter_status, not the one in the params.
-                                       ).except(:images))
+      if @episode.update(episode_params.merge!(slug: new_slug, # new slugs are generated in the controller instead of running javascript in the page.
+                                               newsletter_status: @episode.newsletter_status, # persist new newsletter_status, not the one in the params.
+                                               draft: @episode.draft # persist the draft status set by handle_submit_button, not the one in params
+                                               ).except(:images))
         handle_newsletter
         publish
         format.html { redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully updated.' }
       else
-        # TODO: clean this process up! This is really ugly.
+        # TODO: clean the previous_/new_slug process up! This is really ugly.
         @episode.slug = previous_slug
         @episode.newsletter_status = 'not scheduled' if @episode.newsletter_status = 'scheduling'
         format.html { render :edit }

@@ -73,8 +73,8 @@
     <% # TODO: consider using gem commit_param_matching. %>
     <%= form.submit 'Save as draft' %>
     <% if episode.persisted? %>
-      <%= form.submit 'Draft and schedule newsletter' if episode.newsletter_status_before 'scheduled' %>
-      <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_status == 'scheduled' %>
+      <%= form.submit 'Draft and schedule newsletter' if episode.newsletter_status_before? 'scheduled' %>
+      <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_status? == 'scheduled' %>
       <%= form.submit 'Publish' %>
       <p>
       <div class="field">
