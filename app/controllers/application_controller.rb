@@ -13,6 +13,18 @@ class ApplicationController < ActionController::Base
 
   def authorized
     logger.debug ">>>>>>> Authorizing..."
-    redirect_to root_url unless logged_in? #and current_user.admin?
+    unless logged_in? and current_user.admin?
+      if request.fullpath == '/draft' # Okay I know this seems silly, but at some point, there will be additional pages for admins to access.
+        session[:pre_login_request] = request.fullpath
+        redirect_to login_url
+      else
+        not_found # Be sneaky about valid pages that need logins.
+      end
+    end
   end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
 end

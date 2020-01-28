@@ -1,5 +1,5 @@
 class EpisodesController < ApplicationController
-  skip_before_action :authorized,         only: [:index, :show, :draft] # allow not logged in users to access index and show. Draft logs in by hand.
+  skip_before_action :authorized,         only: [:index, :show] # allow not logged in users to access index and show.
   before_action :set_episode,             except: [:index, :draft] # allow URL to reference slug or episode number
   before_action :handle_submit_button,    only: :update
   after_action  :create_photo_objects,
@@ -33,11 +33,6 @@ class EpisodesController < ApplicationController
 
   # GET /draft
   def draft
-    unless logged_in? # All other paths should pretend like unauthorized requests don't ever work. This needs special handling.
-      # TODO roll the pre-login-request behavior from draft into sessions controller?
-      session[:pre_login_request] = '/draft'
-      redirect_to login_path and return
-    end
     if Episode.draft_waiting?
       @episode = Episode.most_recent_draft
       redirect_to edit_episode_path @episode
