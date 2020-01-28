@@ -12,7 +12,27 @@ class EpisodesTest < ApplicationSystemTestCase
                 title: 'Fewer gyros, more problems',
                 slug: 'fewer-gyros-more-problems',
                 description: "DSCOVR's safehold seems to be connected to a gryo, but there's a fix coming down the line.",
-                notes: "This week in SF history /n * 2000 October 9: HETE-2, first orbital launch from Kwajalein https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer /n * Next week in 1956: listen in for an audio clue. /n Spaceflight News /n * Plans in place to fix DSCOVR https://spacenews.com/software-fix-planned-to-restore-dscovr/ /n ** We first reported on this on [Ep 218](https://docs.google.com/document/d/1RAydcXcHFi7QiPkSLhdxuc-ILNNSTZwJGbsqpnabcdg/edit\\) as an S&S https://spacenews.com/dscovr-spacecraft-in-safe-mode/ /n ** Faulty gyro? https://twitter.com/simoncarn/status/1175823150984126464 /n *** Triana engineers considered laser gyro failures PDF: https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf /n Short & Sweet /n * NASA Mars 2020 tests descent stage separation https://www.jpl.nasa.gov/news/news.php?feature=7513\\ /n * NASA issues request for information on xEMU. https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/ /n * New Shepard will likely not fly humans in 2019. https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/ /n Questions, comments, corrections /n * https://twitter.com/search?q=\%23tomiac2019&amp;f=live\\ /n ** Sunday: Off Nominal meetups https://events.offnominal.space/ /n ** Monday: museum day /n *** Udvar-Hazy and downtown Air and Space Museum /n ** Thursday: Dinner meetup /n *** https://www.mcgintyspublichouse.com/ /n *** 911 Ellsworth Dr, Silver Spring, MD 20910 /n ** Friday: IAC no-ticket open day"
+                notes: "This week in SF history
+                * 2000 October 9: HETE-2, first orbital launch from Kwajalein https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer
+                * Next week in 1956: listen in for an audio clue.
+                Spaceflight News
+                * Plans in place to fix DSCOVR https://spacenews.com/software-fix-planned-to-restore-dscovr/
+                ** We first reported on this on Ep 218 as an S&S https://spacenews.com/dscovr-spacecraft-in-safe-mode/
+                ** Faulty gyro? https://twitter.com/simoncarn/status/1175823150984126464
+                *** Triana engineers considered laser gyro failures PDF: https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf
+                Short & Sweet
+                * NASA Mars 2020 tests descent stage separation https://www.jpl.nasa.gov/news/news.php?feature=7513\
+                * NASA issues request for information on xEMU. https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/
+                * New Shepard will likely not fly humans in 2019. https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/
+                Questions, comments, corrections
+                * https://twitter.com/search?q=\%23tomiac2019&amp;f=live\
+                ** Sunday: Off Nominal meetups https://events.offnominal.space/
+                ** Monday: museum day
+                *** Udvar-Hazy and downtown Air and Space Museum
+                ** Thursday: Dinner meetup
+                *** https://www.mcgintyspublichouse.com/
+                *** 911 Ellsworth Dr, Silver Spring, MD 20910
+                ** Friday: IAC no-ticket open day"
                 }
   end
 
@@ -35,7 +55,7 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_button 'Login'
   end
 
-  test "Creating an Episode" do
+  test "Creating an Episode draft" do
     visit draft_url
     assert_current_path login_path
 
@@ -54,7 +74,7 @@ class EpisodesTest < ApplicationSystemTestCase
     fill_in "Notes",        with: @episode[:notes]
     click_on "Save as draft"
     assert_current_path "/episodes/#{@episode[:slug]}/edit"
-    assert_text 'Episode was successfully created.'
+    assert_text 'Draft was successfully created.'
     assert_text 'not scheduled'
 
     click_on 'Back'
@@ -67,7 +87,17 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_selector 'h2', text: "Episode #{@episode[:number]}: #{@episode[:title]}", count: 1
   end
 
-  test "updating a Episode" do
+  test "Trying to publish an invalid episode" do
+    visit draft_url
+    assert_current_path login_path
+
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
+    assert_current_path draft_path
+  end
+
+  test "Editing a published episode" do
     visit login_url
 
     fill_in 'Email', with: users(:admin).email
@@ -89,7 +119,7 @@ class EpisodesTest < ApplicationSystemTestCase
     click_on "Publish"
 
     # TODO: update episode/edit success flash to reflect whether a draft was saved or an episode was published
-    assert_text "Episode draft was successfully updated."
+    assert_text "Episode was successfully published."
     click_on "Back"
     assert_current_path episodes_path
   end

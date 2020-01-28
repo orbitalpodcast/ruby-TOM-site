@@ -34,6 +34,7 @@ class EpisodesController < ApplicationController
   # GET /draft
   def draft
     unless logged_in? # All other paths should pretend like unauthorized requests don't ever work. This needs special handling.
+      # TODO roll the pre-login-request behavior from draft into sessions controller?
       session[:pre_login_request] = '/draft'
       redirect_to login_path and return
     end
@@ -56,9 +57,8 @@ class EpisodesController < ApplicationController
     @episode = Episode.new(episode_params)
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
-      if @episode.save
-        format.html { redirect_to draft_path, notice: 'Episode was successfully created.' }
-        format.json { render :show, status: :created, location: @episode }
+      if @episode.draft? and @episode.save
+        format.html { redirect_to draft_path, notice: 'Draft was successfully created.' }
       else
         @episode.slug = previous_slug
         format.html { render :draft }
@@ -77,8 +77,8 @@ class EpisodesController < ApplicationController
                                                draft: @episode.draft # persist the draft status set by handle_submit_button, not the one in params
                                                ).except(:images))
         handle_newsletter
-        publish
-        format.html { redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully updated.' }
+        update_notice = publish # returns a string, indicating if publish tasks were completed.
+        format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
       else
         # TODO: clean the previous_/new_slug process up! This is really ugly.
         @episode.slug = previous_slug
@@ -129,12 +129,18 @@ class EpisodesController < ApplicationController
     end
 
     def publish
-      # Called on successful updates. Picks up where handle_submit_button leaves off.
+      # Called on successful updates. Returns a string for the flash message.
+      # Think of this method picking up where handle_submit_button leaves off.
       unless @episode.draft?
-        logger.debug ">>>>>>> I would have published the episode"
-        logger.debug ">>>>>>> #{@episode.description} #{episode_url(@episode)}"
-        # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
+        logger.debug ">>>>>>> Publishing the episode."
+        unless @episode.ever_been_published? # Some things should not happen if an episode was pulled down in an emergency.
+          logger.debug ">>>>>>> #TWITTER: {@episode.description} #{episode_url(@episode)}"
+          # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
+        end
+        @episode.update_attribute :ever_been_published, true # publish is called after validations were run, so we can safely update_attribute
+        return 'Episode was successfully published.'
       end
+      'Episode draft was successfully updated.'
     end
 
     def set_episode
