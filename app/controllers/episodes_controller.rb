@@ -107,6 +107,8 @@ class EpisodesController < ApplicationController
       elsif ['Publish', 'Publish changes'].include? params[:commit]
         logger.debug ">>>>>>> #{params[:commit]} clicked"
         @episode.draft = false
+      else
+        logger.debug ">>>>>>> No commit matched. params-commit: #{params[:commit]}"
       end
     end
     
