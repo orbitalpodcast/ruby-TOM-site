@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EpisodesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @episode = {newsletter_status: 'not sent',
+    @episode = Episode.new(newsletter_status: 'not sent',
                 draft: false,
                 publish_date: '2019-9-8',
                 number: 231,
@@ -29,7 +29,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
                 ** Thursday: Dinner meetup
                 *** https://www.mcgintyspublichouse.com/
                 *** 911 Ellsworth Dr, Silver Spring, MD 20910
-                ** Friday: IAC no-ticket open day"}
+                ** Friday: IAC no-ticket open day")
     ENV['test_skip_authorized'] = 'true'
   end
 
@@ -45,38 +45,37 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create episode" do
     assert_difference('Episode.count') do
-      post episodes_url, params: { episode: { description: @episode[:description],
-                                              newsletter_status: @episode[:newsletter_status],
-                                              draft: @episode[:draft],
-                                              notes: @episode[:notes],
-                                              number: @episode[:number],
-                                              publish_date: @episode[:publish_date],
-                                              slug: @episode[:slug],
-                                              title: @episode[:title] } }
+      post episodes_url, params: {episode: @episode.attributes, commit: "Save as draft"}
     end
     assert_redirected_to edit_episode_url(Episode.last)
+    assert_equal 'Episode draft was successfully created.', flash[:notice]
   end
 
-  # test "should show episode" do
-  #   get episode_url(@episode)
-  #   assert_response :success
-  # end
+  test "should show episode" do
+    get episode_url episodes(:one)
+    assert_response :success
+  end
 
-  # test "should get edit" do
-  #   get edit_episode_url(@episode)
-  #   assert_response :success
-  # end
+  test "should get edit" do
+    get edit_episode_url episodes(:one)
+    assert_response :success
+  end
 
-  # test "should update episode" do
-  #   patch episode_url(@episode), params: { episode: { description: @episode.description, notes: @episode.notes, number: @episode.number, publish_date: @episode.publish_date, slug: @episode.slug, title: @episode.title } }
-  #   assert_redirected_to episode_url(@episode)
-  # end
+  test "should update episode" do
+    patch episode_url episodes(:one), params: { episode: { description: @episode.description,
+                                                           notes: @episode.notes,
+                                                           number: @episode.number,
+                                                           publish_date: @episode.publish_date,
+                                                           slug: @episode.slug,
+                                                           title: @episode.title } }
+    assert_redirected_to edit_episode_url @episode
+    assert_equal 'Episode was successfully published.', flash[:notice]
+  end
 
-  # test "should destroy episode" do
-  #   assert_difference('Episode.count', -1) do
-  #     delete episode_url(@episode)
-  #   end
+  test "should destroy episode" do
+    assert_difference('Episode.count', -1) do
+      delete episode_url episodes(:one)
+    end
+  end
 
-  #   assert_redirected_to episodes_url
-  # end
 end
