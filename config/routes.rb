@@ -11,12 +11,12 @@ Rails.application.routes.draw do
 
   get '/episodes',         to: 'episodes#index'
   get '/draft',            to: 'episodes#draft'
+  # Redirect legacy URLs
   get '/show-notes/:slug', to: redirect('/%{slug}')
 
-  resources :episodes, constraints: { slug: /[\w-]+/ }
-  resources :episodes, constraints: { number: /\d+/ }
-  # Interpret direct paths
-  resources :episodes, path: '/:slug',   constraints: { slug: /[\w-]+/ }, to: redirect('episodes/%{slug}')
-  resources :episodes, path: '/:number', constraints: { number: /\d+/ },  to: redirect('episodes/%{number}')
+  resources :episodes
+  # Redirect direct paths
+  get :episodes, path: '/:slug',   constraints: { slug: /[\w-]+/ }, to: redirect('episodes/%{slug}')
+  get :episodes, path: '/:number', constraints: { number: /\d+/ },  to: redirect('episodes/%{number}')
 
 end
