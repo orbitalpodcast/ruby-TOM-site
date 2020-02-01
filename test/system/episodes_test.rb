@@ -87,7 +87,7 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_selector 'h2', text: "Episode #{@episode[:number]}: #{@episode[:title]}", count: 1
   end
 
-  test "Trying to publish an invalid episode" do
+  test "Trying to publish an episode that's missing its notes" do
     visit draft_url
     assert_current_path login_path
 
@@ -95,6 +95,22 @@ class EpisodesTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
     click_on 'Login'
     assert_current_path draft_path
+
+    # page.save_screenshot('tmp/screenshots/state_before_filling_in.png')
+
+    fill_in "Number",       with: @episode[:number]
+    fill_in "Title",        with: @episode[:title]
+    fill_in "Slug",         with: @episode[:slug]
+    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
+    select(@episode[:publish_month], from: 'episode_publish_date_2i')
+    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: @episode[:description]
+    fill_in "Notes",        with: @episode[:notes]
+    click_on "Save as draft"
+    assert_current_path "/episodes/#{@episode[:slug]}/edit"
+    assert_text 'Draft was successfully created.'
+    assert_text 'not scheduled'
+  
   end
 
   test "Editing a published episode" do
@@ -115,13 +131,10 @@ class EpisodesTest < ApplicationSystemTestCase
     select(@episode[:publish_month], from: 'episode_publish_date_2i')
     select(@episode[:publish_day],   from: 'episode_publish_date_3i')
     fill_in "Description",  with: @episode[:description]
-    fill_in "Notes",        with: @episode[:notes]
+    fill_in "Notes",        with: ''
     click_on "Publish"
 
-    # TODO: update episode/edit success flash to reflect whether a draft was saved or an episode was published
-    assert_text "Episode was successfully published."
-    click_on "Back"
-    assert_current_path episodes_path
+    assert_text "Notes cannot be empty."
   end
 
   test "destroying a Episode" do
