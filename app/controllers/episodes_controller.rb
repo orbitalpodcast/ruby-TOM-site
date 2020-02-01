@@ -33,6 +33,7 @@ class EpisodesController < ApplicationController
 
   # GET /draft
   def draft
+    # Redirects to edit or acts as new
     if Episode.draft_waiting?
       @episode = Episode.most_recent_draft
       redirect_to edit_episode_path @episode
@@ -51,13 +52,11 @@ class EpisodesController < ApplicationController
   def create
     @episode = Episode.new(episode_params)
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
-    respond_to do |format|
-      if @episode.save
-        # We never publish episodes from create, so we want to redirect to edit, not to show.
-        format.html { redirect_to edit_episode_path @episode, notice: 'Draft was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @episode.save
+      # We never publish episodes from create, so we want to redirect to edit, not to show.
+      redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully created.'
+    else
+      render :new
     end
   end
 
