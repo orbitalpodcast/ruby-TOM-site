@@ -1,6 +1,9 @@
 homepage:
   number_of_episodes: 5
 
+episodes:
+  number_of_episodes_per_page: 10
+
 newsletter:
   from: ben@theorbitalmechanics.com
   default_send_time: 12:00:00 -08:00

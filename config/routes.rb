@@ -9,10 +9,10 @@ Rails.application.routes.draw do
   get  'logout',    to: 'sessions#destroy'
   get 'welcome',    to: 'users#welcome' # TODO: move newsletter welcome to static controller
 
-  get '/episodes',         to: 'episodes#index'
-  get '/draft',            to: 'episodes#draft'
+  get '/episodes/:begin/to/:end', to: 'episodes#index', as: 'episodes_with_range'
+  get '/draft',                   to: 'episodes#draft'
   # Redirect legacy URLs
-  get '/show-notes/:slug', to: redirect('/%{slug}')
+  get '/show-notes/:slug',        to: redirect('/%{slug}')
 
   resources :episodes
   # Redirect direct paths
