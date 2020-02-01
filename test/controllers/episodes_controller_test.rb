@@ -36,6 +36,16 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get episodes_url
     assert_response :success
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
+                         count: Settings.episodes.number_of_episodes_per_page}
+  end
+
+  test "should get index with range" do
+    get episodes_with_range_url episodes(:one).number, episodes(:five).number
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 5}
+
+    get episodes_with_range_url episodes(:five).number, episodes(:one).number
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 5}
   end
 
   test "should get new" do
