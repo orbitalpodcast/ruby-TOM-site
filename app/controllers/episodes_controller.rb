@@ -63,20 +63,18 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
-    previous_slug = episode_params[:slug]
-    new_slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
+    @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
-      if @episode.update(episode_params.merge!(slug: new_slug, # new slugs are generated in the controller instead of running javascript in the page.
-                                               newsletter_status: @episode.newsletter_status, # persist new newsletter_status, not the one in the params.
-                                               draft: @episode.draft # persist the draft status set by handle_submit_button, not the one in params
-                                               ).except(:images))
+      if @episode.update( episode_params.merge!(slug:              @episode.slug,
+                                                draft:             @episode.draft,
+                                                newsletter_status: @episode.newsletter_status
+                                                ).except(:images))
         handle_newsletter
         update_notice = publish # returns a string, indicating if publish tasks were completed.
         format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
       else
-        # TODO: clean the previous_/new_slug process up! This is really ugly.
-        @episode.slug = previous_slug
-        @episode.newsletter_status = 'not scheduled' if @episode.newsletter_status = 'scheduling'
+        @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status = 'scheduling'
+        @episode.reload # discards all user changes. Worth only resetting draft and newsletter_status?
         format.html { render :edit }
       end
     end
@@ -93,21 +91,40 @@ class EpisodesController < ApplicationController
   end
 
   private
+
+    def handle_submit_button
+      # Before_action. Multiple submit buttons can be clicked. Each one expects a different behavior.
+      if ['Save as draft', 'Revert to draft'].include? params[:commit]
+        logger.debug ">>>>>>> #{params[:commit]} clicked"
+        @episode.draft = true
+      elsif ['Draft and schedule newsletter'].include? params[:commit]
+        logger.debug ">>>>>>> #{params[:commit]} clicked"
+        @episode.draft = true
+        @episode.newsletter_status = 'scheduling'
+      elsif ['Cancel scheduled newsletter'].include? params[:commit]
+        logger.debug ">>>>>>> #{params[:commit]} clicked"
+        @episode.newsletter_status = 'canceling'
+      elsif ['Publish', 'Publish changes'].include? params[:commit]
+        logger.debug ">>>>>>> #{params[:commit]} clicked"
+        @episode.draft = false
+      end
+    end
     
     def handle_newsletter
-      # Called on successful updates. Picks up where handle_submit_button leaves off.
-      if @episode.newsletter_status == 'canceling'
-        unschedule_newsletter
-        @episode.update_attribute :newsletter_status, 'not scheduled'
-      elsif @episode.newsletter_status == 'scheduling'
+      # Called on successful updates. Picks up where handle_submit_button leaves off. Called after successful save (so
+      # that validations are run, and the emailer has good data), so we also modify the database with the new status.
+      if @episode.newsletter_status == 'scheduling'
         schedule_newsletter
         @episode.update_attribute :newsletter_status, 'scheduled'
+      elsif @episode.newsletter_status == 'canceling'
+        unschedule_newsletter
+        @episode.update_attribute :newsletter_status, 'not scheduled'
       end
     end
 
     def schedule_newsletter
       # TODO: detect and handle scheduling a newsletter when the time has already passed. Warn then send immediately?
-      # TODO: change scheduled newsletter from a saved id int to an activerecord association?
+      # TODO: change newsletter_job_id from a saved number to an activerecord association?
       email_time = Time.parse Settings.newsletter.default_send_time
       email_datetime = DateTime.new(@episode.publish_date.year, @episode.publish_date.month, @episode.publish_date.day,
                                     email_time.hour, email_time.min, email_time.sec, email_time.zone)
@@ -123,15 +140,18 @@ class EpisodesController < ApplicationController
     end
 
     def publish
-      # Called on successful updates. Returns a string for the flash message.
-      # Think of this method picking up where handle_submit_button leaves off.
+      # Called on successful updates, and runs extra publication tasks if this isn't a draft.
+      # Returns a string for the flash message.
       unless @episode.draft?
         logger.debug ">>>>>>> Publishing the episode."
         unless @episode.ever_been_published? # Some things should not happen if an episode was pulled down in an emergency.
           logger.debug ">>>>>>> #TWITTER: {@episode.description} #{episode_url(@episode)}"
           # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
+        else
+          logger.debug ">>>>>>> Not tweeting because the episode has been published previously."
         end
-        @episode.update_attribute :ever_been_published, true # publish is called after validations were run, so we can safely update_attribute
+        # publish is called after validations were run, so we can safely update_attribute
+        @episode.update_attribute :ever_been_published, true
         return 'Episode was successfully published.'
       end
       'Episode draft was successfully updated.'
@@ -153,25 +173,6 @@ class EpisodesController < ApplicationController
       end
       # If the slug isn't empty or a placeholder, no need to replace it.
       return episode_slug
-    end
-
-    def handle_submit_button
-      # Used when a form is submitted to update the episode.draft attribute depending on which button was selected.
-      logger.debug ">>>>>>> handle_submit_button here. params[:commit] = #{params[:commit]}"
-      if params[:commit] == ('Save as draft' || 'Revert to draft')
-        logger.debug ">>>>>>> save as draft clicked"
-        @episode.draft = true
-      elsif params[:commit] == 'Draft and schedule newsletter'
-        logger.debug ">>>>>>> draft and schedule clicked"
-        @episode.draft = true
-        @episode.newsletter_status = 'scheduling'
-      elsif params[:commit] == 'Cancel scheduled newsletter'
-        logger.debug ">>>>>>> cancel newsletter clicked"
-        @episode.newsletter_status = 'canceling'
-      elsif params[:commit] == ('Publish' || 'Publish changes')
-        logger.debug ">>>>>>> published clicked"
-        @episode.draft = false
-      end
     end
 
     def create_photo_objects
