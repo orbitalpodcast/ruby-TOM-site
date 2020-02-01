@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized
+    if ENV['test_skip_authorized'].presence == 'true' and ENV["RAILS_ENV"] == 'test'
+      logger.debug ">>>>>>> Skipping authorized!!!"
+      return
+    end  
     logger.debug ">>>>>>> Authorizing..."
     unless logged_in? and current_user.admin?
       if request.fullpath == '/draft' # Okay I know this seems silly, but at some point, there will be additional pages for admins to access.
