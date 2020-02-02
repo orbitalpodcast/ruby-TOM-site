@@ -12,17 +12,37 @@ class EpisodesController < ApplicationController
   # GET /episodes.rss
   def index
     ep_range = []
+    first_ep_num = Episode.order(number: :asc).first.number # Episode 1
+    last_ep_num  = Episode.order(number: :asc).last.number  # Episode 250 or whatever
     unless params.has_key?(:begin) and params.has_key?(:end)
-      @episodes = Episode.order(number: :desc).limit(Settings.episodes.number_of_episodes_per_page)
+      # set ep_range if /episodes was called, or /to/ was malformed
+      ep_range = [last_ep_num, last_ep_num - Settings.episodes.number_of_episodes_per_page + 1]
     else
       [params[:end], params[:begin]].each do |param|
-        param = Episode.order(number: :asc).first.number.to_s if param == 'first'
-        param = Episode.order(number: :asc).last.number.to_s  if param == 'last'
+        param = first_ep_num if param == 'first'
+        param = last_ep_num  if param == 'last'
         ep_range << param
       end
-      ep_range.sort!
-      @episodes = Episode.where( number: (ep_range[0]..ep_range[1]) ).order(number: :desc)
     end
+    ep_range.map! { |e| e.to_i} # sort can take strings or numbers, but they can't be mixed.
+    ep_range.sort!
+    @episodes = Episode.where( number: (ep_range[0]..ep_range[1]) ).order(number: :desc)
+    
+    # Figure out what other ranges to link to, for pagination
+    current_range_distance = ep_range[1] - ep_range[0]
+    # move to higher number episodes (more recent)
+    @previous_page_start = [ep_range[1] + 1 + current_range_distance, last_ep_num].min
+    @previous_page_end   = @previous_page_start - current_range_distance
+    if @previous_page_start == ep_range[1]
+      @previous_page_start = nil
+    end
+    # move to lower number episodes (older)
+    @next_page_end   = [ep_range[0] - 1 - current_range_distance, first_ep_num].max
+    @next_page_start = @next_page_end + current_range_distance
+    if @next_page_end == ep_range[0]
+      @next_page_end = nil
+    end
+
     respond_to do |format|
       format.html
       format.rss { render :layout => false }  # TODO: Restrict drafts from RSS feed.
