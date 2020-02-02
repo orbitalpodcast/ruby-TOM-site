@@ -11,15 +11,21 @@ class EpisodesController < ApplicationController
   # GET /episodes.json
   # GET /episodes.rss
   def index
+    ep_range = []
     unless params.has_key?(:begin) and params.has_key?(:end)
       @episodes = Episode.order(number: :desc).limit(Settings.episodes.number_of_episodes_per_page)
     else
-      ep_range = [params[:end],params[:begin]].sort
+      [params[:end], params[:begin]].each do |param|
+        param = Episode.order(number: :asc).first.number.to_s if param == 'first'
+        param = Episode.order(number: :asc).last.number.to_s  if param == 'last'
+        ep_range << param
+      end
+      ep_range.sort!
       @episodes = Episode.where( number: (ep_range[0]..ep_range[1]) ).order(number: :desc)
     end
     respond_to do |format|
       format.html
-      format.rss { render :layout => false }  # TODO: Restrict drafts from RSS feed. Add params to allow number of episodes selection.
+      format.rss { render :layout => false }  # TODO: Restrict drafts from RSS feed.
     end
   end
 

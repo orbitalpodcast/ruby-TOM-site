@@ -43,9 +43,27 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   test "should get index with range" do
     get episodes_with_range_url episodes(:one).number, episodes(:five).number
     assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 5}
+  end
 
+  test "get index with range using unusual ranges" do
+    # Range of 1
+    get episodes_with_range_url episodes(:one).number, episodes(:one).number
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 1}
+
+    # Backwards range
     get episodes_with_range_url episodes(:five).number, episodes(:one).number
     assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 5}
+
+    # Range of non-extant episode numbers
+    get episodes_with_range_url 1000, 1020
+    assert_response :success
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 0}
+
+    # Range with words
+    get episodes_with_range_url 'first', 'last'
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 10}
+    get episodes_with_range_url 'last', episodes(:six).number # 10 fixtures. in this context, last is :one
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 6}
   end
 
   test "should get new" do
