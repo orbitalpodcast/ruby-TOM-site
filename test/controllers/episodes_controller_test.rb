@@ -30,10 +30,30 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
                 *** https://www.mcgintyspublichouse.com/
                 *** 911 Ellsworth Dr, Silver Spring, MD 20910
                 ** Friday: IAC no-ticket open day")
+    @ep_draft = Episode.new(newsletter_status: 'not sent',
+                draft: true,
+                publish_date: '1-7-2020',
+                number: 242,
+                title: 'DOWNLINK--Dr. Martin Elvis',
+                slug: 'martin-elvis',
+                description: "Asteroid mining is often discussed in terms of engineering and economics. Today, we're talking about raw material availability.",
+                notes: "Spaceflight news
+                        *ISRO confirms plans for Chandrayaan-3 (spacenews.com)
+                        **Chandrayaan-2 imagery (nasa.gov)
+                        Short & Sweet
+                        *SpaceX plans a moveable tower for pad 39A (spaceflightnow.com)
+                        *Christina Koch breaks a record (spaceflightnow.com)
+                        *Early signs of the Clean Space age: Iridium announces willingness to pay for third party cleanup of failed satellites (spacenews.com)
+                        Interview: Dr. Martin Elvis, Senior Astrophysicist, Center for Astrophysics and Smithsonian
+                        *harvard.edu/~elvis
+                        *Simulated population of asteroids from mikael granvik (helsinki.fi)
+                        This week in SF history
+                        *10 January 2015: first droneship landing attempt (wikipedia.org)
+                        *Next week in 1977: black side down")
     ENV['test_skip_authorized'] = 'true'
   end
 
-  test "should get index" do
+  test "should get index with no drafts" do
     get episodes_url
     assert_response :success
     assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
@@ -66,6 +86,20 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/, count: 6}
   end
 
+  # TODO add test index pagination. Need to add many, many more episode fixtures.
+
+  test "get index skipping drafts" do
+    @ep_draft.save
+
+    get episodes_url
+    assert_response :success
+    assert_select 'h2', {text: @ep_draft.full_title, count: 0}
+    assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
+                         count: Settings.episodes.number_of_episodes_per_page}
+
+    @ep_draft.destroy
+  end
+
   test "should get new" do
     get root_path
     assert_response :success
@@ -75,7 +109,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Episode.count') do
       post episodes_url, params: {episode: @episode.attributes, commit: "Save as draft"}
     end
-    assert_redirected_to edit_episode_url(Episode.last)
+    assert_redirected_to edit_episode_url(@episode)
     assert_equal 'Episode draft was successfully created.', flash[:notice]
   end
 

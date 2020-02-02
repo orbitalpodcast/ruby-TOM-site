@@ -56,6 +56,10 @@ class EpisodesTest < ApplicationSystemTestCase
   end
 
   test "Creating an Episode draft" do
+    visit root_url
+    assert_selector 'h2', text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
+                          count: Settings.homepage.number_of_episodes
+
     visit draft_url
     assert_current_path login_path
 
@@ -74,46 +78,20 @@ class EpisodesTest < ApplicationSystemTestCase
     fill_in "Notes",        with: @episode[:notes]
     click_on "Save as draft"
     assert_current_path "/episodes/#{@episode[:slug]}/edit"
-    assert_text 'Draft was successfully created.'
+    assert_text 'Episode draft was successfully created.'
     assert_text 'not scheduled'
 
     click_on 'Back'
-    
     assert_current_path episodes_path
     
     click_on 'The Orbital Mechanics Podcast'
     assert_current_path root_path
-    #TODO: Add Episode full title generator method and implement in views and tests
-    assert_selector 'h2', text: "Episode #{@episode[:number]}: #{@episode[:title]}", count: 1
-  end
+    assert_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title]), count: 1
+    assert_selector 'h2', text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
+                          count: Settings.homepage.number_of_episodes + 1
+end
 
   test "Trying to publish an episode that's missing its notes" do
-    visit draft_url
-    assert_current_path login_path
-
-    fill_in 'Email', with: users(:admin).email
-    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
-    assert_current_path draft_path
-
-    # page.save_screenshot('tmp/screenshots/state_before_filling_in.png')
-
-    fill_in "Number",       with: @episode[:number]
-    fill_in "Title",        with: @episode[:title]
-    fill_in "Slug",         with: @episode[:slug]
-    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-    select(@episode[:publish_month], from: 'episode_publish_date_2i')
-    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-    fill_in "Description",  with: @episode[:description]
-    fill_in "Notes",        with: @episode[:notes]
-    click_on "Save as draft"
-    assert_current_path "/episodes/#{@episode[:slug]}/edit"
-    assert_text 'Draft was successfully created.'
-    assert_text 'not scheduled'
-  
-  end
-
-  test "Editing a published episode" do
     visit login_url
 
     fill_in 'Email', with: users(:admin).email
@@ -134,7 +112,7 @@ class EpisodesTest < ApplicationSystemTestCase
     fill_in "Notes",        with: ''
     click_on "Publish"
 
-    assert_text "Notes cannot be empty."
+    assert_text "Notes can't be blank"
   end
 
   test "destroying a Episode" do
