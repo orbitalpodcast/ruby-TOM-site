@@ -31,4 +31,14 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def debug(symb, the_binding=nil)
+    var_name = symb.to_s
+    if the_binding
+      var_value = eval(var_name, the_binding)
+      logger.debug ">>>>>>> #{var_name}: #{var_value.inspect}"
+    else
+      logger.debug ">>>>>>> #{var_name}"
+    end
+  end
+
 end
