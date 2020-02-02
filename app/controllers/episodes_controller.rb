@@ -27,6 +27,7 @@ class EpisodesController < ApplicationController
     ep_range.map! { |e| e.to_i} # sort can take strings or numbers, but they can't be mixed.
     ep_range.sort!
     @episodes = Episode.published.where( number: (ep_range[0]..ep_range[1]) )
+    @rss_episodes = Episode.published.limit(100)
 
     # Figure out what other ranges to link to, for pagination
     current_range_distance = ep_range[1] - ep_range[0]

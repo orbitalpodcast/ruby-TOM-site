@@ -22,7 +22,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version
     xml.itunes :image, Settings.rss.image_show
     xml.description Settings.rss.description_show
 
-    @episodes.each do |episode|
+    @rss_episodes.each do |episode|
       xml.item do
         xml.title episode.full_title
         # xml.enclosure :url => episode.audio_file, :length => episode.audio_file.length, :type => 'audio/mp3'
