@@ -1,9 +1,7 @@
 <h1>The Orbital Mechanics Podcast</h1></br>
 
-<% @logged_in = logged_in? %>
-
-<% if @logged_in and Delayed::Job.exists? %>
-  <h3>Scheduled jobs (<%= Delayed::Job.count %>) Don't forget to rake jobs:work</h3>
+<% if @scheduled_jobs %>
+  <h3>Scheduled jobs (<%= @scheduled_jobs.count %>) Don't forget to rake jobs:work</h3>
   <table>
     <thead>
       <tr>
@@ -18,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <% for job in Delayed::Job.all do %>
+      <% for job in @scheduled_jobs do %>
         <% job_args = YAML.load( job.handler ) %>
         <% job_episode = job_args.args[0] %>
         <tr>
@@ -36,8 +34,8 @@
   ------
 <% end %>
 
-<% if @logged_in and Episode.draft_waiting? %>
-  <% Episode.where(draft: true).each do |episode| %>
+<% if @drafts %>
+  <% @drafts.each do |episode| %>
       <h2><%= link_to episode.full_title, episode_path(episode) %></h2>
       <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) %>
       <%= episode.description %>
@@ -46,8 +44,7 @@
   ------
 <% end %>
 
-<% #TODO pull episode selection out of pages/index view into the pages controller %>
-<% Episode.most_recent_published(Settings.homepage.number_of_episodes).each do |episode| %>
+<% @episodes.each do |episode| %>
     <h2><%= link_to episode.full_title, episode_path(episode.slug) %></h2>
     <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if @logged_in %>
     <%= episode.description %>

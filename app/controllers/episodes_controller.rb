@@ -12,8 +12,8 @@ class EpisodesController < ApplicationController
   # GET /episodes.rss
   def index
     ep_range = []
-    first_ep_num = Episode.order(number: :asc).first.number # Episode 1
-    last_ep_num  = Episode.order(number: :asc).last.number  # Episode 250 or whatever
+    first_ep_num = Episode.published.first.number # Episode 1
+    last_ep_num  = Episode.published.last.number  # Episode 250 or whatever
     unless params.has_key?(:begin) and params.has_key?(:end)
       # set ep_range if /episodes was called, or /to/ was malformed
       ep_range = [last_ep_num, last_ep_num - Settings.episodes.number_of_episodes_per_page + 1]
@@ -26,8 +26,8 @@ class EpisodesController < ApplicationController
     end
     ep_range.map! { |e| e.to_i} # sort can take strings or numbers, but they can't be mixed.
     ep_range.sort!
-    @episodes = Episode.where( number: (ep_range[0]..ep_range[1]) ).order(number: :desc)
-    
+    @episodes = Episode.published.where( number: (ep_range[0]..ep_range[1]) )
+
     # Figure out what other ranges to link to, for pagination
     current_range_distance = ep_range[1] - ep_range[0]
     # move to higher number episodes (more recent)

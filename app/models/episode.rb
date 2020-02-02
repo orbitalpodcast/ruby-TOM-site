@@ -2,6 +2,9 @@ class Episode < ApplicationRecord
   
   has_many :images, dependent: :destroy
   has_one_attached :audio
+  default_scope { order(number: :asc) }
+  scope :published,     -> {where draft: false}
+  scope :not_published, -> {where draft: true}
 
   NEWSLETTER_STATUSES =  ['not scheduled',  # when newly created, and not ready to email
                            'scheduling',     # when scheduling requested, but not completed
@@ -67,7 +70,7 @@ class Episode < ApplicationRecord
   end
   def self.most_recent_published(number_of_posts)
   # Get X number of most recent posts. Used on the index.
-    order(:draft).first(number_of_posts) # eager loads the objects
+    published.last(number_of_posts).reverse # eager loads the objects
   end
   def self.slugify(unslug)
   # Drop all non-alphanumeric characters, and change spaces to hyphens
@@ -84,6 +87,9 @@ class Episode < ApplicationRecord
   end
   def full_title()
     "Episode #{self.number}: #{self.title}"
+  end
+  def self.full_title(number, title)
+    "Episode #{number}: #{title}"
   end
 
   END_URL_REGEX =  /(?<esc>\/\/\/)?                # set optional escapement named group
