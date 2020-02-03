@@ -42,3 +42,4 @@ config/environments/*.local.yml
 edited_SS_RSS.xml
 config/secrets.yml
 config/twitter.yml
+/capybara-*.html
