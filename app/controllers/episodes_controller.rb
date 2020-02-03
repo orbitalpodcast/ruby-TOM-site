@@ -182,6 +182,7 @@ class EpisodesController < ApplicationController
       unless @episode.draft?
         logger.debug ">>>>>>> Publishing the episode."
         unless @episode.ever_been_published? # Some things should not happen if an episode was pulled down in an emergency.
+          @episode.update_attribute :publish_date, Time.now
           logger.debug ">>>>>>> #TWITTER: {@episode.description} #{episode_url(@episode)}"
           # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
         else
