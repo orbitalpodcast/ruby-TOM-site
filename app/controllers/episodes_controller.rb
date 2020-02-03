@@ -26,7 +26,7 @@ class EpisodesController < ApplicationController
     end
     ep_range.map! { |e| e.to_i} # sort can take strings or numbers, but they can't be mixed.
     ep_range.sort!
-    @episodes = Episode.published.where( number: (ep_range[0]..ep_range[1]) )
+    @episodes = Episode.published.where( number: (ep_range[0]..ep_range[1]) ).reverse
     @rss_episodes = Episode.published.limit(100)
 
     # Figure out what other ranges to link to, for pagination
@@ -67,7 +67,7 @@ class EpisodesController < ApplicationController
   def draft
     # Redirects to edit or acts as new
     if Episode.draft_waiting?
-      @episode = Episode.most_recent_draft
+      @episode = Episode.not_published.last
       redirect_to edit_episode_path @episode
     else
       @episode = Episode.new
@@ -105,12 +105,12 @@ class EpisodesController < ApplicationController
         update_notice = publish # returns a string, indicating if publish tasks were completed.
         format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
       else
-        @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status = 'scheduling'
+        @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status == 'scheduling'
         @episode.reload # discards all user changes. Worth only resetting draft and newsletter_status?
         format.html { render :edit }
       end
     end
-  end
+  end   
 
   # DELETE /episodes/1
   # DELETE /episodes/1.json

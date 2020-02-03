@@ -66,10 +66,6 @@ class Episode < ApplicationRecord
   # Check progression of newsletter status through the expected stages.
     NEWSLETTER_STATUSES.find_index(target_status) > NEWSLETTER_STATUSES.find_index(self.newsletter_status)
   end
-  def self.most_recent_draft
-  # Mostly used by episodes#set_episode when :slug_or_number.blank?
-    order(:draft).last # eager loads the object
-  end
   def self.draft_waiting?
   # Used by routes to determine where to send GET /draft
     where(draft: true).length > 0 # only accesses activerecord relation, so lazy loads
