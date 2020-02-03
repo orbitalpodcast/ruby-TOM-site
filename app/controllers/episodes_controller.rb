@@ -30,7 +30,7 @@ class EpisodesController < ApplicationController
 
     # Pass selected episodes to views
     @episodes = Episode.published.where( number: (ep_range[0]..ep_range[1]) ).reverse
-    @rss_episodes = Episode.published.limit(100)
+    @rss_episodes = Episode.published.reverse # TODO build RSS tests. github.com/edgar/feedvalidator
 
     # Figure out what other ranges to link to, for pagination
     current_range_distance = ep_range[1] - ep_range[0]
