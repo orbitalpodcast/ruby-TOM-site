@@ -24,7 +24,7 @@ class EpisodesTest < ApplicationSystemTestCase
                         This week in SF history
                         *10 January 2015: first droneship landing attempt (wikipedia.org)
                         *Next week in 1977: black side down"}
-    old_episode = {publish_year: '2019',
+    @old_episode = {publish_year: '2019',
                    publish_month: 'September',
                    publish_day: '8',
                    number: 231,
@@ -262,6 +262,37 @@ end
     assert_text "Number has already been taken"
     assert_text "Title has already been taken"
     assert_text "Slug has already been taken"
+  end
+
+  test "Loading draft if the draft is old" do
+    # Test what you fly, right? Found a bug where episode#draft wasn't loading the most recent draft properly
+    # because before implementing the default scope, I'd wound up sorting incorrectly in the now depricated
+    # most_recent_draft method, and it wound up loading an already-published episode.
+    visit draft_url
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
+
+    # Check the draft page contents
+    assert page.has_field? 'Number', with: episodes(:one).number + 1
+    assert_no_text 'Show'
+    assert_text 'Back'
+    assert_no_text 'Remove'
+
+    # Fill in an old episode
+    fill_in "Number",       with: @old_episode[:number]
+    fill_in "Title",        with: @old_episode[:title]
+    select(@old_episode[:publish_year],  from: 'episode_publish_date_1i')
+    select(@old_episode[:publish_month], from: 'episode_publish_date_2i')
+    select(@old_episode[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: @old_episode[:description]
+    fill_in "Notes",        with: @old_episode[:notes]
+    click_on "Save as draft"
+    assert_text 'Episode draft was successfully created.'
+
+    # Check the draft was loaded correctly on draft page.
+    visit draft_url
+    assert_current_path "/episodes/#{@old_episode[:slug]}/edit"
   end
 
   test "destroying a Episode" do
