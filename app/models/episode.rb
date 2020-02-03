@@ -91,7 +91,6 @@ class Episode < ApplicationRecord
     Episode.find_by number: self.number-1
   end
   def notes_as_html()
-    # Make markup conversion available to Episode objects
     Episode.convert_markup_to_HTML(self.notes)
   end
   def full_title()
