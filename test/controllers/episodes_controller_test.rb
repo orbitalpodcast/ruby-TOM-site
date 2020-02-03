@@ -53,7 +53,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     ENV['test_skip_authorized'] = 'true'
   end
 
-  test "should get index with no drafts" do
+  test "should get index" do
     get episodes_url
     assert_response :success
     assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
@@ -123,7 +123,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update episode" do
+  test "should update episode with new variables" do
     patch episode_url episodes(:one), params: { episode: { description: @episode.description,
                                                            notes: @episode.notes,
                                                            number: @episode.number,
