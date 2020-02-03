@@ -8,6 +8,6 @@ class PagesController < ApplicationController
       if logged_in? and Episode.draft_waiting?
         @drafts = Episode.not_published
       end
-      @episodes = Episode.most_recent_published(Settings.homepage.number_of_episodes) || []
+      @episodes = Episode.most_recent_published(Settings.views.number_of_homepage_episodes) || []
     end
 end

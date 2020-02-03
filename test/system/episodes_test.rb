@@ -57,7 +57,7 @@ class EpisodesTest < ApplicationSystemTestCase
   test "visiting the index before logging in" do
     visit root_url
     assert_selector "h1", text: "The Orbital Mechanics Podcast"
-    assert_selector 'h2', text: TITLE_REGEX, count: Settings.homepage.number_of_episodes
+    assert_selector 'h2', text: TITLE_REGEX, count: Settings.views.number_of_homepage_episodes
     assert_link 'More episodes...', href: episodes_path
     assert_no_link text: /edit/i
     assert_no_link text: /episode draft/i
@@ -157,7 +157,7 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_current_path root_path
     assert_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title]), count: 1
     assert_selector 'h2', text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
-                          count: Settings.homepage.number_of_episodes
+                          count: Settings.views.number_of_homepage_episodes
     assert_text "Scheduled jobs (1)"
 
     # Log out and check that the episode is still present, but the scheduled job isn't.

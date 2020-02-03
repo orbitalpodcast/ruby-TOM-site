@@ -16,7 +16,7 @@ class EpisodesController < ApplicationController
     last_ep_num  = Episode.published.last.number  # Episode 250 or whatever
     unless params.has_key?(:begin) and params.has_key?(:end)
       # set ep_range if /episodes was called, or /to/ was malformed
-      ep_range = [last_ep_num, last_ep_num - Settings.episodes.number_of_episodes_per_page + 1]
+      ep_range = [last_ep_num, last_ep_num - Settings.views.number_of_episodes_per_page + 1]
     else
       [params[:end], params[:begin]].each do |param|
         param = first_ep_num if param == 'first'

@@ -57,7 +57,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     get episodes_url
     assert_response :success
     assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
-                         count: Settings.episodes.number_of_episodes_per_page}
+                         count: Settings.views.number_of_episodes_per_page}
   end
 
   test "should get index with range" do
@@ -95,7 +95,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h2', {text: @ep_draft.full_title, count: 0}
     assert_select 'h2', {text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
-                         count: Settings.episodes.number_of_episodes_per_page}
+                         count: Settings.views.number_of_episodes_per_page}
 
     @ep_draft.destroy
   end

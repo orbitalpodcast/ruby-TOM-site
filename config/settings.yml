@@ -1,11 +1,7 @@
 views:
   date_format: "%b %-d, %Y"
-
-homepage:
-  number_of_episodes: 5
-
-episodes:
-  number_of_episodes_per_page: 10
+  number_of_homepage_episodes: 5
+  number_of_episodes_per_page: 10 # Sets the default pagination on /episodes
 
 newsletter:
   from: ben@theorbitalmechanics.com
