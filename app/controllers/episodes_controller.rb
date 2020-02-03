@@ -11,6 +11,7 @@ class EpisodesController < ApplicationController
   # GET /episodes.json
   # GET /episodes.rss
   def index
+    # Determine the appropriate range of episodes
     ep_range = []
     first_ep_num = Episode.published.first.number # Episode 1
     last_ep_num  = Episode.published.last.number  # Episode 250 or whatever
@@ -26,6 +27,8 @@ class EpisodesController < ApplicationController
     end
     ep_range.map! { |e| e.to_i} # sort can take strings or numbers, but they can't be mixed.
     ep_range.sort!
+
+    # Pass selected episodes to views
     @episodes = Episode.published.where( number: (ep_range[0]..ep_range[1]) ).reverse
     @rss_episodes = Episode.published.limit(100)
 
@@ -46,7 +49,7 @@ class EpisodesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.rss { render :layout => false }  # TODO: Restrict drafts from RSS feed.
+      format.rss { render :layout => false }
     end
   end
 

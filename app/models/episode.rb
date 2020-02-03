@@ -13,7 +13,7 @@ class Episode < ApplicationRecord
                            'sent',           # when email has been sent
                            'not sent']       # rare: when no email has or will be sent
 
-# Validations for all episodes
+  # Validations for all episodes
   validates :number,
                             presence: true,
                             uniqueness: true,
@@ -26,7 +26,7 @@ class Episode < ApplicationRecord
                             inclusion: { in: [true, false] }
   validates :newsletter_status,
                             inclusion: { in: NEWSLETTER_STATUSES }
-# Validations before schduling an episode newsletter
+  # Validations before schduling an episode newsletter
   with_options if: -> { self.newsletter_status and self.newsletter_status_at_least? 'scheduling' } do |e|
     e.validates :title,
                               presence: true,
@@ -40,7 +40,7 @@ class Episode < ApplicationRecord
     e.validates :slug,
                               exclusion: { in: ['untitled-draft'] }
   end
-# Validations before publishing an episode
+  # Validations before publishing an episode
   with_options if: -> { not self.draft? } do |e|
       e.validate :scheduled_newsletter, on: :update
   end
@@ -54,31 +54,34 @@ class Episode < ApplicationRecord
     end
   end
 
+  #OVERRIDERS
   def to_param
-  # Overrides default behavior, and constructs episode_path by using the slug.
+    # Overrides default behavior, and constructs episode_path by using the slug.
     slug
   end
+
+  # HANDY
   def publish_date_short
     self.publish_date.strftime Settings.views.date_format
   end
   def newsletter_status_at_least?(target_status)
-  # Check progression of newsletter status through the expected stages.
+    # Check progression of newsletter status through the expected stages.
     NEWSLETTER_STATUSES.find_index(target_status) <= NEWSLETTER_STATUSES.find_index(self.newsletter_status)
   end
   def newsletter_status_before?(target_status)
-  # Check progression of newsletter status through the expected stages.
+    # Check progression of newsletter status through the expected stages.
     NEWSLETTER_STATUSES.find_index(target_status) > NEWSLETTER_STATUSES.find_index(self.newsletter_status)
   end
   def self.draft_waiting?
-  # Used by routes to determine where to send GET /draft
+    # Used by routes to determine where to send GET /draft
     where(draft: true).length > 0 # only accesses activerecord relation, so lazy loads
   end
   def self.most_recent_published(number_of_posts)
-  # Get X number of most recent posts, presented newest first. Used on the index.
+    # Get X number of most recent posts, presented newest first. Used on the index.
     published.last(number_of_posts).reverse # eager loads the objects
   end
   def self.slugify(unslug)
-  # Drop all non-alphanumeric characters, and change spaces to hyphens
+    # Drop all non-alphanumeric characters, and change spaces to hyphens
     unslug.to_str.downcase.gsub(/^(downlink|data relay)--(dr. )?/, '').gsub(/[^a-z0-9]/, ' '=>'-')
   end
   def next_episode()
@@ -88,6 +91,7 @@ class Episode < ApplicationRecord
     Episode.find_by number: self.number-1
   end
   def notes_as_html()
+    # Make markup conversion available to Episode objects
     Episode.convert_markup_to_HTML(self.notes)
   end
   def full_title()
@@ -97,6 +101,7 @@ class Episode < ApplicationRecord
     "Episode #{number}: #{title}"
   end
 
+  # MARKUP PARSER
   END_URL_REGEX =  /(?<esc>\/\/\/)?                # set optional escapement named group
                     (?<opar>\([[:blank:]]*)?       # look for leading open parens and padding spaces
                     (?<ht>HT.*:\ )?                # set optional hat tip named group. Escaped space BC free spacing
