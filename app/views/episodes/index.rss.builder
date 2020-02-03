@@ -19,7 +19,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version
       end
     end
     xml.itunes :type, Settings.rss.type
-    xml.itunes :image, Settings.rss.image_show
+    xml.itunes :image, href: Settings.rss.image_show
     xml.description Settings.rss.description_show
 
     @rss_episodes.each do |episode|
@@ -37,7 +37,7 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version
               # These requirements are different from the standard RSS image tag specifications.
         xml.itunes :explicit, 'no'
         xml.content :encoded do
-          xml.cdata! episode.notes
+          xml.cdata! Episode.convert_markup_to_HTML episode.notes
         end
       end
     end

@@ -43,8 +43,8 @@ rss:
 # Author information is especially useful if a company or organization publishes multiple podcasts. Providing this information will allow listeners to see all shows created
 # by the same entity.
 
-  explicit: 'no'
-# The podcast parental advisory information.
+  explicit_show: 'no'
+# The podcast parental advisory information for the show as a whole. If you want individual episodes marked differently, contact ben@theorbitalmechanics.com
 # The explicit value can be one of the following:
 # Yes. If you specify true, indicating the presence of explicit content, Apple Podcasts displays an Explicit parental advisory graphic for your podcast.
 # Podcasts containing explicit material aren’t available in some Apple Podcasts territories.
