@@ -37,7 +37,7 @@
 <% if @drafts %>
   <% @drafts.each do |episode| %>
       <h2><%= link_to episode.full_title, episode_path(episode) %></h2>
-      <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode) %>
+      <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode) %>
       <%= episode.description %>
     </p>
   <% end %>
@@ -46,7 +46,7 @@
 
 <% @episodes.each do |episode| %>
     <h2><%= link_to episode.full_title, episode_path(episode.slug) %></h2>
-    <i><%= episode.publish_date %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if @logged_in %>
+    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if @logged_in %>
     <%= episode.description %>
   </p>
 <% end %>

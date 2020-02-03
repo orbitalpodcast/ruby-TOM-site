@@ -1,3 +1,6 @@
+views:
+  date_format: "%b %-d, %Y"
+
 homepage:
   number_of_episodes: 5
 

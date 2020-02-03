@@ -58,6 +58,9 @@ class Episode < ApplicationRecord
   # Overrides default behavior, and constructs episode_path by using the slug.
     slug
   end
+  def publish_date_short
+    self.publish_date.strftime Settings.views.date_format
+  end
   def newsletter_status_at_least?(target_status)
   # Check progression of newsletter status through the expected stages.
     NEWSLETTER_STATUSES.find_index(target_status) <= NEWSLETTER_STATUSES.find_index(self.newsletter_status)

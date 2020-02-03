@@ -2,7 +2,7 @@
 
 <h2><% if logged_in? and @episode.draft? %> DRAFT <% end %></h2>
 <h2><%= @episode.full_title %></h2>
-<p><i><%= @episode.publish_date %></i></p>
+<p><i><%= @episode.publish_date_short %></i></p>
 <p><strong><%= @episode.description %></strong></p>
 <br>
 
