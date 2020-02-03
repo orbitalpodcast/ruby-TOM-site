@@ -1,5 +1,5 @@
 class Episode < ApplicationRecord
-  
+
   has_many :images, dependent: :destroy
   has_one_attached :audio
   default_scope { order(number: :asc) }
@@ -42,11 +42,17 @@ class Episode < ApplicationRecord
   end
 # Validations before publishing an episode
   with_options if: -> { not self.draft? } do |e|
-    e.validates :newsletter_status,
-                                    presence: true,
-                                    inclusion: { in: NEWSLETTER_STATUSES[-2..-1] } # Wish I could use _at_least? here, but this is cleaner than a custom method.
+      e.validate :scheduled_newsletter, on: :update
   end
 
+  def scheduled_newsletter
+    unless self.newsletter_status_at_least? 'scheduled'
+      error = "Can't publish if the newsletter hasn't been handled. "
+      error << "Hint: either schedule the newsletter, or confirm it won't be sent. "
+      error << "After that, additional validations will be run and might generate new errors."
+      self.errors[:base] << error
+    end
+  end
 
   def to_param
   # Overrides default behavior, and constructs episode_path by using the slug.
@@ -69,12 +75,12 @@ class Episode < ApplicationRecord
     where(draft: true).length > 0 # only accesses activerecord relation, so lazy loads
   end
   def self.most_recent_published(number_of_posts)
-  # Get X number of most recent posts. Used on the index.
+  # Get X number of most recent posts, presented newest first. Used on the index.
     published.last(number_of_posts).reverse # eager loads the objects
   end
   def self.slugify(unslug)
   # Drop all non-alphanumeric characters, and change spaces to hyphens
-    unslug.to_str.downcase.gsub(/[^a-z0-9]/, ' '=>'-')
+    unslug.to_str.downcase.gsub(/^(downlink|data relay)--(dr. )?/, '').gsub(/[^a-z0-9]/, ' '=>'-')
   end
   def next_episode()
     Episode.find_by number: self.number+1
