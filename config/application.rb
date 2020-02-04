@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+ActiveStorage.analyzers << ActiveStorage::Audio::Analyzer
+
 module Blog
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -20,7 +22,7 @@ module Blog
     config.twitter = config_for(:twitter) if ENV["RAILS_ENV"] == 'development'
 
     # load config/local_env.yml and store as ENV variables. TODO: only use one secrets method. Depricate config gem?
-    if ENV["RAILS_ENV"] == 'development'
+    if ['development', 'test'].include? ENV["RAILS_ENV"]
       config.before_configuration do
         env_file = File.join(Rails.root, 'config', 'local_env.yml')
         YAML.load(File.open(env_file)).each do |key, value|

@@ -16,6 +16,8 @@ development:
 test:
   <<: *default
   database: tom-site_test
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
 
 production:
   <<: *default
