@@ -23,6 +23,16 @@
   </div>
 
   <div class="field">
+    <%= form.label :audio_attached %>
+    <strong><%= episode.audio.attached? %></strong>
+  </div>
+
+  <div class="field">
+    <%= form.label :audio_duration %>
+    <strong><%= episode.audio.blob.metadata[:duration] if episode.audio.attached? and episode.audio.analyzed? %></strong>
+  </div>
+
+  <div class="field">
     <%= form.label :number %>
     <%= form.text_field :number %>
   </div>

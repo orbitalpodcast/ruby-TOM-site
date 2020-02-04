@@ -50,6 +50,8 @@ GEM
       activejob (= 6.0.1)
       activerecord (= 6.0.1)
       marcel (~> 0.3.1)
+    activestorage-audio (0.1.0)
+      activestorage (>= 5)
     activesupport (6.0.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
@@ -288,6 +290,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  activestorage-audio (~> 0.1.0)
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug

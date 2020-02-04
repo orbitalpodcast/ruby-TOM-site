@@ -30,6 +30,9 @@ gem 'delayed_job_active_record', '~> 4.1.4'
 # Twitter API
 gem 'twitter', '~>6.2.0'
 
+# Use activestorage-audio to interpret mp3 tags. Requires ffmpeg to be installed. Heroku package: https://elements.heroku.com/buildpacks/ffmpeg/ffmpeg
+gem 'activestorage-audio', '~>0.1.0'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
