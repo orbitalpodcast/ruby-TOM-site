@@ -17,14 +17,16 @@ module Blog
     # the framework and any gems in your application.
 
     # load config/twitter.yml with config gem. Used by initalizers/twitter.rb
-    config.twitter = config_for(:twitter)
+    config.twitter = config_for(:twitter) if ENV["RAILS_ENV"] == 'development'
 
     # load config/local_env.yml and store as ENV variables. TODO: only use one secrets method. Depricate config gem?
-    config.before_configuration do
-      env_file = File.join(Rails.root, 'config', 'local_env.yml')
-      YAML.load(File.open(env_file)).each do |key, value|
-        ENV[key.to_s] = value
-      end if File.exists?(env_file)
+    if ENV["RAILS_ENV"] == 'development'
+      config.before_configuration do
+        env_file = File.join(Rails.root, 'config', 'local_env.yml')
+        YAML.load(File.open(env_file)).each do |key, value|
+          ENV[key.to_s] = value
+        end if File.exists?(env_file)
+      end
     end
   end
 end
