@@ -65,16 +65,19 @@ class EpisodesController < ApplicationController
   # GET /draft
   def draft
     # Redirects to edit or acts as new
-    if Episode.draft_waiting?
-      @episode = Episode.not_published.last
-      redirect_to edit_episode_path @episode
-    else
+    if not Episode.draft_waiting?
       @episode = Episode.new
       @episode.number = (Episode.maximum('number') || 0) + 1
       @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) # find next tuesday TODO: pull publish date/schedule out into config file
       @episode.draft = true
       @episode.newsletter_status = 'not scheduled'
       render :new
+    elsif Episode.not_published.count == 1
+      @episode = Episode.not_published.last
+      redirect_to edit_episode_path @episode
+    else
+      @episodes = Episode.not_published
+      render :index
     end
   end
 

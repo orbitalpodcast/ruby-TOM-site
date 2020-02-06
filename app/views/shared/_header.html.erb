@@ -2,7 +2,10 @@
 
 <% if logged_in? %>
   <%= current_user.email %> | 
-  <%= link_to 'Episode draft', draft_path %> | 
+  <%= link_to "Episode draft (#{Episode.not_published.count})", draft_path %> | 
+  <% unless Delayed::Job.all.empty? %>
+    <%= pluralize(Delayed::Job.all.count, 'job') %> | 
+  <% end %>
   <%= link_to 'Email Subscribers', users_path %> | 
   <%= link_to 'Log Out', logout_path %>
 <% end %> <br>
