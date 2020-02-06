@@ -37,15 +37,11 @@ class EpisodesController < ApplicationController
     # move to higher number episodes (more recent)
     @previous_page_start = [ep_range[1] + 1 + current_range_distance, last_ep_num].min
     @previous_page_end   = @previous_page_start - current_range_distance
-    if @previous_page_start == ep_range[1]
-      @previous_page_start = nil
-    end
+    @previous_page_start = nil if @previous_page_start == ep_range[1]
     # move to lower number episodes (older)
     @next_page_end   = [ep_range[0] - 1 - current_range_distance, first_ep_num].max
     @next_page_start = @next_page_end + current_range_distance
-    if @next_page_end == ep_range[0]
-      @next_page_end = nil
-    end
+    @next_page_end = nil if @next_page_end == ep_range[0]
 
     respond_to do |format|
       format.html
