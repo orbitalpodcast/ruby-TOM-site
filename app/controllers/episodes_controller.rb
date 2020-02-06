@@ -106,6 +106,7 @@ class EpisodesController < ApplicationController
                                                 ).except(:images))
         handle_newsletter
         update_notice = publish # returns a string, indicating if publish tasks were completed.
+        # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re=analysis before publishing?
         format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
       else
         @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status == 'scheduling'

@@ -23,21 +23,23 @@ xml.rss "xmlns:itunes" => "http://www.itunes.com/dtds/podcast-1.0.dtd", :version
     xml.description Settings.rss.description_show
 
     @rss_episodes.each do |episode|
-      xml.item do
-        xml.title episode.full_title
-        xml.enclosure :url => url_for(episode.audio), :length => episode.audio.blob.metadata[:duration].floor, :type => 'audio/mp3'
-        xml.guid episode_url(episode) # TODO: implement RSS GUID override for episodes still on the Squarespace feed at publish time. Include isPermaLink="false" when overriding
-        xml.pubDate episode.publish_date.to_s(:rfc822)
-        xml.description episode.description
-        # xml.itunes :duration, episode.audio_file.length
-        xml.link episode_url(episode)
-        # IF WE WANT TO FORMAT SPECIFIC IMAGES FOR EACH EPISODE, USE xml.itunes :image, image_path
-              # Artwork must be a minimum size of 1400 x 1400 pixels and a maximum size of 3000 x 3000 pixels,
-              # in JPEG or PNG format, 72 dpi, with appropriate file extensions (.jpg, .png), and in the RGB colorspace.
-              # These requirements are different from the standard RSS image tag specifications.
-        xml.itunes :explicit, 'no'
-        xml.content :encoded do
-          xml.cdata! Episode.convert_markup_to_HTML episode.notes
+      if episode.audio.attached?
+        xml.item do
+          xml.title episode.full_title
+          xml.enclosure :url => rails_blob_url(episode.audio), :length => episode.audio.blob.metadata[:duration].floor, :type => 'audio/mp3'
+          xml.guid episode_url(episode) # TODO: implement RSS GUID override for episodes still on the Squarespace feed at publish time. Include isPermaLink="false" when overriding
+          xml.pubDate episode.publish_date.to_s(:rfc822)
+          xml.description episode.description
+          # xml.itunes :duration, episode.audio_file.length
+          xml.link episode_url(episode)
+          # IF WE WANT TO FORMAT SPECIFIC IMAGES FOR EACH EPISODE, USE xml.itunes :image, image_path
+                # Artwork must be a minimum size of 1400 x 1400 pixels and a maximum size of 3000 x 3000 pixels,
+                # in JPEG or PNG format, 72 dpi, with appropriate file extensions (.jpg, .png), and in the RGB colorspace.
+                # These requirements are different from the standard RSS image tag specifications.
+          xml.itunes :explicit, 'no'
+          xml.content :encoded do
+            xml.cdata! Episode.convert_markup_to_HTML episode.notes
+          end
         end
       end
     end
