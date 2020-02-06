@@ -3,8 +3,9 @@ class Episode < ApplicationRecord
   has_many :images, dependent: :destroy
   has_one_attached :audio
   default_scope { order(number: :asc) }
-  scope :published,     -> {where draft: false}
-  scope :not_published, -> {where draft: true}
+  scope :published,            -> {where draft: false}
+  scope :published_with_audio, -> {joins(:audio_attachment).where(draft: false)}
+  scope :not_published,        -> {where draft: true}
 
   NEWSLETTER_STATUSES =  ['not scheduled',  # when newly created, and not ready to email
                            'scheduling',     # when scheduling requested, but not completed

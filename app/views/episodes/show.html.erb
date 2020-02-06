@@ -11,6 +11,8 @@
   <%= @episode.audio.attached? %>
 </p>
 
+<%= link_to 'Download', @episode.audio if @episode.audio.attached? %>
+
 <p><%=raw @episode.notes_as_html %></p>
 
 
