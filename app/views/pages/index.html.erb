@@ -1,5 +1,3 @@
-<h1>The Orbital Mechanics Podcast</h1></br>
-
 <% if @scheduled_jobs %>
   <h3>Scheduled jobs (<%= @scheduled_jobs.count %>) Don't forget to rake jobs:work</h3>
   <table>
@@ -46,7 +44,7 @@
 
 <% @episodes.each do |episode| %>
     <h2><%= link_to episode.full_title, episode_path(episode.slug) %></h2>
-    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if @logged_in %>
+    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if logged_in? %>
     <%= episode.description %>
   </p>
 <% end %>

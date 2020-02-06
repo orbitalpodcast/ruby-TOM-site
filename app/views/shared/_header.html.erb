@@ -1,9 +1,11 @@
+<h1><%= link_to 'The Orbital Mechanics Podcast', root_path %></h1>
+
 <% if logged_in? %>
   <%= current_user.email %> | 
   <%= link_to 'Episode draft', draft_path %> | 
   <%= link_to 'Email Subscribers', users_path %> | 
   <%= link_to 'Log Out', logout_path %>
-<% end %>
+<% end %> <br>
 
 <p>
 <% flash.each do |type, msg| %>
