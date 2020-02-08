@@ -37,6 +37,9 @@ gem 'activestorage-audio', '~>0.1.0'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Use plyr as an in-line audio player. Maybe later video headers too?
+gem 'plyr-rails', '~>3.4.7'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
