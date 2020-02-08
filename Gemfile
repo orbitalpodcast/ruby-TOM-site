@@ -32,10 +32,12 @@ gem 'twitter', '~>6.2.0'
 
 # Use activestorage-audio to interpret mp3 tags. Requires ffmpeg to be installed, locally and on server.
 # heroku buildpacks:add https://github.com/FFmpeg/FFmpeg.git
+# Adding multiple buildpacks also requires Procfile to be included. The default won't work.
 gem 'activestorage-audio', '~>0.1.0'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+# Use Active Storage variant. Requires imagemagick to be installed, locally and on server.
+# heroku buildpacks:add https://github.com/DuckyTeam/heroku-buildpack-imagemagick --index 1
+gem 'image_processing', '~> 1.2'
 
 # Use plyr as an in-line audio player. Maybe later video headers too?
 gem 'plyr-rails', '~>3.4.7'
