@@ -85,11 +85,11 @@ class Episode < ApplicationRecord
     # Drop all non-alphanumeric characters, and change spaces to hyphens
     unslug.to_str.downcase.gsub(/^(downlink|data relay)--(dr. )?/, '').gsub(/[^a-z0-9]/, ' '=>'-')
   end
-  def next_episode()
-    Episode.where(number: self.number+1, draft:false).take
+  def next_episode(max_check: 3)
+    Episode.where(number: self.number+1..self.number+max_check, draft: false).first
   end
-  def previous_episode()
-    Episode.where(number: self.number-1, draft: false).take
+  def previous_episode(max_check: 3)
+    Episode.where(number: self.number-max_check..self.number-1, draft: false).last
   end
   def notes_as_html()
     Episode.convert_markup_to_HTML(self.notes)

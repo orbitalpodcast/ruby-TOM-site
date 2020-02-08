@@ -102,7 +102,6 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_text 'Back'
     assert_no_text 'Remove'
 
-
     # Create partial draft and save it, checking placeholder slug
     fill_in "Number",       with: @episode[:number]
     select(@episode[:publish_year],  from: 'episode_publish_date_1i')
@@ -300,6 +299,38 @@ end
     # Check the draft was loaded correctly on draft page.
     visit draft_url
     assert_current_path "/episodes/#{@old_episode[:slug]}/edit"
+  end
+
+  test "previous/next buttons on episodes" do
+    visit login_url
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
+
+    # Pick an episode in the "middle" of the stack, "yank it" back to draft.
+    visit "/#{episodes(:four).slug}"
+    assert_selector 'h2', text: Episode.full_title(episodes(:four).number, episodes(:four).title), count: 1
+    assert_text "Previous Episode", count: 1
+    assert_text "Next Episode", count: 1
+    click_on 'Edit'
+    assert_text 'Editing an episode'
+    assert_text "Draft\nfalse"
+    click_on 'Revert to draft'
+    assert_text "Draft\ntrue"
+
+    # Check that episode n+1 can skip backwards over the yanked episode
+    visit "/#{episodes(:four).slug}"
+    assert_text "Previous Episode | Next Episode"
+    click_on "Next Episode"
+    assert_current_path "/episodes/#{episodes(:three).slug}"
+    assert_text "Previous Episode | Next Episode"
+    click_on "Previous Episode"
+    assert_current_path "/episodes/#{episodes(:five).slug}"
+
+    # Check that episode n-1 can skip forwards
+    assert_text "Previous Episode | Next Episode"
+    click_on "Next Episode"
+    assert_current_path "/episodes/#{episodes(:three).slug}"
   end
 
   test "destroying a Episode" do
