@@ -35,8 +35,7 @@ gem 'twitter', '~>6.2.0'
 # Adding multiple buildpacks also requires Procfile to be included. The default won't work.
 gem 'activestorage-audio', '~>0.1.0'
 
-# Use Active Storage variant. Requires imagemagick to be installed, locally and on server.
-# heroku buildpacks:add https://github.com/DuckyTeam/heroku-buildpack-imagemagick --index 1
+# Use Active Storage variant. Requires imagemagick to be installed, locally and on server. Heroku auto-installs.
 gem 'image_processing', '~> 1.2'
 
 # Use plyr as an in-line audio player. Maybe later video headers too?
