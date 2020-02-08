@@ -64,8 +64,10 @@
 
   <ul>
   <% for image in episode.images do %>
-      <li><%= image_tag image.image.variant(resize_to_limit: [500,500]) %></li>
-      <li><%= text_field_tag ("image_captions[#{image.id}]"), (image.caption || '') %> | <%= check_box_tag 'remove_image[]', image.id %> DELETE ON SAVE</li>
+      <li><%= link_to image_tag(image.image.variant(resize_to_limit: [500,500])), rails_blob_url(image.image), target: '_blank' %></li>
+      <li> <%= text_field_tag ("image_captions[#{image.id}]"), (image.caption || '') %> | 
+        <%= image.get_dimensions.join 'x' %> | 
+        <%= check_box_tag 'remove_image[]', image.id %> DELETE ON SAVE</li>
   <% end %>
   </ul>
 
