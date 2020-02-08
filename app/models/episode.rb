@@ -86,10 +86,10 @@ class Episode < ApplicationRecord
     unslug.to_str.downcase.gsub(/^(downlink|data relay)--(dr. )?/, '').gsub(/[^a-z0-9]/, ' '=>'-')
   end
   def next_episode()
-    Episode.find_by number: self.number+1
+    Episode.where(number: self.number+1, draft:false).take
   end
   def previous_episode()
-    Episode.find_by number: self.number-1
+    Episode.where(number: self.number-1, draft: false).take
   end
   def notes_as_html()
     Episode.convert_markup_to_HTML(self.notes)

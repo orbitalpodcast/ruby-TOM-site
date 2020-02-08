@@ -65,6 +65,13 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_no_link text: /log Out/i
   end
 
+  test "viewing an episode before logging in" do
+    visit "/#{episodes(:one).slug}"
+    assert_selector 'h2', text: Episode.full_title(episodes(:one).number, episodes(:one).title), count: 1
+    assert_text "Previous Episode", count: 1
+    assert_no_text "Next Episode"
+  end
+
   test 'Logging in and visiting the index' do
     visit login_url
     assert_selector 'h1', text: 'Login'

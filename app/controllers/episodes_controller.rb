@@ -1,6 +1,9 @@
 class EpisodesController < ApplicationController
-  skip_before_action :authorized,         only: [:index, :show] # allow not logged in users to access index and show.
-  before_action :set_episode,             except: [:index, :draft] # allow URL to reference slug or episode number
+  # allow not logged in users to access index and show.
+  skip_before_action :authorized,         only: [:index, :show]
+  # allow URL to reference slug or episode number. Create doesn't take an ID params, draft does its own work.
+  before_action :set_episode,             except: [:index, :create, :draft]
+
   # Multiple submit buttons do different things.
   before_action :handle_submit_button,    only: :update
   # When saving an episode, a lot of things need to be done.
@@ -201,6 +204,9 @@ class EpisodesController < ApplicationController
     def set_episode
       @episode = Episode.find_by(slug: params[:id]) || Episode.find_by(number: params[:id])
       # TODO: set_episode results in two database calls when given a number. Worth checking params presence first?
+      if @episode.draft?
+        redirect_back(fallback_location: root_path, allow_other_host: false) unless logged_in?
+      end
     end
 
     def build_slug(episode_title:, episode_slug:)
