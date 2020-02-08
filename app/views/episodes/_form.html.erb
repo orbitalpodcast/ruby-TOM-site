@@ -19,18 +19,13 @@
   <div class="field">
     <%= form.label :audio %>
     <%= form.file_field :audio %>
-    <% if episode.audio.attached? %><%= check_box_tag 'remove_audio' %> DELETE ATTACHED AUDIO ON SAVE <% end %>
-  </div>
-
-  <div class="field">
-    <%= form.label :audio_attached %>
-    <strong><%= episode.audio.attached? %></strong>
+    <% if episode.audio.attached? %><%= check_box_tag 'remove_audio' %> DELETE ATTACHED AUDIO ON SAVE 
   </div>
 
   <div class="field">
     <%= form.label :audio_duration %>
-    <strong><%= episode.audio.blob.metadata[:duration] if episode.audio.attached? and episode.audio.analyzed? %></strong>
-  </div>
+    <strong><%= Time.at(episode.audio.blob.metadata[:duration]).strftime("%H:%M:%S") if episode.audio.attached? and episode.audio.analyzed? %></strong>
+  <% end %> </div>
 
   <div class="field">
     <%= form.label :number %>

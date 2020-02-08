@@ -6,16 +6,8 @@
 <h2><%= @episode.full_title %></h2>
 <p><i><%= @episode.publish_date_short %></i></p>
 <p><strong><%= @episode.description %></strong></p>
-<br>
-
-<p>
-  <strong>Has audio attached:</strong>
-  <%= @episode.audio.attached? %>
-</p>
 
 <% if @episode.audio.attached? %>
-  <p><%= link_to 'Download', @episode.audio %></p>
-
   <p><audio id="player" controls><source src="<%= rails_blob_url(@episode.audio) %>" type="audio/mp3"></audio></p>
 <% end %>
 
