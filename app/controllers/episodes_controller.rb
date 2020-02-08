@@ -1,7 +1,9 @@
 class EpisodesController < ApplicationController
   skip_before_action :authorized,         only: [:index, :show] # allow not logged in users to access index and show.
   before_action :set_episode,             except: [:index, :draft] # allow URL to reference slug or episode number
+  # Multiple submit buttons do different things.
   before_action :handle_submit_button,    only: :update
+  # When saving an episode, a lot of things need to be done.
   after_action  :create_photo_objects,
                 :update_photo_captions, 
                 :delete_photo_objects,
@@ -68,7 +70,8 @@ class EpisodesController < ApplicationController
     if not Episode.draft_waiting?
       @episode = Episode.new
       @episode.number = (Episode.maximum('number') || 0) + 1
-      @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7) # find next tuesday TODO: pull publish date/schedule out into config file
+      # find next tuesday TODO: pull publish date/schedule out into config file
+      @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7)
       @episode.draft = true
       @episode.newsletter_status = 'not scheduled'
       render :new

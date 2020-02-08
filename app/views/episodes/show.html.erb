@@ -1,6 +1,8 @@
-<%= link_to 'Previous Episode', @episode.previous_episode if @episode.previous_episode %><%= ' | ' if @episode.next_episode and @episode.previous_episode %><%= link_to 'Next Episode', @episode.next_episode if @episode.next_episode %>
+<%= link_to 'Previous Episode', @episode.previous_episode if @episode.previous_episode %>
+<%= ' | ' if @episode.next_episode and @episode.previous_episode %>
+<%= link_to 'Next Episode', @episode.next_episode if @episode.next_episode %>
 
-<h2><% if logged_in? and @episode.draft? %> DRAFT <% end %></h2>
+<h2><% if @episode.draft? %> DRAFT <% end %></h2>
 <h2><%= @episode.full_title %></h2>
 <p><i><%= @episode.publish_date_short %></i></p>
 <p><strong><%= @episode.description %></strong></p>
