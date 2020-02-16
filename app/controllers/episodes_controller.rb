@@ -224,10 +224,16 @@ class EpisodesController < ApplicationController
       return episode_slug
     end
 
-      # When images are uploaded, we need to create new Image objects, attach the files, and associate the Image with this @episode
-      for image in (episode_params[:images] || []) do
-        @image = @episode.images.create().image.attach(image)
     def create_images
+      # When images are uploaded, we need to create new Image objects, attach the files, and associate
+      # the Image with this @episode
+      for this_image in (episode_params[:images] || []) do
+        if @episode.images.empty?
+          position = 1
+        else
+          position = @episode.images.last.position + 1
+        end
+        @episode.images.create(position: position).image.attach(this_image)
       end
     end
 
