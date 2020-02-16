@@ -7,9 +7,9 @@ class EpisodesController < ApplicationController
   # Multiple submit buttons do different things.
   before_action :handle_submit_button,    only: :update
   # When saving an episode, a lot of things need to be done.
-  after_action  :create_photo_objects,
-                :update_photo_captions, 
-                :delete_photo_objects,
+  after_action  :create_images,
+                :update_images, 
+                :delete_images,
                 :delete_audio_attachment, only: [:create, :update]
 
   # GET /episodes
@@ -222,14 +222,14 @@ class EpisodesController < ApplicationController
       return episode_slug
     end
 
-    def create_photo_objects
       # When images are uploaded, we need to create new Image objects, attach the files, and associate the Image with this @episode
       for image in (episode_params[:images] || []) do
         @image = @episode.images.create().image.attach(image)
+    def create_images
       end
     end
 
-    def update_photo_captions
+    def update_images
       # When we save @episode, we also want to update the captions of the associated Images.
       for image_id, image_caption in (params[:image_captions] || []) do
         if params[:remove_image]  # Don't update captions if we're about to delete the photo.
@@ -241,7 +241,7 @@ class EpisodesController < ApplicationController
       end
     end
 
-    def delete_photo_objects
+    def delete_images
      # When the user checks image deletion checkboxes, we need to go through and delete those Image objects.
       for image_id in (params[:remove_image] || []) do
         Image.find_by( id: image_id).destroy!
