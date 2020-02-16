@@ -239,14 +239,29 @@ class EpisodesController < ApplicationController
 
     def update_images
       # When we save @episode, we also want to update the captions of the associated Images.
-      for image_id, image_caption in (params[:image_captions] || []) do
-        if params[:remove_image]  # Don't update captions if we're about to delete the photo.
-          to_be_deleted = params[:remove_image].include? image_id
-        end
-        if not to_be_deleted      # TODO: can these two ifs be refactored together?
-          Image.find_by(id: image_id).update(caption: image_caption)
+      positions = sort_image_positions image_params
+      # Iterate over image_params and update each image in the database
+      for image_id, image_deets in (image_params || {}) do
+        unless image_to_be_deleted? image_id
+          # Don't update images if they're about to be deleted.
+          # TODO: handle validations fails in update_images
+          Image.find_by(id: image_id).update(caption: image_deets[:caption], position: positions[image_id])
         end
       end
+    end
+
+    def image_to_be_deleted?(image_id)
+      return false unless params[:remove_image]
+      params[:remove_image].include? image_id
+    end
+
+    def sort_image_positions(incoming_params)
+      # Take all the positions, sort, and make them consecutive.
+      return if incoming_params.nil?
+      positions = incoming_params.transform_values { |deets| deets[:position] } || {}
+      positions = positions.to_a.sort { |x,y| x[1]<=>y[1] }
+      positions.map!.with_index { |x,i| [x[0],i+1] }
+      positions.to_h
     end
 
     def delete_images
@@ -268,4 +283,15 @@ class EpisodesController < ApplicationController
       params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description,
                                                         :notes, :audio, :draft, :newsletter_status, images: [])
     end
+    def image_params(ids=nil)
+      # Whitelist descriptions and positions, and merge. Returns {'id' => [position: ##, caption:'caption']}
+      # Only permits IDs of images already associated with @episode unless specified in arguments.
+      if params[:image_captions] and params[:image_positions]
+        ids ||= @episode.images.pluck(:id).map(&:to_s)
+        positions = params.require(:image_positions).permit(ids).to_h
+        captions  = params.require(:image_captions ).permit(ids).to_h
+        captions.merge(positions) {|key,cap,pos| {position: pos.to_i, caption: cap}}
+      end
+    end
+
 end
