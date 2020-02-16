@@ -6,11 +6,6 @@ class EpisodesController < ApplicationController
 
   # Multiple submit buttons do different things.
   before_action :handle_submit_button,    only: :update
-  # When saving an episode, a lot of things need to be done.
-  after_action  :create_images,
-                :update_images, 
-                :delete_images,
-                :delete_audio_attachment, only: [:create, :update]
 
   # GET /episodes
   # GET /episodes.json
@@ -94,6 +89,7 @@ class EpisodesController < ApplicationController
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     if @episode.save
       # We never publish episodes from create, so we want to redirect to edit, not to show.
+      update_attachments
       redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully created.'
     else
       render :new
@@ -110,6 +106,7 @@ class EpisodesController < ApplicationController
                                                 newsletter_status: @episode.newsletter_status
                                                 ).except(:images))
         handle_newsletter
+        update_attachments
         update_notice = publish # returns a string, indicating if publish tasks were completed.
         # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re=analysis before
         #publishing?
@@ -222,6 +219,14 @@ class EpisodesController < ApplicationController
       end
       # If the slug isn't empty or a placeholder, no need to replace it.
       return episode_slug
+    end
+
+    def update_attachments
+      # When saving an episode, a lot of things need to be done.
+      create_images
+      update_images
+      delete_images
+      delete_audio_attachment
     end
 
     def create_images
