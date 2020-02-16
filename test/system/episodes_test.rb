@@ -54,31 +54,31 @@ class EpisodesTest < ApplicationSystemTestCase
                    ** Friday: IAC no-ticket open day"}
   end
 
-  # test "visiting the index before logging in" do
-  #   visit root_url
-  #   assert_selector "h1", text: "The Orbital Mechanics Podcast"
-  #   assert_selector 'h2', text: TITLE_REGEX, count: Settings.views.number_of_homepage_episodes
-  #   assert_link 'More episodes...', href: episodes_path
-  #   assert_no_link text: /edit/i
-  #   assert_no_link text: /episode draft/i
-  #   assert_no_link text: /email subscribers/i
-  #   assert_no_link text: /log Out/i
-  # end
+  test "visiting the index before logging in" do
+    visit root_url
+    assert_selector "h1", text: "The Orbital Mechanics Podcast"
+    assert_selector 'h2', text: TITLE_REGEX, count: Settings.views.number_of_homepage_episodes
+    assert_link 'More episodes...', href: episodes_path
+    assert_no_link text: /edit/i
+    assert_no_link text: /episode draft/i
+    assert_no_link text: /email subscribers/i
+    assert_no_link text: /log Out/i
+  end
 
-  # test "viewing an episode before logging in" do
-  #   visit "/#{episodes(:one).slug}"
-  #   assert_selector 'h2', text: Episode.full_title(episodes(:one).number, episodes(:one).title), count: 1
-  #   assert_text "Previous Episode", count: 1
-  #   assert_no_text "Next Episode"
-  # end
+  test "viewing an episode before logging in" do
+    visit "/#{episodes(:one).slug}"
+    assert_selector 'h2', text: Episode.full_title(episodes(:one).number, episodes(:one).title), count: 1
+    assert_text "Previous Episode", count: 1
+    assert_no_text "Next Episode"
+  end
 
-  # test 'Logging in and visiting the index' do
-  #   visit login_url
-  #   assert_selector 'h1', text: 'Login'
-  #   assert_field 'Email'
-  #   assert_field 'Password'
-  #   assert_button 'Login'
-  # end
+  test 'Logging in and visiting the index' do
+    visit login_url
+    assert_selector 'h1', text: 'Login'
+    assert_field 'Email'
+    assert_field 'Password'
+    assert_button 'Login'
+  end
 
   test "Publishing an episode, zero to 60" do
     # Check login redirect to draft
@@ -126,33 +126,36 @@ class EpisodesTest < ApplicationSystemTestCase
     files = ['0.jpg', '1.jpg', '2.png'].map {|x| Rails.root + 'test/fixtures/files/' + x}
     attach_file 'episode_images', files
     click_on "Save as draft"
-    image_ids = Episode.find_by(number: @episode[:number]).images.pluck(:id).map(&:to_s)
-    assert page.has_field? "image_positions[#{image_ids[0]}]", type: 'text', with: '1', count: 1
-    assert page.has_field? "image_positions[#{image_ids[1]}]", type: 'text', with: '2', count: 1
-    assert page.has_field? "image_positions[#{image_ids[2]}]", type: 'text', with: '3', count: 1
+    assert page.has_field? "image_position_0.jpg", with: '1', count: 1
+    assert page.has_field? "image_position_1.jpg", with: '2', count: 1
+    assert page.has_field? "image_position_2.png", with: '3', count: 1
+    # currently not supporting instant dimensions
+    # assert_text '1041x585'
+    # assert_text '300x71'
+    # assert_text '739x985'
 
     # Assign titles
-    fill_in "image_captions[#{image_ids[0]}]", with: "this is image 1"
-    fill_in "image_captions[#{image_ids[1]}]", with: "this is image 2"
-    fill_in "image_captions[#{image_ids[2]}]", with: "this is image 3"
+    fill_in "image_caption_0.jpg", with: "this is image 1"
+    fill_in "image_caption_1.jpg", with: "this is image 2"
+    fill_in "image_caption_2.png", with: "this is image 3"
     click_on "Save as draft"
-    assert page.has_field? "image_captions[#{image_ids[0]}]", type: 'text', with: "this is image 1", count: 1
-    assert page.has_field? "image_captions[#{image_ids[1]}]", type: 'text', with: "this is image 2", count: 1
-    assert page.has_field? "image_captions[#{image_ids[2]}]", type: 'text', with: "this is image 3", count: 1
+    assert page.has_field? "image_caption_0.jpg", with: "this is image 1", count: 1
+    assert page.has_field? "image_caption_1.jpg", with: "this is image 2", count: 1
+    assert page.has_field? "image_caption_2.png", with: "this is image 3", count: 1
 
     # Reorder images
-    fill_in "image_positions[#{image_ids[1]}]", with: "5"
+    fill_in "image_position_1.jpg", with: "5"
     click_on "Save as draft"
-    assert page.has_field? "image_positions[#{image_ids[0]}]", type: 'text', with: '1', count: 1
-    assert page.has_field? "image_positions[#{image_ids[1]}]", type: 'text', with: '3', count: 1
-    assert page.has_field? "image_positions[#{image_ids[2]}]", type: 'text', with: '2', count: 1
+    assert page.has_field? "image_position_0.jpg", with: '1', count: 1
+    assert page.has_field? "image_position_1.jpg", with: '3', count: 1
+    assert page.has_field? "image_position_2.png", with: '2', count: 1
 
     # Delete an image
-    check "remove_image[#{image_ids[0]}]"
+    check "remove_image_2.png"
     click_on "Save as draft"
-    assert_not page.has_field? "image_positions[#{image_ids[0]}]", type: 'text'
-    assert page.has_field?     "image_positions[#{image_ids[1]}]", type: 'text', with: '2', count: 1
-    assert page.has_field?     "image_positions[#{image_ids[2]}]", type: 'text', with: '1', count: 1
+    assert page.has_field?     "image_position_0.jpg", with: '1', count: 1
+    assert page.has_field?     "image_position_1.jpg", with: '2', count: 1
+    assert_not page.has_field? "image_position_2.png"
 
     # Schedule the newsletter
     click_on 'Draft and schedule newsletter'
@@ -167,7 +170,7 @@ class EpisodesTest < ApplicationSystemTestCase
     # Check that the draft is not displayed while logged out
     click_on 'Log Out'
     assert_current_path root_path
-    assert_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title]), count: 0
+    assert_no_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title])
 
     # Check login redirect to homepage
     visit login_url
@@ -203,16 +206,67 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_text "Scheduled jobs (1)", count: 0
 end
 
-  # test "Trying to publish an episode without handling the newsletter" do
+  test "Trying to publish an episode without handling the newsletter" do
+    visit login_url
+
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
+
+    visit draft_path
+    fill_in "Number",       with: @episode[:number]
+    fill_in "Title",        with: @episode[:title]
+    fill_in "Slug",         with: @episode[:slug]
+    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
+    select(@episode[:publish_month], from: 'episode_publish_date_2i')
+    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: @episode[:description]
+    fill_in "Notes",        with: @episode[:notes]
+    click_on "Save as draft"
+    click_on "Publish"
+
+    assert_text "Can't publish if the newsletter hasn't been handled."
+    assert_text "Draft\ntrue"
+    assert_text 'not scheduled'
+  end
+
+  test "Trying to publish an episode that's missing its notes" do
+    visit login_url
+
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
+    assert_current_path root_path
+
+    visit episodes_url
+    click_on "Edit", match: :first
+
+    fill_in "Number",       with: @episode[:number]
+    fill_in "Title",        with: @episode[:title]
+    fill_in "Slug",         with: @episode[:slug]
+    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
+    select(@episode[:publish_month], from: 'episode_publish_date_2i')
+    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: @episode[:description]
+    fill_in "Notes",        with: ''
+    click_on "Publish"
+
+    assert_text "Notes can't be blank"
+  end
+
+  # test "Trying to save an episode draft with too short of a title" do
   #   visit login_url
 
   #   fill_in 'Email', with: users(:admin).email
   #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
   #   click_on 'Login'
+  #   assert_current_path root_path
 
-  #   visit draft_path
+  #   visit episodes_url
+  #   click_on "Edit", match: :first
+
   #   fill_in "Number",       with: @episode[:number]
-  #   fill_in "Title",        with: @episode[:title]
+  #   fill_in "Title",        with: 'asdf'
   #   fill_in "Slug",         with: @episode[:slug]
   #   select(@episode[:publish_year],  from: 'episode_publish_date_1i')
   #   select(@episode[:publish_month], from: 'episode_publish_date_2i')
@@ -220,165 +274,142 @@ end
   #   fill_in "Description",  with: @episode[:description]
   #   fill_in "Notes",        with: @episode[:notes]
   #   click_on "Save as draft"
-  #   click_on "Publish"
 
-  #   assert_text "Can't publish if the newsletter hasn't been handled."
-  #   assert_text "Draft\ntrue"
-  #   assert_text 'not scheduled'
+  #   assert_text "Title is too short"
   # end
 
-  # test "Trying to publish an episode that's missing its notes" do
-  #   visit login_url
+  test "Trying to publish an episode with a non-unique attributes" do
+    visit login_url
 
-  #   fill_in 'Email', with: users(:admin).email
-  #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-  #   click_on 'Login'
-  #   assert_current_path root_path
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
+    assert_current_path root_path
 
-  #   visit episodes_url
-  #   click_on "Edit", match: :first
+    visit episodes_url
+    click_on "Edit", match: :first
 
-  #   fill_in "Number",       with: @episode[:number]
-  #   fill_in "Title",        with: @episode[:title]
-  #   fill_in "Slug",         with: @episode[:slug]
-  #   select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-  #   select(@episode[:publish_month], from: 'episode_publish_date_2i')
-  #   select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-  #   fill_in "Description",  with: @episode[:description]
-  #   fill_in "Notes",        with: ''
-  #   click_on "Publish"
+    fill_in "Number",       with: episodes(:two).number
+    fill_in "Title",        with: episodes(:two).title
+    fill_in "Slug",         with: episodes(:two).slug
+    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
+    select(@episode[:publish_month], from: 'episode_publish_date_2i')
+    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: @episode[:description]
+    fill_in "Notes",        with: @episode[:notes]
+    click_on "Publish"
 
-  #   assert_text "Notes can't be blank"
-  # end
+    assert_text "Number has already been taken"
+    assert_text "Title has already been taken"
+    assert_text "Slug has already been taken"
+  end
 
-  # # test "Trying to save an episode draft with too short of a title" do
-  # #   visit login_url
+  test "Loading draft if the draft is old" do
+    # Test what you fly, right? Found a bug where episode#draft wasn't loading the most recent draft properly
+    # because before implementing the default scope, I'd wound up sorting incorrectly in the now depricated
+    # most_recent_draft method, and it wound up loading an already-published episode.
+    visit draft_url
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
 
-  # #   fill_in 'Email', with: users(:admin).email
-  # #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-  # #   click_on 'Login'
-  # #   assert_current_path root_path
+    # Check the draft page contents
+    assert page.has_field? 'Number', with: episodes(:one).number + 1
+    assert_no_text 'Show'
+    assert_text 'Back'
+    assert_no_text 'Remove'
 
-  # #   visit episodes_url
-  # #   click_on "Edit", match: :first
+    # Fill in an old episode
+    fill_in "Number",       with: @old_episode[:number]
+    fill_in "Title",        with: @old_episode[:title]
+    select(@old_episode[:publish_year],  from: 'episode_publish_date_1i')
+    select(@old_episode[:publish_month], from: 'episode_publish_date_2i')
+    select(@old_episode[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: @old_episode[:description]
+    fill_in "Notes",        with: @old_episode[:notes]
+    click_on "Save as draft"
+    assert_text 'Episode draft was successfully created.'
 
-  # #   fill_in "Number",       with: @episode[:number]
-  # #   fill_in "Title",        with: 'asdf'
-  # #   fill_in "Slug",         with: @episode[:slug]
-  # #   select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-  # #   select(@episode[:publish_month], from: 'episode_publish_date_2i')
-  # #   select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-  # #   fill_in "Description",  with: @episode[:description]
-  # #   fill_in "Notes",        with: @episode[:notes]
-  # #   click_on "Save as draft"
+    # Check the draft was loaded correctly on draft page.
+    visit draft_url
+    assert_current_path "/episodes/#{@old_episode[:slug]}/edit"
+  end
 
-  # #   assert_text "Title is too short"
-  # # end
+  test "Unusual image upload situations" do
+    visit draft_path
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
 
-  # test "Trying to publish an episode with a non-unique attributes" do
-  #   visit login_url
+    files = ['0.jpg', '1.jpg', '2.png'].map {|x| Rails.root + 'test/fixtures/files/' + x}
+    # attach image 0.jpg
+    attach_file 'episode_images', files[0]
+    click_on "Save as draft"
 
-  #   fill_in 'Email', with: users(:admin).email
-  #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-  #   click_on 'Login'
-  #   assert_current_path root_path
+    # mark an image for deletion and fail a publish. Should not delete the image.
+    check "remove_image_0.jpg"
+    click_on "Publish"
+    assert page.has_field? "image_position_0.jpg", with: '1'
 
-  #   visit episodes_url
-  #   click_on "Edit", match: :first
+    # attach image 1.jpg
+    attach_file 'episode_images', files[1]
+    click_on "Save as draft"
+    # Change image order and add image 2.png at the same time. New images should be at the bottom.
+    attach_file 'episode_images', files[2]
+    fill_in "image_position_0.jpg", with: '5'
+    click_on "Save as draft"
+    assert page.has_field? "image_position_0.jpg", with: '2'
+    assert page.has_field? "image_position_1.jpg", with: '1'
+    assert page.has_field? "image_position_2.png", with: '3'
+  end
 
-  #   fill_in "Number",       with: episodes(:two).number
-  #   fill_in "Title",        with: episodes(:two).title
-  #   fill_in "Slug",         with: episodes(:two).slug
-  #   select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-  #   select(@episode[:publish_month], from: 'episode_publish_date_2i')
-  #   select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-  #   fill_in "Description",  with: @episode[:description]
-  #   fill_in "Notes",        with: @episode[:notes]
-  #   click_on "Publish"
+  test "previous/next buttons on episodes" do
+    visit login_url
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
 
-  #   assert_text "Number has already been taken"
-  #   assert_text "Title has already been taken"
-  #   assert_text "Slug has already been taken"
-  # end
+    # Pick an episode in the "middle" of the stack, "yank it" back to draft.
+    visit "/#{episodes(:four).slug}"
+    assert_selector 'h2', text: Episode.full_title(episodes(:four).number, episodes(:four).title), count: 1
+    assert_text "Previous Episode", count: 1
+    assert_text "Next Episode", count: 1
+    click_on 'Edit'
+    assert_text 'Editing an episode'
+    assert_text "Draft\nfalse"
+    click_on 'Revert to draft'
+    assert_text "Draft\ntrue"
 
-  # test "Loading draft if the draft is old" do
-  #   # Test what you fly, right? Found a bug where episode#draft wasn't loading the most recent draft properly
-  #   # because before implementing the default scope, I'd wound up sorting incorrectly in the now depricated
-  #   # most_recent_draft method, and it wound up loading an already-published episode.
-  #   visit draft_url
-  #   fill_in 'Email', with: users(:admin).email
-  #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-  #   click_on 'Login'
+    # Check that episode n+1 can skip backwards over the yanked episode
+    visit "/#{episodes(:four).slug}"
+    assert_text "Previous Episode | Next Episode"
+    click_on "Next Episode"
+    assert_current_path "/episodes/#{episodes(:three).slug}"
+    assert_text "Previous Episode | Next Episode"
+    click_on "Previous Episode"
+    assert_current_path "/episodes/#{episodes(:five).slug}"
 
-  #   # Check the draft page contents
-  #   assert page.has_field? 'Number', with: episodes(:one).number + 1
-  #   assert_no_text 'Show'
-  #   assert_text 'Back'
-  #   assert_no_text 'Remove'
+    # Check that episode n-1 can skip forwards
+    assert_text "Previous Episode | Next Episode"
+    click_on "Next Episode"
+    assert_current_path "/episodes/#{episodes(:three).slug}"
+  end
 
-  #   # Fill in an old episode
-  #   fill_in "Number",       with: @old_episode[:number]
-  #   fill_in "Title",        with: @old_episode[:title]
-  #   select(@old_episode[:publish_year],  from: 'episode_publish_date_1i')
-  #   select(@old_episode[:publish_month], from: 'episode_publish_date_2i')
-  #   select(@old_episode[:publish_day],   from: 'episode_publish_date_3i')
-  #   fill_in "Description",  with: @old_episode[:description]
-  #   fill_in "Notes",        with: @old_episode[:notes]
-  #   click_on "Save as draft"
-  #   assert_text 'Episode draft was successfully created.'
+  test "destroying a Episode" do
+    visit login_url
 
-  #   # Check the draft was loaded correctly on draft page.
-  #   visit draft_url
-  #   assert_current_path "/episodes/#{@old_episode[:slug]}/edit"
-  # end
+    fill_in 'Email', with: users(:admin).email
+    fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
+    click_on 'Login'
+    assert_current_path root_path
 
-  # test "previous/next buttons on episodes" do
-  #   visit login_url
-  #   fill_in 'Email', with: users(:admin).email
-  #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-  #   click_on 'Login'
+    visit episodes_url
+    click_on "Edit", match: :first
 
-  #   # Pick an episode in the "middle" of the stack, "yank it" back to draft.
-  #   visit "/#{episodes(:four).slug}"
-  #   assert_selector 'h2', text: Episode.full_title(episodes(:four).number, episodes(:four).title), count: 1
-  #   assert_text "Previous Episode", count: 1
-  #   assert_text "Next Episode", count: 1
-  #   click_on 'Edit'
-  #   assert_text 'Editing an episode'
-  #   assert_text "Draft\nfalse"
-  #   click_on 'Revert to draft'
-  #   assert_text "Draft\ntrue"
+    click_on "Remove"
 
-  #   # Check that episode n+1 can skip backwards over the yanked episode
-  #   visit "/#{episodes(:four).slug}"
-  #   assert_text "Previous Episode | Next Episode"
-  #   click_on "Next Episode"
-  #   assert_current_path "/episodes/#{episodes(:three).slug}"
-  #   assert_text "Previous Episode | Next Episode"
-  #   click_on "Previous Episode"
-  #   assert_current_path "/episodes/#{episodes(:five).slug}"
-
-  #   # Check that episode n-1 can skip forwards
-  #   assert_text "Previous Episode | Next Episode"
-  #   click_on "Next Episode"
-  #   assert_current_path "/episodes/#{episodes(:three).slug}"
-  # end
-
-  # test "destroying a Episode" do
-  #   visit login_url
-
-  #   fill_in 'Email', with: users(:admin).email
-  #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-  #   click_on 'Login'
-  #   assert_current_path root_path
-
-  #   visit episodes_url
-  #   click_on "Edit", match: :first
-
-  #   click_on "Remove"
-
-  #   assert_current_path episodes_path
-  #   assert_text "Episode was successfully destroyed"
-  # end
+    assert_current_path episodes_path
+    assert_text "Episode was successfully destroyed"
+  end
 
 end
