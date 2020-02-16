@@ -108,12 +108,13 @@ class EpisodesController < ApplicationController
         handle_newsletter
         update_attachments
         update_notice = publish # returns a string, indicating if publish tasks were completed.
-        # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re=analysis before
-        #publishing?
+        # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re-analysis before
+        # publishing? Ditto image dimensions.
         format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
       else
         @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status == 'scheduling'
-        @episode.reload # discards all user changes. Worth only resetting draft and newsletter_status?
+        @episode.reload # discards all user changes.
+        # TODO Worth only resetting draft and newsletter_status in episode#update? If so, also add update_attachments.
         format.html { render :edit }
       end
     end
@@ -248,7 +249,7 @@ class EpisodesController < ApplicationController
       # Iterate over image_params and update each image in the database
       for image_id, image_deets in (image_params || {}) do
         unless image_to_be_deleted? image_id
-          # Don't update images if they're about to be deleted.
+          # Don't update images if they've been deleted.
           # TODO: handle validations fails in update_images
           Image.find_by(id: image_id).update(caption: image_deets[:caption], position: positions[image_id])
         end
@@ -262,9 +263,18 @@ class EpisodesController < ApplicationController
 
     def sort_image_positions(incoming_params)
       # Take all the positions, sort, and make them consecutive.
+      # Needs to be clever bc deletion takes place in the DB, but we have to honor user requests.
+      # Takes a hash with string IDs and a deets hash: {'id' => {position: ##, caption:'caption'}}
+      # Returns a hash with string IDs and int positions: {'##': #, '##': #}
+
       return if incoming_params.nil?
+      # Create array of IDs and requested positions
       positions = incoming_params.transform_values { |deets| deets[:position] } || {}
+      # Sort by requested position
       positions = positions.to_a.sort { |x,y| x[1]<=>y[1] }
+      # Drop IDs that will be deleted
+      positions.delete_if { |id, pos| image_to_be_deleted? id }
+      # Re-number from 1
       positions.map!.with_index { |x,i| [x[0],i+1] }
       positions.to_h
     end
@@ -289,7 +299,7 @@ class EpisodesController < ApplicationController
                                                         :notes, :audio, :draft, :newsletter_status, images: [])
     end
     def image_params(ids=nil)
-      # Whitelist descriptions and positions, and merge. Returns {'id' => [position: ##, caption:'caption']}
+      # Whitelist descriptions and positions, and merge. Returns {'id' => {position: ##, caption:'caption'}}
       # Only permits IDs of images already associated with @episode unless specified in arguments.
       if params[:image_captions] and params[:image_positions]
         ids ||= @episode.images.pluck(:id).map(&:to_s)
