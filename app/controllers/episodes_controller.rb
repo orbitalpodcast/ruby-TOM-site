@@ -90,7 +90,7 @@ class EpisodesController < ApplicationController
   # POST /episodes
   # POST /episodes.json
   def create
-    @episode = Episode.new(episode_params)
+    @episode = Episode.new(episode_params.except(:images))
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     if @episode.save
       # We never publish episodes from create, so we want to redirect to edit, not to show.
