@@ -124,12 +124,12 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update episode with new variables" do
-    patch episode_url episodes(:one), params: { episode: { description: @episode.description,
-                                                           notes: @episode.notes,
-                                                           number: @episode.number,
-                                                           publish_date: @episode.publish_date,
-                                                           slug: @episode.slug,
-                                                           title: @episode.title } }
+    patch episode_url episodes(:one), params: { episode: { description:   @episode.description,
+                                                           notes:         @episode.notes,
+                                                           number:        @episode.number,
+                                                           publish_date:  @episode.publish_date,
+                                                           slug:          @episode.slug,
+                                                           title:         @episode.title } }
     assert_redirected_to edit_episode_url @episode
     assert_equal 'Episode was successfully published.', flash[:notice]
   end
