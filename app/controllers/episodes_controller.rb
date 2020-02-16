@@ -111,7 +111,8 @@ class EpisodesController < ApplicationController
                                                 ).except(:images))
         handle_newsletter
         update_notice = publish # returns a string, indicating if publish tasks were completed.
-        # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re=analysis before publishing?
+        # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re=analysis before
+        #publishing?
         format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
       else
         @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status == 'scheduling'
@@ -187,7 +188,8 @@ class EpisodesController < ApplicationController
       # Returns a string for the flash message.
       unless @episode.draft?
         logger.debug ">>>>>>> Publishing the episode."
-        unless @episode.ever_been_published? # Some things should not happen if an episode was pulled down in an emergency.
+        unless @episode.ever_been_published?
+          # Some things should not happen if an episode was pulled down after being published.
           @episode.update_attribute :publish_date, Time.now
           logger.debug ">>>>>>> #TWITTER: {@episode.description} #{episode_url(@episode)}"
           # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
@@ -256,7 +258,7 @@ class EpisodesController < ApplicationController
     end
 
     def episode_params
-      # Whitelist params before pushing them into the database. Update slug when needed.
+      # Whitelist episode params
       params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description,
                                                         :notes, :audio, :draft, :newsletter_status, images: [])
     end
