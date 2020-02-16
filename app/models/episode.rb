@@ -1,6 +1,6 @@
 class Episode < ApplicationRecord
 
-  has_many :images, dependent: :destroy
+  has_many :images, -> { order(position: :asc) }, dependent: :destroy
   has_one_attached :audio
   default_scope { order(number: :asc) }
   scope :published,            -> {where draft: false}
