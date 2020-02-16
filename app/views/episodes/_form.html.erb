@@ -16,16 +16,15 @@
     <strong><%= episode.draft %></strong>
   </div>
 
+  <% if @episode.audio.attached? %>
+    <p><audio id="player" controls><source src="<%= rails_blob_url(@episode.audio) %>" type="audio/mp3"></audio></p>
+  <% end %>
+
   <div class="field">
     <%= form.label :audio %>
     <%= form.file_field :audio %>
-    <% if episode.audio.attached? %><%= check_box_tag 'remove_audio' %> DELETE ATTACHED AUDIO ON SAVE 
+    <% if episode.audio.attached? %><%= check_box_tag 'remove_audio' %> DELETE ATTACHED AUDIO ON SAVE<% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :audio_duration %>
-    <strong><%= Time.at(episode.audio.blob.metadata[:duration]).strftime("%H:%M:%S") if episode.audio.attached? and episode.audio.analyzed? %></strong>
-  <% end %> </div>
 
   <div class="field">
     <%= form.label :number %>

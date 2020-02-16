@@ -13,10 +13,11 @@
 
 <p><%=raw @episode.notes_as_html %></p>
 
-<p><% for image in @episode.images do %>
+<% for image in @episode.images do %>
   <%= link_to image_tag(image.image.variant(resize_to_limit: [500,500])), rails_blob_url(image.image), target: '_blank' %>
-  <%= image.caption || '' %>
-<% end %></p>
+  <p><%= raw Episode.convert_markup_to_HTML(image.caption) || '' %></p>
+  <br>
+<% end %>
 
 <% if logged_in? and @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p><% end %>
 <% if logged_in? %><%= link_to 'Edit', edit_episode_path(@episode) %> | <% end %>
