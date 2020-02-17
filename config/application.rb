@@ -18,10 +18,6 @@ module Blog
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # load config/twitter.yml with config gem. Used by initalizers/twitter.rb
-    config.twitter = config_for(:twitter) if ENV["RAILS_ENV"] == 'development'
-
-    # load config/local_env.yml and store as ENV variables. TODO: only use one secrets method. Depricate config gem?
     if ['development', 'test'].include? ENV["RAILS_ENV"]
       config.before_configuration do
         env_file = File.join(Rails.root, 'config', 'local_env.yml')

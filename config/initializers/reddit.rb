@@ -1,5 +1,6 @@
 require 'reddit_bot'
 
+# Initialize RedditBot object. Currently disabled in all but development.
 if ENV["RAILS_ENV"] == 'development'
   REDDIT_CLIENT = RedditBot::Bot.new(
     user_agent:    'TOM-site:v1.0 (by /u/hapax_legomina)',
