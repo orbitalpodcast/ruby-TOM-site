@@ -185,14 +185,14 @@ class EpisodesController < ApplicationController
       # Called on successful updates, and runs extra publication tasks if this isn't a draft.
       # Returns a string for the flash message.
       unless @episode.draft?
-        logger.debug ">>>>>>> Publishing the episode."
+        debug :"Publishing the episode."
         unless @episode.ever_been_published?
           # Some things should not happen if an episode was pulled down after being published.
           @episode.update_attribute :publish_date, Time.now
-          logger.debug ">>>>>>> #TWITTER: {@episode.description} #{episode_url(@episode)}"
+          debug :"FAKE TWITTER: #{@episode.description} #{episode_url(@episode)}"
           # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
         else
-          logger.debug ">>>>>>> Not tweeting because the episode has been published previously."
+          debug :"This episode has been published previously. Skipping socials."
         end
         # publish is called after validations were run, so we can safely update_attribute
         @episode.update_attribute :ever_been_published, true
