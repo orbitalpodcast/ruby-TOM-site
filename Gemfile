@@ -30,6 +30,9 @@ gem 'delayed_job_active_record', '~> 4.1.4'
 # Twitter API
 gem 'twitter', '~>6.2.0'
 
+# Reddit API
+gem 'reddit_bot', "~>1.7.4"
+
 # Use activestorage-audio to interpret mp3 tags. Requires ffmpeg to be installed, locally and on server.
 # heroku buildpacks:add https://github.com/FFmpeg/FFmpeg.git
 # Adding multiple buildpacks also requires Procfile to be included. The default won't work.

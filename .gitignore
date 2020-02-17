@@ -44,3 +44,4 @@ config/secrets.yml
 config/twitter.yml
 /capybara-*.html
 config/local_env.yml
+debug.log
