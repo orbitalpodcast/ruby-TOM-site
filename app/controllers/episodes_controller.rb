@@ -187,31 +187,40 @@ class EpisodesController < ApplicationController
       unless @episode.draft?
         unless @episode.ever_been_published?
           # Some things should not happen if an episode was pulled down after being published.
+          debug :"Publishing socials and updating publish_date."
+          # publish is called after validations were run, so we can safely update_attribute
+          @episode.update_attribute :ever_been_published, true
           @episode.update_attribute :publish_date, Time.now
-          debug :"FAKE TWITTER: #{@episode.description} #{episode_url(@episode)}"
-          # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
-          begin
-            debug :'FAKE REDDIT'
-            reddit_post_data = {'json'=> {'data'=> {'url'=> "http://www.reddit.com/r/orbitalpodcast/FAKE-URL/#{@episode.slug}"}}}
-            # reddit_post_data = REDDIT_CLIENT.json(:post, '/api/submit',
-            #                             DEFAULT_REDDIT_PARAMS.merge( {'title': @episode.full_title,
-            #                                                           'url':   episode_url(@episode)} )
-            #                                       )
-          rescue RuntimeError => error
-            debug :'REDDIT ERROR'
-            debug :error, binding
-            @episode.update_attribute :reddit_url, false
-          else
-            @episode.update_attribute :reddit_url, reddit_post_data['json']['data']['url']
-          end
+          post_to_twitter
+          post_to_reddit 
         else
           debug :"Skipping socials."
         end
-        # publish is called after validations were run, so we can safely update_attribute
-        @episode.update_attribute :ever_been_published, true
         return 'Episode was successfully published.'
       end
       'Episode draft was successfully updated.'
+    end
+
+    def post_to_twitter
+      debug :"FAKE TWITTER: #{@episode.description} #{episode_url(@episode)}"
+      # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
+    end
+
+    def post_to_reddit
+      begin
+        debug :'FAKE REDDIT'
+        http_result = {'json'=> {'data'=> {'url'=> "http://www.reddit.com/r/orbitalpodcast/FAKE-URL/#{@episode.slug}"}}}
+        # http_result = REDDIT_CLIENT.json(:post, '/api/submit',
+        #                             DEFAULT_REDDIT_PARAMS.merge( {'title': @episode.full_title,
+        #                                                           'url':   episode_url(@episode)} )
+        #                                       )
+      rescue RuntimeError => error
+        debug :'REDDIT ERROR'
+        debug :error, binding
+        @episode.update_attribute :reddit_url, false
+      else
+        @episode.update_attribute :reddit_url, http_result['json']['data']['url']
+      end
     end
 
     def set_episode
