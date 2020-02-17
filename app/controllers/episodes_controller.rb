@@ -310,7 +310,7 @@ class EpisodesController < ApplicationController
     def episode_params
       # Whitelist episode params
       params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description,
-                                                        :notes, :audio, :draft, :newsletter_status, images: [])
+                                      :notes, :audio, :draft, :newsletter_status, :reddit_url, images: [])
     end
     def image_params(ids=nil)
       # Whitelist descriptions and positions, and merge. Returns {'id' => {position: ##, caption:'caption'}}

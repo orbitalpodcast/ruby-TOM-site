@@ -12,7 +12,9 @@
 <% end %>
 
 <p><%=raw @episode.notes_as_html %></p>
-
+<% if @episode.reddit_url %>
+  <p><%= link_to "Talk about this episode on Reddit", @episode.reddit_url %></p>
+<% end %>
 <% for image in @episode.images do %>
   <%= link_to image_tag(image.image.variant(resize_to_limit: [500,500])), rails_blob_url(image.image), target: '_blank' %>
   <p><%= raw Episode.convert_markup_to_HTML(image.caption) || '' %></p>

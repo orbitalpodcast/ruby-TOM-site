@@ -56,6 +56,11 @@
     <%= form.text_area :notes %>
   </div>
 
+  <div class="field">
+    <%= form.label :reddit_url %>
+    <%= form.text_field :reddit_url %>
+  </div>
+
   <div class='field'>
     <%= form.label :images %> 
     <%= form.file_field :images, multiple: true %>
@@ -80,6 +85,11 @@
 
 
   <div class="actions">
+    <% if episode.ever_been_published? %>
+      <p>This episode has already been published. No social links will be posted.</p>
+    <% else %>
+      <p>Social links will be posted if you click publish.</p>
+    <% end %>
     <% # TODO: consider using gem commit_param_matching. %>
     <% if episode.draft %>
       <%= form.submit 'Save as draft' %>
