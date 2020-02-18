@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get '/episodes/:begin/to/:end', to: 'episodes#index', as: 'episodes_with_range'
   get '/draft',                   to: 'episodes#draft'
   # Redirect legacy URLs
-  get '/show-notes/:slug',        to: redirect('/%{slug}')
+  get '/show-notes/:slug',        to: redirect('episodes/%{slug}')
+  get '/show-notes/*date/:slug',  to: redirect('episodes/%{slug}')
 
   resources :episodes
   # Redirect direct paths
