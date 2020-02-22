@@ -199,7 +199,7 @@ class EpisodesController < ApplicationController
     def schedule_newsletter
       # TODO: detect and handle scheduling a newsletter when the time has already passed. Warn then send immediately?
       # TODO: change newsletter_job_id from a saved number to an activerecord association?
-      email_time = Time.parse Settings.newsletter.default_send_time
+      email_time = DateTime.parse Settings.newsletter.default_send_time
       email_datetime = DateTime.new(@episode.publish_date.year, @episode.publish_date.month, @episode.publish_date.day,
                                     email_time.hour, email_time.min, email_time.sec, email_time.zone)
       logger.debug ">>>>>>> Scheduling newsletter for #{email_datetime}"
