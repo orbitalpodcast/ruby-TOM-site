@@ -115,7 +115,7 @@ class EpisodesController < ApplicationController
         # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re-analysis before
         # publishing? Ditto image dimensions.
         format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
-        format.json { render :show, status: :created, location: @episode }
+        format.json { render :show, status: :accepted, location: @episode }
       else
         @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status == 'scheduling'
         @episode.reload # discards all user changes.
