@@ -20,4 +20,7 @@ Rails.application.routes.draw do
   get :episodes, path: '/:slug',   constraints: { slug: /[\w-]+/ }, to: redirect('episodes/%{slug}')
   get :episodes, path: '/:number', constraints: { number: /\d+/ },  to: redirect('episodes/%{number}')
 
+  patch 'upload_image/:number', to: 'episodes#upload_image', as: 'upload_image'
+  patch 'upload_audio/:number', to: 'episodes#upload_audio', as: 'upload_audio'
+
 end

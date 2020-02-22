@@ -1,6 +1,6 @@
 <% @episodes.each do |episode| %>
-    <h2><% if logged_in? and episode.draft? %> DRAFT <% end %> <%= link_to episode.full_title, episode_path(episode) %></h2>
-    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode) if logged_in? %>
+    <h2><%= link_to episode.full_title, episode_path(episode) %></h2>
+    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode) if logged_in_admin? %>
     <h3><%= episode.description %></h3>
   </p>
 <% end %>

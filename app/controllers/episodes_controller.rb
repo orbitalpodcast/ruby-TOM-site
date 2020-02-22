@@ -2,7 +2,7 @@ class EpisodesController < ApplicationController
   # allow not logged in users to access index and show.
   skip_before_action :authorized,         only: [:index, :show]
   # allow URL to reference slug or episode number. Create doesn't take an ID params, draft does its own work.
-  before_action :set_episode,             except: [:index, :create, :draft]
+  before_action :set_episode,             only: [:show, :edit, :update, :destroy]
 
   # Multiple submit buttons do different things.
   before_action :handle_submit_button,    only: :update
@@ -87,12 +87,16 @@ class EpisodesController < ApplicationController
   def create
     @episode = Episode.new(episode_params.except(:images))
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
-    if @episode.save
-      # We never publish episodes from create, so we want to redirect to edit, not to show.
-      update_attachments
-      redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @episode.save
+        # We never publish episodes from create, so we want to redirect to edit, not to show.
+        update_attachments
+        format.html { redirect_to edit_episode_path(@episode), notice: 'Episode draft was successfully created.' }
+        format.json { render :show, status: :created, location: @episode }
+      else
+        format.html { render :new }
+        format.json { render json: {errors: @episode.errors}, status: 422, encoding: 'application/json' }
+      end
     end
   end
 
@@ -111,14 +115,39 @@ class EpisodesController < ApplicationController
         # TODO don't render new page without assuring episode.audio.analyzed? Perhaps force re-analysis before
         # publishing? Ditto image dimensions.
         format.html { redirect_to edit_episode_path(@episode), notice: update_notice }
+        format.json { render :show, status: :created, location: @episode }
       else
         @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status == 'scheduling'
         @episode.reload # discards all user changes.
         # TODO Worth only resetting draft and newsletter_status in episode#update? If so, also add update_attachments.
         format.html { render :edit }
+        format.json { render json: {errors: @episode.errors}, status: 422, encoding: 'application/json' }
       end
     end
   end   
+
+  # PATCH/PUT /upload_image/1
+  def upload_image
+    unless @episode = Episode.find_by(number: params[:number])
+      render inline: '{"errors":{"number":"non-existant episode number."}}', status: 422, encoding: 'application/json' and return
+    end
+    file = params[:file]
+    if @episode.images.empty?
+      position = 1
+    else
+      position = @episode.images.last.position + 1
+    end
+    @episode.images.create(position: position, caption: params[:caption]).image.attach(file)
+  end
+
+  # PATCH/PUT /upload_audio/1
+  def upload_audio
+    unless @episode = Episode.find_by(number: params[:number])
+      render inline: '{"errors":{"number":"non-existant episode number."}}', status: 422, encoding: 'application/json' and return
+    end
+    file = params[:file]
+    @episode.audio.attach(file)
+  end
 
   # DELETE /episodes/1
   # DELETE /episodes/1.json
@@ -147,6 +176,9 @@ class EpisodesController < ApplicationController
       elsif ['Publish', 'Publish changes'].include? params[:commit]
         logger.debug ">>>>>>> #{params[:commit]} clicked"
         @episode.draft = false
+      elsif request.format == 'application/json'
+        debug :"Bot submission."
+        @episode.draft = true
       else
         logger.debug ">>>>>>> No commit matched. params-commit: #{params[:commit]}"
       end
@@ -227,7 +259,7 @@ class EpisodesController < ApplicationController
       @episode = Episode.find_by(slug: params[:id]) || Episode.find_by(number: params[:id])
       # TODO: set_episode results in two database calls when given a number. Worth checking params presence first?
       if @episode.draft?
-        redirect_back(fallback_location: root_path, allow_other_host: false) unless logged_in?
+        redirect_back(fallback_location: root_path, allow_other_host: false) unless logged_in_admin?
       end
     end
 

@@ -1,6 +1,6 @@
 <h1><%= link_to 'The Orbital Mechanics Podcast', root_path %></h1>
 
-<% if logged_in? %>
+<% if logged_in_admin? %>
   <%= current_user.email %> | 
   <%= link_to "Episode draft (#{Episode.not_published.count})", draft_path %> | 
   <% unless Delayed::Job.all.empty? %>
