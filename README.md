@@ -18,7 +18,7 @@ This repo is published under a CC BY-NC-SA 4.0 license, and you are welcome to m
 
 ## The Tour
 
-(Much of this is in progress! This is as much a road map for me as a promise to you.)
+(Much of this is in progress! This is as much a road map for me as a promise to you. Also see sister project [TOM-scrape](https://github.com/orbitalpodcast/TOM-scrape))
 
 #### Config/settings
 
