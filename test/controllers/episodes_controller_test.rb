@@ -130,7 +130,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
                                                            publish_date:  @episode.publish_date,
                                                            slug:          @episode.slug,
                                                            title:         @episode.title } }
-    assert_redirected_to edit_episode_url @episode
+    assert_template 'episodes/edit'
     assert_equal 'Episode was successfully published.', flash[:notice]
   end
 

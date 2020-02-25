@@ -78,6 +78,7 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_field 'Email'
     assert_field 'Password'
     assert_button 'Login'
+    # TODO finish logging in and visiting the index system test
   end
 
   test "Publishing an episode, zero to 60" do
