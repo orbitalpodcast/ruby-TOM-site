@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_193326) do
+ActiveRecord::Schema.define(version: 2020_02_26_005553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_193326) do
     t.integer "newsletter_job_id"
     t.boolean "ever_been_published"
     t.string "reddit_url"
+    t.string "twitter_url"
     t.index ["number"], name: "index_episodes_on_number", unique: true
     t.index ["slug"], name: "index_episodes_on_slug", unique: true
   end
