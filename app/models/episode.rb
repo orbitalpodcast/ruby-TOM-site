@@ -7,7 +7,7 @@ class Episode < ApplicationRecord
   scope :published_with_audio, -> {joins(:audio_attachment).where(draft: false)}
   scope :not_published,        -> {where draft: true}
 
-  NEWSLETTER_STATUSES =  ['not scheduled',  # when newly created, and not ready to email
+  NEWSLETTER_STATUSES =  ['not scheduled',   # when newly created, and not ready to email
                            'scheduling',     # when scheduling requested, but not completed
                            'canceling',      # when canceling a scheduled send requested, but not completed
                            'scheduled',      # when notes are done, and an email is scheduled

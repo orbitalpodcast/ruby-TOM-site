@@ -138,6 +138,7 @@ class EpisodesController < ApplicationController
 
   # PATCH/PUT /upload_image/1
   def upload_image
+    # Handle upload bot trying to upload an image to a non-existing episode.
     unless @episode = Episode.find_by(number: params[:number])
       render inline: '{"errors":{"number":"non-existant episode number."}}', status: 422, encoding: 'application/json' and return
     end
@@ -152,6 +153,7 @@ class EpisodesController < ApplicationController
 
   # PATCH/PUT /upload_audio/1
   def upload_audio
+    # Handle upload bot trying to upload audio to a non-existing episode.
     unless @episode = Episode.find_by(number: params[:number])
       render inline: '{"errors":{"number":"non-existant episode number."}}', status: 422, encoding: 'application/json' and return
     end
@@ -210,7 +212,7 @@ class EpisodesController < ApplicationController
     end
     
     def handle_newsletter
-      # Called on successful updates. Picks up where handle_submit_button leaves off. Called after successful save (so
+      # Called on successful updates. Picks up where handle_submit_and_override leaves off. Called after successful save (so
       # that validations are run, and the emailer has good data), so we also modify the database with the new status.
       if @episode.newsletter_status == 'scheduling'
         schedule_newsletter
@@ -330,6 +332,8 @@ class EpisodesController < ApplicationController
         unless image_to_be_deleted? image_id
           # Don't update images if they've been deleted.
           # TODO: handle validations fails in update_images
+          # We don't have an image object assigned, so we have to go find it.
+          # Currently ignoring validations by using update instead of update_attributes.
           Image.find_by(id: image_id).update(caption: image_deets[:caption], position: positions[image_id])
         end
       end
