@@ -261,24 +261,48 @@ class EpisodesController < ApplicationController
     end
 
     def post_to_twitter
-      debug :"FAKE TWITTER: #{@episode.description} #{episode_url(@episode)}"
-      # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
+      unless @episode.twitter_url == "skipped"
+        debug :"FAKE TWITTER: #{@episode.description} #{episode_url(@episode)}"
+        # TWITTER_CLIENT.update "#{@episode.description} #{episode_url(@episode)}"
+        # publish is called after validations were run, so we can safely update_attribute
+        @episode.update_attribute :twitter_url, "http://www.twitter.com/orbitalpodcast/FAKE-URL"
+      end
     end
 
     def post_to_reddit
-      begin
-        debug :'FAKE REDDIT'
-        http_result = {'json'=> {'data'=> {'url'=> "http://www.reddit.com/r/orbitalpodcast/FAKE-URL/#{@episode.slug}"}}}
-        # http_result = REDDIT_CLIENT.json(:post, '/api/submit',
-        #                             DEFAULT_REDDIT_PARAMS.merge( {'title': @episode.full_title,
-        #                                                           'url':   episode_url(@episode)} )
-        #                                       )
-      rescue RuntimeError => error
-        debug :'REDDIT ERROR'
-        debug :error, binding
-        @episode.update_attribute :reddit_url, false
+      unless @episode.reddit_url == "skipped"
+        begin
+          http_result = REDDIT_CLIENT.json(:post, '/api/submit',
+                                      DEFAULT_REDDIT_PARAMS.merge( {'title': @episode.full_title,
+                                                                    'url':   episode_url(@episode)}
+                                                                    )
+                                          )
+        rescue RuntimeError => error
+          @episode.errors.add :reddit_url, :invalid, message: :error
+          # publish is called after validations were run, so we can safely update_attribute
+          @episode.update_attribute :reddit_url, "Failed"
+        else
+          # publish is called after validations were run, so we can safely update_attribute
+          if (errors = returned_reddit_errors http_result)
+            @episode.errors.add :reddit_url, :invalid, message: errors
+            @episode.update_attribute :reddit_url, 'not posted'
+          else
+            @episode.update_attribute :reddit_url, http_result['json']['data']['url']
+          end
+        end
+      end
+    end
+
+    def returned_reddit_errors(http_result)
+      # if there are errors, concat them and return
+      errors = []
+      unless http_result['json']['errors'].empty?
+        for error in http_result['json']['errors'] do
+          errors << error[1]
+        end
+        return errors.join ' | '
       else
-        @episode.update_attribute :reddit_url, http_result['json']['data']['url']
+        return false
       end
     end
 
