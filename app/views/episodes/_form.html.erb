@@ -13,6 +13,7 @@
 
   <div class="field">
     <%= form.label :draft %>
+    <%= form.hidden_field :draft %>
     <strong><%= episode.draft %></strong>
   </div>
 
@@ -53,50 +54,69 @@
 
   <div class="field">
     <%= form.label :notes %>
-    <%= form.text_area :notes %>
+    <%= form.text_area :notes, size: '100x30' %>
+  </div>
+  <hr>
+
+<!-- IMAGES -->
+  <div class="images">
+    <h3>Images</h3>
+    <div class='field'>
+      <%= form.file_field :images, multiple: true %>
+    </div>
+    <ul>
+    <% for image in episode.images do %>
+        <li><%= link_to image_tag(image.image.variant(resize_to_limit: [500,200])), rails_blob_url(image.image), target: '_blank' %></li>
+        <li>
+          <%= text_field_tag "image_positions[#{image.id}]", image.position,       id: "image_position_#{image.image.filename}" %> | 
+          <%= text_field_tag "image_captions[#{image.id}]", (image.caption || ''), id: "image_caption_#{image.image.filename}" %> | 
+          <%= image.get_dimensions.join 'x' %> | 
+          <% # we have to specify checked=false in order to get to the options argument. %>
+          <%= check_box_tag "remove_image[#{image.id}]", image.id, checked=false, id: "remove_image_#{image.image.filename}" %> DELETE ON SAVE
+        </li>
+    <% end %>
+    </ul>
+    <hr>
   </div>
 
-  <div class="field">
-    <%= form.label :reddit_url %>
-    <%= form.text_field :reddit_url %>
+<!-- SOCIALS -->
+  <div class="socials">
+    <h3>Socials</h3>
+    <div class="field">
+      <%= form.label :reddit_url %>
+      <%= form.text_field :reddit_url %>
+    </div>
+
+
+    <div class="field">
+      <%= form.label :newsletter_status %>
+      <%= form.text_field :newsletter_status %>
+    </div>
+    <hr>
   </div>
 
-  <div class='field'>
-    <%= form.label :images %> 
-    <%= form.file_field :images, multiple: true %>
-  </div>
-
-  <ul>
-  <% for image in episode.images do %>
-      <li><%= link_to image_tag(image.image.variant(resize_to_limit: [500,200])), rails_blob_url(image.image), target: '_blank' %></li>
-      <li>
-        <%= text_field_tag "image_positions[#{image.id}]", image.position,       id: "image_position_#{image.image.filename}" %> | 
-        <%= text_field_tag "image_captions[#{image.id}]", (image.caption || ''), id: "image_caption_#{image.image.filename}" %> | 
-        <%= image.get_dimensions.join 'x' %> | 
-        <% # we have to specify checked=false in order to get to the options argument. %>
-        <%= check_box_tag "remove_image[#{image.id}]", image.id, checked=false, id: "remove_image_#{image.image.filename}" %> DELETE ON SAVE
-      </li>
-  <% end %>
-  </ul>
-
-  <%= form.hidden_field :draft %>
-  <%= form.hidden_field :newsletter_status %>
-
-
-
+<!-- ACTIONS -->
   <div class="actions">
+    <h3>Actions</h3>
     <% if episode.ever_been_published? %>
       <p>This episode has already been published. No social links will be posted.</p>
     <% else %>
       <p>Social links will be posted if you click publish.</p>
     <% end %>
     <% # TODO: consider using gem commit_param_matching. %>
+
+    <!-- OVERRIDE -->
+    <p>
+      <%= select_tag 'override', options_for_select(['Skip newsletter', 'Skip socials']),
+                                                    prompt:'Override actions (applied on save)' %>
+    </p>
+
+    <!-- SUBMIT BUTTONS -->
     <% if episode.draft %>
       <%= form.submit 'Save as draft' %>
     <% else %>
       <%= form.submit 'Revert to draft' %>
     <% end %>
-
     <% if episode.persisted? and episode.draft? %>
       <%= form.submit 'Draft and schedule newsletter' if episode.newsletter_status_before? 'scheduled' %>
       <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_status? == 'scheduled' %>
@@ -107,9 +127,5 @@
       <%= form.submit 'Publish changes' %>
     <% end %>
       <p>
-      <div class="field">
-        <%= form.label :newsletter_status %>
-        <strong><%= episode.newsletter_status || NEWSLETTER_STATUSES[0] %></strong>
-      </div>
   </div>
 <% end %>

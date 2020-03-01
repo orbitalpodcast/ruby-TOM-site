@@ -5,7 +5,7 @@ class EpisodesController < ApplicationController
   before_action :set_episode,             only: [:show, :edit, :update, :destroy]
 
   # Multiple submit buttons do different things.
-  before_action :handle_submit_button,    only: :update
+  before_action :handle_submit_and_override,    only: :update
 
   # GET /episodes
   # GET /episodes.json
@@ -171,26 +171,41 @@ class EpisodesController < ApplicationController
 
   private
 
-    def handle_submit_button
-      # Before_action. Multiple submit buttons can be clicked. Each one expects a different behavior.
-      if ['Save as draft', 'Revert to draft'].include? params[:commit]
-        logger.debug ">>>>>>> #{params[:commit]} clicked"
+    def handle_submit_and_override
+      # Before_action. Commit updates instance variable, override updates DB directly.
+      # TODO: handle_submit_and_override currently updates draft whether or not publish encounters errors. Is this smart?
+      # COMMIT
+      case params[:commit]
+      when 'Save as draft', 'Revert to draft'
+        debug :"#{params[:commit]} clicked"
         @episode.draft = true
-      elsif ['Draft and schedule newsletter'].include? params[:commit]
-        logger.debug ">>>>>>> #{params[:commit]} clicked"
+      when 'Draft and schedule newsletter'
+        debug :"#{params[:commit]} clicked"
         @episode.draft = true
         @episode.newsletter_status = 'scheduling'
-      elsif ['Cancel scheduled newsletter'].include? params[:commit]
-        logger.debug ">>>>>>> #{params[:commit]} clicked"
+      when 'Cancel scheduled newsletter'
+        debug :"#{params[:commit]} clicked"
         @episode.newsletter_status = 'canceling'
-      elsif ['Publish', 'Publish changes'].include? params[:commit]
-        logger.debug ">>>>>>> #{params[:commit]} clicked"
+      when 'Publish', 'Publish changes'
+        debug :"#{params[:commit]} clicked"
         @episode.draft = false
-      elsif request.format == 'application/json'
-        debug :"Bot submission."
-        @episode.draft = true
       else
-        logger.debug ">>>>>>> No commit matched. params-commit: #{params[:commit]}"
+        if request.format == 'application/json'
+          debug :"Bot submission."
+          @episode.draft = true
+        else
+          debug :"params[:commit]", binding
+        end
+      end
+      # OVERRIDE
+      case params[:override]
+      when 'Skip newsletter'
+        # Just update the following attributes, don't persist any changes coming in from the view, and ignore validations
+        Episode.find_by(@episode.id).update(:newsletter_status, 'not sent')
+      when 'Skip socials'
+        Episode.find_by(@episode.id).update(ever_been_published: true,
+                                            reddit_url: 'skipped',
+                                            twitter_url: 'skipped')
       end
     end
     
