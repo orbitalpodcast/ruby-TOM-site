@@ -104,6 +104,15 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1.json
   def update
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
+    # draft = false adds additional validations. Here, we fallback if the episode isn't ready to publish.
+    unless @episode.valid?
+      errors_hash = Hash.new
+      # preserve old errors
+      @episode.errors.each do |att, err|
+        errors_hash[att] = err
+      end
+      @episode.draft = true
+    end
     respond_to do |format|
       if @episode.update( episode_params.merge!(slug:              @episode.slug,
                                                 draft:             @episode.draft,
