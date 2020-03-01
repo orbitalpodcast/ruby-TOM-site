@@ -1,5 +1,3 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   draft: false
   newsletter_status: not sent
@@ -226,3 +224,22 @@ ten:
     * Stratolaunch is now under new ownership. https://spacenews.com/stratolaunch-gets-mystery-new-owner/
     * The Jason-2 mission has ended, but its satellite will remain. https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries
     description: Commercial Crew has fallen behind, but SpaceX is rushing to get Crew Dragon out the door.
+
+<% 231.times do |n| %>
+episode_<%= n %>:
+  draft: false
+  newsletter_status: not sent
+  publish_date: <%= '2019-10-22'.to_date + n*7 %>
+  number: <%= 231-n %>
+  title: Generated Episode <%= 231-n %>
+  slug: generated_episode_<%= 231-n %>
+  description: Description goes up. Description goes down.
+  notes: |-
+    Here are some notes!
+    This week in SF history
+    * A thing happened.
+    * A clue is also here.
+    Spaceflight News
+    * Here is an interesting news item.
+    * Here is another interesting news item.
+<% end %>

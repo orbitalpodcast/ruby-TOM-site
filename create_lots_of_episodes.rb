@@ -1,3 +1,15 @@
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("-d", "--destroy", "Run verbosely") do |d|
+    options[:destroy] = d
+  end
+end.parse!
+
+
 episode_list = [
     {draft: false,
     newsletter_status: 'not sent', 
@@ -17,9 +29,7 @@ episode_list = [
           This week in SF history
           * December 23, 1968. Apollo 8 enters Lunar SOI https://en.wikipedia.org/wiki/Apollo_8
           * Two weeks ahead in 2015: running out of juice"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    number: 240,
+    {number: 240,
     title: 'Nightingale',
     slug: 'nightingale',
     publish_date: '2019-12-17',
@@ -36,9 +46,7 @@ episode_list = [
             * Art in aerospace?
             This week in SF history
             * 18 December 1973: Launch of the Orion 2 space telescope onboard Soyuz 13 https://en.wikipedia.org/wiki/Soyuz_13 https://en.wikipedia.org/wiki/Orion_(space_telescope)"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    number: 239,
+    {number: 239,
     title: 'DOWNLINK--Kyla Edison',
     slug: 'kyla-edison',
     publish_date: '2019-12-11',
@@ -60,9 +68,7 @@ episode_list = [
             * Balloon aerobot package (nssdc.gsfc.nasa.gov)
             * Structures and data article (articles.adsabs.harvard.edu)
             * Next week in 1973 - What’s the point of a space telescope with a lifetime of less than a week?"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    number: 238,
+    {number: 238,
     title: 'Moon Prep',
     slug: 'moon-prep',
     publish_date: '2019-12-04',
@@ -82,9 +88,7 @@ episode_list = [
             This week in SF history
             * December 4, 1945, Birth of Roberta Bondar
             * Next week in 1984: What’s the point of a weather balloon with a sample rate of 75 seconds?"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    number: 237,
+    {number: 237,
     title: 'DOWNLINK--Elena Zorzoli Rossi',
     slug: 'elena-zorzoli-rossi',
     publish_date: '2019-11-27',
@@ -105,9 +109,7 @@ episode_list = [
             This week in SF history
             * November 28, 1964: Launch of Mariner 4 https://en.wikipedia.org/wiki/Mariner_4 https://www.jpl.nasa.gov/missions/mariner-4/
             * Next week in 1945: You were discussing critical space stuff with your pals the other dayyyyyyyy"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    number: 236,
+    {number: 236,
     title: 'Panel Jettison',
     slug: 'pannel-jettison',
     publish_date: '2019-12-17',
@@ -133,9 +135,7 @@ episode_list = [
             This week in SF history
             * November 19, 1956 Birth of Eileen Collins https://en.wikipedia.org/wiki/Eileen_Collins
             * Next week in 1964: The cold, dead 1%"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    number: 235,
+    {number: 235,
     title: 'DOWNLINK--Andrew Rader',
     slug: 'andrew-rader',
     publish_date: '2019-11-12',
@@ -155,9 +155,7 @@ episode_list = [
             * 15 November 1974 Launch of AMSAT-OSCAR 7 https://en.wikipedia.org/wiki/AMSAT-OSCAR_7 https://hackaday.com/2019/08/02/retrotechtacular-the-oscar-7-satellite-died-and-was-reborn-20-years-later/
             ** List of all OSCAR satellites https://en.wikipedia.org/wiki/AMSAT#Satellites_previously_launched_by_AMSAT
             * Next week in 1965: How about some nice lemon, gin and bob cut?"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    number: 234,
+    {number: 234,
     title: 'Irregular Nomenclature',
     slug: 'irregular-nomenclature',
     publish_date: '2019-11-05',
@@ -173,18 +171,14 @@ episode_list = [
             * The X-37 sets another record. https://spacenews.com/air-force-x-37b-secret-spaceplane-lands-after-780-days-in-orbit/
             * NASA gives funding to look into extended mission to Pluto https://www.americaspace.com/2019/10/30/nasa-green-lights-study-for-orbital-mission-to-pluto/
             * Another plot twist for the mole on Mars. https://spacenews.com/insight-heat-flow-probe-suffers-setback/"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    title: 'IAC DC, 2019',
+    {title: 'IAC DC, 2019',
     publish_date: '2019-10-29',
     number: 233,
     slug: 'iac-dc-2019',
     notes: "Bit of a weird show this week! No news, tired hosts. We talk about our favorite things from this year’s International Astronautical Congress, and we promise more information later.
 This show is brought to you by just over one hundred **supporters on Patreon** (and direct monthly supporters using Bitcoin and Paypal!) **We couldn’t have done this without you**, and we are so thankful for your confidence in our ability to bring you educational and entertaining content.",
     description: "This show is brought to you by just over one hundred supporters on Patreon. We couldn’t have done this without you, and we are so thankful for your confidence in our ability to bring you educational and entertaining content."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-10-15',
+    {publish_date: '2019-10-15',
     number: 232,
     title: 'Full Panic Ensued',
     slug: 'full-panic-ensued',
@@ -200,9 +194,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Stratolaunch is now under new ownership. https://spacenews.com/stratolaunch-gets-mystery-new-owner/
             * The Jason-2 mission has ended, but its satellite will remain. https://spacenews.com/decommissioned-earth-science-satellite-to-remain-in-orbit-for-centuries/",
     description: "Commercial Crew has fallen behind, but SpaceX is rushing to get Crew Dragon out the door."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-10-8',
+    {publish_date: '2019-10-8',
     number: 231 ,
     title: 'Fewer gyros, more problems',
     slug: 'fewer-gyros-more-problems',
@@ -228,9 +220,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             *** 911 Ellsworth Dr, Silver Spring, MD 20910
             ** Friday: IAC no-ticket open day",
     description: "DSCOVR's safehold seems to be connected to a gryo, but there's a fix coming down the line."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-10-01',
+    {publish_date: '2019-10-01',
     number: 230,
     title: 'Starship InSight',
     slug: 'starship-insight',
@@ -247,9 +237,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Korea Pathfinder Lunar Orbiter delayed to 2022 https://spaceflightnow.com/2019/09/20/launch-of-south-korean-lunar-orbiter-delayed-to-2022/
             * NEO mission confirmed https://spacenews.com/nasa-to-develop-mission-to-search-for-near-earth-asteroids/",
     description: "Starship, headed to Mars one day, got shown off to the public. Insight, already on Mars, learned some interesting things about the magnetosphere."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-09-24',
+    {publish_date: '2019-09-24',
     number: 229,
     title: 'Somewhat Rectilinear',
     slug: 'somewhat-rectilinear',
@@ -267,9 +255,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             Questions, comments, corrections
             * Off-Nominal DC (aka “inside the beltway”) meetup https://events.offnominal.space/",
     description: "NASA wants to put a cubesat in a near-rectilinear halo orbit. Also, lots of updates on private space launch facilities."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-09-17',
+    {publish_date: '2019-09-17',
     number: 228,
     title: 'Fired Up',
     slug: 'fired-up',
@@ -286,9 +272,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             Questions, comments, corrections
             * GOES-13 correction from Kevin Smith https://skyriddles.wordpress.com/2019/09/10/goes-13-gets-drafted/ https://spacenews.com/noaa-continues-weather-satellite-discussions-with-the-air-force/",
     description: "H-IIB had a literal fire lit under its butt, and more info about Bigelow's expandable space stations."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-09-10',
+    {publish_date: '2019-09-10',
     number: 227,
     title: "Successful Orbiter",
     slug: 'successful-orbiter',
@@ -303,9 +287,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Target marker operation and dress rehearsal postponed for Hayabusa2 http://www.hayabusa2.jaxa.jp/en/topics/20190903e_TM/
             * WFIRST passes PDR https://spacenews.com/wfirst-telescope-passes-preliminary-design-review/",
     description: "Chandrayaan-2's lander made it to the surface a little sooner than planned. Also, more Hayabusa2 news and WFIRST inches towards reality."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-09-03',
+    {publish_date: '2019-09-03',
     number: 226,
     title: 'Duricrust',
     slug: 'duricrust',
@@ -323,9 +305,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Mars 2020 helicopter integrated into the rover https://www.bbc.com/news/science-environment-49512101
             * JWST has now been physically assembled https://www.nasa.gov/feature/goddard/2019/nasa-s-james-webb-space-telescope-has-been-assembled-for-the-first-time",
     description: "Insight is slowly getting closer to a successful mole deployment, and Starhopper showed off its stuff!"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-08-27',
+    {publish_date: '2019-08-27',
     number: 225,
     title: "DATA RELAY--Hot Structures",
     slug: 'hot-structure',
@@ -350,9 +330,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Tim Dodd’s discussion on Starship transpiration cooling https://www.youtube.com/watch?v=LogE40_wR9k
             * /u/spacerfirstclass speculates on Spaceship’s use of hot structures. https://www.reddit.com/r/spacex/comments/a4l6pp/the_new_design_is_metal_could_spacex_be_using/",
     description: "Why have a structure with a heat shield on top, when you could just make a structure that does both jobs?"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-08-20',
+    {publish_date: '2019-08-20',
     number: 224,
     title: 'Downward Vector',
     slug: 'downward-vector',
@@ -370,9 +348,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             Questions, comments, corrections
             * Come play an RPG with us! Friday August 30 at 5.30pm PT/8.30pm ET https://www.patreon.com/posts/rpg-night-28311838",
     description: "Linkspace successfully hovers, Exomars struggles with parachutes, and Vector Launch closes its doors."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-08-14',
+    {publish_date: '2019-08-14',
     number: 223,
     title: 'DOWNLINK--Ella Atkins',
     slug: 'ella-atkins',
@@ -388,9 +364,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * https://robotics.umich.edu/
             * https://www.aiaa.org/",
     description: "Ella Atkins is an aerospace engineering professor who has a rich history studying and designing automated systems in space and in the air."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-08-06',
+    {publish_date: '2019-08-06',
     number: 222,
     title: 'Heat Sunk',
     slug: 'heat-sunk',
@@ -405,9 +379,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * OneWeb opens for production in Florida. https://www.spaceflightinsider.com/missions/commercial/oneweb-and-airbus-open-facility-for-mass-production-of-communication-satellites/
             * EDRS shows off its abilities. http://www.parabolicarc.com/2019/08/02/european-space-data-relay-system-shows-its-speed/",
     description: "A GOES malfunction has now been explained. We're gearing up to hear more about Starship. OneWeb is opening its doors, and EDRS is performing well."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-07-30',
+    {publish_date: '2019-07-30',
     number: 221,
     title: 'Soul Source',
     slug: 'soul-source',
@@ -420,9 +392,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Blue Origin fires its BE-7 lunar lander engine https://www.geekwire.com/2019/one-step-moon-blue-origin-fires-7-lander-engine-full-6-minutes/
             * Lightsail-2 successfully deploys its sail and sends back imagery http://www.planetary.org/blogs/jason-davis/ls2-deploys-sail.html",
     description: "Northrop Grumman got a sole source contract to build a habitat module for the lunar gateway station."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-07-24',
+    {publish_date: '2019-07-24',
     number: 220,
     title: 'DOWNLINK--Ron Burkey',
     slug: 'ron-burkey',
@@ -439,9 +409,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Scanned original documents https://archive.org/details/virtualagcproject
             * Transcribed code https://github.com/virtualagc/virtualagc",
     description: "The Apollo Guidance Computer is famous, but the code it ran likely would have slipped into the fog of history if it wasn't for Ron Burkey's archives."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-07-16',
+    {publish_date: '2019-07-16',
     number: 219,
     title: 'Future Imperfect',
     slug: 'future-imperfect',
@@ -459,9 +427,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             ** Friday August 30 at 5.30pm PT/8.30pm ET
             ** Same setting, new game! (Risus)",
     description: "India's headed to the Moon, though their launch was delayed after we recorded this episode."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-06-10',
+    {publish_date: '2019-06-10',
     number: 218,
     title: 'Low-flying Starlink',
     slug: 'low-flying-starlink',
@@ -479,9 +445,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             Questions, comments, corrections
             * Andrew Zdanowicz via email: Dragonfly - why not a helicopter?",
     description: "Orion successfully abort, three Starlinks don\'t wake up, Exomars and DSCOVR get a little crash-y."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-06-03',
+    {publish_date: '2019-06-03',
     number: 217,
     title: 'Ms. Tree Snags the Fly!',
     slug: 'ms-tree-snags-the-fly',
@@ -502,9 +466,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Clara Ma’s winning entry for Curiosity https://www.nasa.gov/mission_pages/msl/essay-20090527.html
             * https://twitter.com/call_him_bob",
     description: "Falcon Heavy had a TVC failure that resulted in the loss of another center core, but they finally caught a fairing. Also, Mars 2020 needs your help!"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-05-26',
+    {publish_date: '2019-05-26',
     number: 216,
     title: 'Look to Windward',
     slug: 'look-to-windward',
@@ -552,9 +514,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             Questions, comments, corrections
             * https://www.arahanga.space/",
     description: "While we wait out a slow news week, we look to the future and summarize upcoming non-Earth science missions."},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-05-18',
+    {publish_date: '2019-05-18',
     number: 215,
     title: 'Shibboleth',
     slug: 'episode-215-shibboleth',
@@ -575,9 +535,7 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
             * Apollo / Mariner / Viking / Voyager oral history https://twitter.com/jccwrt/status/1139384759719624706
             * Support the Rocket Cat fund! https://www.gofundme.com/f/rocket-cat-medical-fund",
     description: "Are you ready to visit the asteroid belt's metallic tooth? We sure are!"},
-    {draft: false,
-    newsletter_status: 'not sent',
-    publish_date: '2019-05-11',
+    {publish_date: '2019-05-11',
     number: 214,
     title: 'Spitzering Nails',
     slug: 'spitzering-nails',
@@ -596,7 +554,34 @@ This show is brought to you by just over one hundred **supporters on Patreon** (
     description: "Spitzer is being retired at long last. Also, a commercial ISS, an HP3 troubleshooting idea, and a launch from sea."}
 ]
 
+if options[:destroy]
+  puts "There are #{Episode.count} episodes loaded, but I'm DESTROYING THEM ALL!"
+  Episode.destroy_all
+else
+  puts "There are #{Episode.count} episodes loaded."
+  puts "The highest numbered episode is #{Episode.last.number}."
+  puts "Creating lots of episodes, starting at 241."
+end
 
 for params in episode_list do
-    Episode.new(params).save
+    Episode.create params.merge({draft: false, newsletter_status: 'not sent'})
 end
+
+231.times do |n|
+    Episode.create(draft: false,
+                  newsletter_status: 'not sent',
+                  publish_date: '2019-10-22'.to_date + n*7,
+                  number: 231-n,
+                  title: "Generated Episode #{231-n}",
+                  slug: "generated_episode_#{231-n}",
+                  description: "Description goes up. Description goes down.",
+                  notes: "Here are some notes!
+                    This week in SF history
+                    * A thing happened.
+                    * A clue is also here.
+                    Spaceflight News
+                    * Here is an interesting news item.
+                    * Here is another interesting news item.")
+end
+
+puts "There are now #{Episode.count} episodes in the db."
