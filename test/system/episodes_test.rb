@@ -1,63 +1,59 @@
 require "application_system_test_case"
 
 class EpisodesTest < ApplicationSystemTestCase
-  TITLE_REGEX = /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--){0,1}[\w\s]*/
-
-  setup do
-    @episode = {publish_year: '2020',
-                publish_month: 'January',
-                publish_day: '7',
-                number: 242,
-                title: 'DOWNLINK--Dr. Martin Elvis',
-                slug: 'martin-elvis',
-                description: "Asteroid mining is often discussed in terms of engineering and economics. Today, we're talking about raw material availability.",
-                notes: "Spaceflight news
-                        *ISRO confirms plans for Chandrayaan-3 (spacenews.com)
-                        **Chandrayaan-2 imagery (nasa.gov)
-                        Short & Sweet
-                        *SpaceX plans a moveable tower for pad 39A (spaceflightnow.com)
-                        *Christina Koch breaks a record (spaceflightnow.com)
-                        *Early signs of the Clean Space age: Iridium announces willingness to pay for third party cleanup of failed satellites (spacenews.com)
-                        Interview: Dr. Martin Elvis, Senior Astrophysicist, Center for Astrophysics and Smithsonian
-                        *harvard.edu/~elvis
-                        *Simulated population of asteroids from mikael granvik (helsinki.fi)
-                        This week in SF history
-                        *10 January 2015: first droneship landing attempt (wikipedia.org)
-                        *Next week in 1977: black side down"}
-    @old_episode = {publish_year: '2019',
-                   publish_month: 'September',
-                   publish_day: '8',
-                   number: 231,
-                   title: 'Fewer gyros, more problems',
-                   slug: 'fewer-gyros-more-problems',
-                   description: "DSCOVR's safehold seems to be connected to a gryo, but there's a fix coming down the line.",
-                   notes: "This week in SF history
-                   * 2000 October 9: HETE-2, first orbital launch from Kwajalein https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer
-                   * Next week in 1956: listen in for an audio clue.
-                   Spaceflight News
-                   * Plans in place to fix DSCOVR https://spacenews.com/software-fix-planned-to-restore-dscovr/
-                   ** We first reported on this on Ep 218 as an S&S https://spacenews.com/dscovr-spacecraft-in-safe-mode/
-                   ** Faulty gyro? https://twitter.com/simoncarn/status/1175823150984126464
-                   *** Triana engineers considered laser gyro failures PDF: https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf
-                   Short & Sweet
-                   * NASA Mars 2020 tests descent stage separation https://www.jpl.nasa.gov/news/news.php?feature=7513\
-                   * NASA issues request for information on xEMU. https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/
-                   * New Shepard will likely not fly humans in 2019. https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/
-                   Questions, comments, corrections
-                   * https://twitter.com/search?q=\%23tomiac2019&amp;f=live\
-                   ** Sunday: Off Nominal meetups https://events.offnominal.space/
-                   ** Monday: museum day
-                   *** Udvar-Hazy and downtown Air and Space Museum
-                   ** Thursday: Dinner meetup
-                   *** https://www.mcgintyspublichouse.com/
-                   *** 911 Ellsworth Dr, Silver Spring, MD 20910
-                   ** Friday: IAC no-ticket open day"}
-  end
+  ep_params = {publish_year: '2020',
+              publish_month: 'January',
+              publish_day: '7',
+              number: 242,
+              title: 'DOWNLINK--Dr. Martin Elvis',
+              slug: 'martin-elvis',
+              description: "Asteroid mining is often discussed in terms of engineering and economics. Today, we're talking about raw material availability.",
+              notes: "Spaceflight news
+                      *ISRO confirms plans for Chandrayaan-3 (spacenews.com)
+                      **Chandrayaan-2 imagery (nasa.gov)
+                      Short & Sweet
+                      *SpaceX plans a moveable tower for pad 39A (spaceflightnow.com)
+                      *Christina Koch breaks a record (spaceflightnow.com)
+                      *Early signs of the Clean Space age: Iridium announces willingness to pay for third party cleanup of failed satellites (spacenews.com)
+                      Interview: Dr. Martin Elvis, Senior Astrophysicist, Center for Astrophysics and Smithsonian
+                      *harvard.edu/~elvis
+                      *Simulated population of asteroids from mikael granvik (helsinki.fi)
+                      This week in SF history
+                      *10 January 2015: first droneship landing attempt (wikipedia.org)
+                      *Next week in 1977: black side down"}
+  old_ep_params = {publish_year: '2019',
+                 publish_month: 'September',
+                 publish_day: '8',
+                 number: 231,
+                 title: 'Fewer gyros, more problems',
+                 slug: 'fewer-gyros-more-problems',
+                 description: "DSCOVR's safehold seems to be connected to a gryo, but there's a fix coming down the line.",
+                 notes: "This week in SF history
+                 * 2000 October 9: HETE-2, first orbital launch from Kwajalein https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer
+                 * Next week in 1956: listen in for an audio clue.
+                 Spaceflight News
+                 * Plans in place to fix DSCOVR https://spacenews.com/software-fix-planned-to-restore-dscovr/
+                 ** We first reported on this on Ep 218 as an S&S https://spacenews.com/dscovr-spacecraft-in-safe-mode/
+                 ** Faulty gyro? https://twitter.com/simoncarn/status/1175823150984126464
+                 *** Triana engineers considered laser gyro failures PDF: https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf
+                 Short & Sweet
+                 * NASA Mars 2020 tests descent stage separation https://www.jpl.nasa.gov/news/news.php?feature=7513\
+                 * NASA issues request for information on xEMU. https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/
+                 * New Shepard will likely not fly humans in 2019. https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/
+                 Questions, comments, corrections
+                 * https://twitter.com/search?q=\%23tomiac2019&amp;f=live\
+                 ** Sunday: Off Nominal meetups https://events.offnominal.space/
+                 ** Monday: museum day
+                 *** Udvar-Hazy and downtown Air and Space Museum
+                 ** Thursday: Dinner meetup
+                 *** https://www.mcgintyspublichouse.com/
+                 *** 911 Ellsworth Dr, Silver Spring, MD 20910
+                 ** Friday: IAC no-ticket open day"}
 
   test "visiting the index before logging in" do
     visit root_url
     assert_selector "h1", text: "The Orbital Mechanics Podcast"
-    assert_selector 'h2', text: TITLE_REGEX, count: Settings.views.number_of_homepage_episodes
+    assert_selector 'h2', text: EPISODE_TITLE_REGEX, count: Settings.views.number_of_homepage_episodes
     assert_link 'More episodes...', href: episodes_path
     assert_no_link text: /edit/i
     assert_no_link text: /episode draft/i
@@ -104,11 +100,11 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_no_text 'Remove'
 
     # Create partial draft and save it, checking placeholder slug
-    fill_in "Number",       with: @episode[:number]
-    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-    select(@episode[:publish_month], from: 'episode_publish_date_2i')
-    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-    fill_in "Notes",        with: @episode[:notes]
+    fill_in "Number",       with: ep_params[:number]
+    select(ep_params[:publish_year],  from: 'episode_publish_date_1i')
+    select(ep_params[:publish_month], from: 'episode_publish_date_2i')
+    select(ep_params[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Notes",        with: ep_params[:notes]
     click_on "Save as draft"
     assert_current_path "/episodes/untitled-draft/edit"
     assert_text 'Episode draft was successfully created.'
@@ -116,11 +112,11 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_text "Newsletter status\nnot scheduled"
 
     # Finish filling in the draft, checking slug generation
-    fill_in "Title",        with: @episode[:title]
-    fill_in "Description",  with: @episode[:description]
+    fill_in "Title",        with: ep_params[:title]
+    fill_in "Description",  with: ep_params[:description]
     click_on "Save as draft"
     assert_text 'Episode draft was successfully updated.'
-    assert page.has_field? 'Slug', with: @episode[:slug]
+    assert page.has_field? 'Slug', with: ep_params[:slug]
     assert_text "Newsletter status\nnot scheduled"
 
     # Attach some images
@@ -166,12 +162,12 @@ class EpisodesTest < ApplicationSystemTestCase
     # Check that the draft is displayed on the home page
     click_on 'Back'
     click_on 'The Orbital Mechanics Podcast'
-    assert_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title]), count: 1
+    assert_selector 'h2', text: Episode.full_title(ep_params[:number], ep_params[:title]), count: 1
 
     # Check that the draft is not displayed while logged out
     click_on 'Log Out'
     assert_current_path root_path
-    assert_no_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title])
+    assert_no_selector 'h2', text: Episode.full_title(ep_params[:number], ep_params[:title])
 
     # Check login redirect to homepage
     visit login_url
@@ -180,12 +176,12 @@ class EpisodesTest < ApplicationSystemTestCase
     click_on 'Login'
     assert_current_path root_path
     assert_text "Authentication successful!"
-    assert_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title]), count: 1
-    assert_link 'Edit', href: "/episodes/#{@episode[:slug]}/edit"
+    assert_selector 'h2', text: Episode.full_title(ep_params[:number], ep_params[:title]), count: 1
+    assert_link 'Edit', href: "/episodes/#{ep_params[:slug]}/edit"
 
     # Publish the episode
     click_on 'Episode draft'
-    assert page.has_field? 'Number', with: @episode[:number]
+    assert page.has_field? 'Number', with: ep_params[:number]
     click_on 'Publish'
     assert_text 'Episode was successfully published.'
     assert_text "Draft\nfalse"
@@ -196,14 +192,14 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_current_path episodes_path
     click_on 'The Orbital Mechanics Podcast'
     assert_current_path root_path
-    assert_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title]), count: 1
+    assert_selector 'h2', text: Episode.full_title(ep_params[:number], ep_params[:title]), count: 1
     assert_selector 'h2', text: /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--)?[\w\s]/,
                           count: Settings.views.number_of_homepage_episodes
     assert_text "Scheduled jobs (1)"
 
     # Log out and check that the episode is still present, but the scheduled job isn't.
     click_on 'Log Out'
-    assert_selector 'h2', text: Episode.full_title(@episode[:number], @episode[:title]), count: 1
+    assert_selector 'h2', text: Episode.full_title(ep_params[:number], ep_params[:title]), count: 1
     assert_text "Scheduled jobs (1)", count: 0
 end
 
@@ -215,14 +211,14 @@ end
     click_on 'Login'
 
     visit draft_path
-    fill_in "Number",       with: @episode[:number]
-    fill_in "Title",        with: @episode[:title]
-    fill_in "Slug",         with: @episode[:slug]
-    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-    select(@episode[:publish_month], from: 'episode_publish_date_2i')
-    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-    fill_in "Description",  with: @episode[:description]
-    fill_in "Notes",        with: @episode[:notes]
+    fill_in "Number",       with: ep_params[:number]
+    fill_in "Title",        with: ep_params[:title]
+    fill_in "Slug",         with: ep_params[:slug]
+    select(ep_params[:publish_year],  from: 'episode_publish_date_1i')
+    select(ep_params[:publish_month], from: 'episode_publish_date_2i')
+    select(ep_params[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: ep_params[:description]
+    fill_in "Notes",        with: ep_params[:notes]
     click_on "Save as draft"
     click_on "Publish"
 
@@ -242,13 +238,13 @@ end
     visit episodes_url
     click_on "Edit", match: :first
 
-    fill_in "Number",       with: @episode[:number]
-    fill_in "Title",        with: @episode[:title]
-    fill_in "Slug",         with: @episode[:slug]
-    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-    select(@episode[:publish_month], from: 'episode_publish_date_2i')
-    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-    fill_in "Description",  with: @episode[:description]
+    fill_in "Number",       with: ep_params[:number]
+    fill_in "Title",        with: ep_params[:title]
+    fill_in "Slug",         with: ep_params[:slug]
+    select(ep_params[:publish_year],  from: 'episode_publish_date_1i')
+    select(ep_params[:publish_month], from: 'episode_publish_date_2i')
+    select(ep_params[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: ep_params[:description]
     fill_in "Notes",        with: ''
     click_on "Publish"
 
@@ -266,14 +262,14 @@ end
   #   visit episodes_url
   #   click_on "Edit", match: :first
 
-  #   fill_in "Number",       with: @episode[:number]
+  #   fill_in "Number",       with: ep_params[:number]
   #   fill_in "Title",        with: 'asdf'
-  #   fill_in "Slug",         with: @episode[:slug]
-  #   select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-  #   select(@episode[:publish_month], from: 'episode_publish_date_2i')
-  #   select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-  #   fill_in "Description",  with: @episode[:description]
-  #   fill_in "Notes",        with: @episode[:notes]
+  #   fill_in "Slug",         with: ep_params[:slug]
+  #   select(ep_params[:publish_year],  from: 'episode_publish_date_1i')
+  #   select(ep_params[:publish_month], from: 'episode_publish_date_2i')
+  #   select(ep_params[:publish_day],   from: 'episode_publish_date_3i')
+  #   fill_in "Description",  with: ep_params[:description]
+  #   fill_in "Notes",        with: ep_params[:notes]
   #   click_on "Save as draft"
 
   #   assert_text "Title is too short"
@@ -293,11 +289,11 @@ end
     fill_in "Number",       with: episodes(:two).number
     fill_in "Title",        with: episodes(:two).title
     fill_in "Slug",         with: episodes(:two).slug
-    select(@episode[:publish_year],  from: 'episode_publish_date_1i')
-    select(@episode[:publish_month], from: 'episode_publish_date_2i')
-    select(@episode[:publish_day],   from: 'episode_publish_date_3i')
-    fill_in "Description",  with: @episode[:description]
-    fill_in "Notes",        with: @episode[:notes]
+    select(ep_params[:publish_year],  from: 'episode_publish_date_1i')
+    select(ep_params[:publish_month], from: 'episode_publish_date_2i')
+    select(ep_params[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: ep_params[:description]
+    fill_in "Notes",        with: ep_params[:notes]
     click_on "Publish"
 
     assert_text "Number has already been taken"
@@ -314,26 +310,31 @@ end
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
     click_on 'Login'
 
+    visit edit_episode_path old_ep_params[:number]
+    click_on 'Remove'
+    assert_text 'Episode was successfully destroyed.'
+
     # Check the draft page contents
+    visit draft_path
     assert page.has_field? 'Number', with: episodes(:one).number + 1
     assert_no_text 'Show'
     assert_text 'Back'
     assert_no_text 'Remove'
 
     # Fill in an old episode
-    fill_in "Number",       with: @old_episode[:number]
-    fill_in "Title",        with: @old_episode[:title]
-    select(@old_episode[:publish_year],  from: 'episode_publish_date_1i')
-    select(@old_episode[:publish_month], from: 'episode_publish_date_2i')
-    select(@old_episode[:publish_day],   from: 'episode_publish_date_3i')
-    fill_in "Description",  with: @old_episode[:description]
-    fill_in "Notes",        with: @old_episode[:notes]
+    fill_in "Number",       with: old_ep_params[:number]
+    fill_in "Title",        with: old_ep_params[:title]
+    select(old_ep_params[:publish_year],  from: 'episode_publish_date_1i')
+    select(old_ep_params[:publish_month], from: 'episode_publish_date_2i')
+    select(old_ep_params[:publish_day],   from: 'episode_publish_date_3i')
+    fill_in "Description",  with: old_ep_params[:description]
+    fill_in "Notes",        with: old_ep_params[:notes]
     click_on "Save as draft"
     assert_text 'Episode draft was successfully created.'
 
     # Check the draft was loaded correctly on draft page.
     visit draft_url
-    assert_current_path "/episodes/#{@old_episode[:slug]}/edit"
+    assert_current_path "/episodes/#{old_ep_params[:slug]}/edit"
   end
 
   test "Unusual image upload situations" do

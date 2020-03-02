@@ -3,34 +3,27 @@ require 'test_helper'
 class EpisodeTest < ActiveSupport::TestCase
 
   ep_params = {draft: false,
-  newsletter_status: 'not sent',
-  publish_date: '2019-10-8',
-  number: 231 ,
-  title: 'Fewer gyros, more problems',
-  slug: 'fewer-gyros-more-problems',
-  description: "DSCOVR's safehold seems to be connected to a gryo, but there's a fix coming down the line.",
-  notes: "This week in SF history
-          * 2000 October 9: HETE-2, first orbital launch from Kwajalein https://en.wikipedia.org/wiki/High_Energy_Transient_Explorer
-          * Next week in 1956: listen in for an audio clue.
-          Spaceflight news
-          * Plans in place to fix DSCOVR https://spacenews.com/software-fix-planned-to-restore-dscovr/
-          ** We first reported on this on https://docs.google.com/document/d/1RAydcXcHFi7QiPkSLhdxuc-ILNNSTZwJGbsqpnabcdg/edit Ep 218 as a S&S https://spacenews.com/dscovr-spacecraft-in-safe-mode/
-          ** Faulty gyro? https://twitter.com/simoncarn/status/1175823150984126464
-          *** Triana engineers considered laser gyro failures https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20010084979.pdf
-          Short & Sweet
-          * NASA Mars 2020 tests descent stage separation https://www.jpl.nasa.gov/news/news.php?feature=7513
-          * NASA issues request for information on xEMU. https://www.nasaspaceflight.com/2019/10/nasa-rfi-new-lunar-spacesuits/
-          * New Shepard will likely not fly humans in 2019. https://spacenews.com/blue-origin-may-miss-goal-of-crewed-suborbital-flights-in-2019/
-          Questions, comments, corrections
-          * https://twitter.com/search?q=%23tomiac2019&amp;f=live
-          ** Sunday: Off Nominal meetups https://events.offnominal.space/
-          ** Monday: museum day
-          *** Udvar-Hazy and downtown Air and Space Museum
-          ** Thursday: Dinner meetup
-          *** https://www.mcgintyspublichouse.com/
-          *** 911 Ellsworth Dr, Silver Spring, MD 20910
-          ** Friday: IAC no-ticket open day"}
-   
+              newsletter_status: 'not sent',
+              publish_date: '2020-01-07',
+              number: 242,
+              title: 'DOWNLINK--Dr. Martin Elvis',
+              slug: 'martin-elvis',
+              description: "Asteroid mining is often discussed in terms of engineering and economics. Today, we're talking about raw material availability.",
+              notes: "Spaceflight news
+                      *ISRO confirms plans for Chandrayaan-3 (spacenews.com)
+                      **Chandrayaan-2 imagery (nasa.gov)
+                      Short & Sweet
+                      *SpaceX plans a moveable tower for pad 39A (spaceflightnow.com)
+                      *Christina Koch breaks a record (spaceflightnow.com)
+                      *Early signs of the Clean Space age: Iridium announces willingness to pay for third party cleanup of failed satellites (spacenews.com)
+                      Interview: Dr. Martin Elvis, Senior Astrophysicist, Center for Astrophysics and Smithsonian
+                      *harvard.edu/~elvis
+                      *Simulated population of asteroids from mikael granvik (helsinki.fi)
+                      This week in SF history
+                      *10 January 2015: first droneship landing attempt (wikipedia.org)
+                      *Next week in 1977: black side down"}
+
+
   test "should save valid episode" do
     episode = Episode.new(ep_params)
     assert episode.save

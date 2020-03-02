@@ -1,3 +1,5 @@
+# Creates 232 through 241 with actual content, then creates episodes 1 through 231 with generated content.
+
 one:
   draft: false
   newsletter_status: not sent
