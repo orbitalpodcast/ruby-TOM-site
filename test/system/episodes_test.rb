@@ -61,6 +61,20 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_no_link text: /log Out/i
   end
 
+  test "Viewing episode pagination" do
+    get episodes_path
+    assert_select 'h2', {text: EPISODE_TITLE_REGEX, count: 10}
+    assert_text 'next'
+    assert_no_text 'previous'
+
+    5.times do |i|
+      click_on 'next'
+      assert_select 'h2', {text: EPISODE_TITLE_REGEX, count: 10}, "Didn't find ten h2 tags on loop #{i}"
+      assert_text 'next', "Didn't find next link on loop #{i}"
+      assert_text 'previous', "Didn't find previous link on loop #{i}"
+    end
+  end
+
   test "viewing an episode before logging in" do
     visit "/#{episodes(:one).slug}"
     assert_selector 'h2', text: Episode.full_title(episodes(:one).number, episodes(:one).title), count: 1

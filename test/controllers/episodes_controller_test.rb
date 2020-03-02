@@ -55,9 +55,33 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
                          count: Settings.views.number_of_episodes_per_page}
   end
 
-  test "should get index with range" do
-    get episodes_with_range_url episodes(:one).number, episodes(:five).number
-    assert_select 'h2', {text: EPISODE_TITLE_REGEX, count: 5}
+  test "episode pagination" do
+    # test default range behavior
+    get episodes_path
+    default_next_start = episodes(:one).number-9-1
+    default_next_end   = episodes(:one).number-9-1-9
+    assert_select 'a[href=?]', "/episodes/#{default_next_start}/to/#{default_next_end}"
+
+    # test custom range returns custom ranges from most recent episode
+    start_number = episodes(:one).number
+    for distance in [3, 5, 12, 15] do
+      get episodes_with_range_url start_number,   start_number-distance
+      assert_nil assigns(:previous_page_start)
+      assert_equal assigns(:next_page_start),     start_number-distance-1
+      assert_equal assigns(:next_page_end),       start_number-distance*2-1
+    end
+
+    # test custom range returns custom ranges from an old episode
+    most_recent = episodes(:one).number
+    for start_number in [most_recent-50, most_recent-100]
+      for distance in [3, 5, 12, 15] do
+        get episodes_with_range_url start_number,   start_number-distance
+        assert_equal assigns(:previous_page_start), start_number+1+distance
+        assert_equal assigns(:previous_page_end),   start_number+1
+        assert_equal assigns(:next_page_start),     start_number-distance-1
+        assert_equal assigns(:next_page_end),       start_number-distance*2-1
+      end
+    end
   end
 
   test "get index with range using unusual ranges" do
