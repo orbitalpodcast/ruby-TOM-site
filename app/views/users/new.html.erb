@@ -5,7 +5,6 @@
     <h2><%= pluralize(@user.errors.count, "error") %> prohibited you from signing up:</h2>
 
     <ul>
-      <% # byebug %>
       <% @user.errors.messages.each_value do |message| %>
         <li><%= message[0] %></li>
       <% end %>
