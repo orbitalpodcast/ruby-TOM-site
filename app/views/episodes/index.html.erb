@@ -5,10 +5,7 @@
   </p>
 <% end %>
 
-<% if @previous_page_start %>
-  <%= link_to 'previous', episodes_with_range_path(@previous_page_start, @previous_page_end) %>
-<% end %>
-<% if @previous_page_start and @next_page_end %> | <% end %>
-<% if @next_page_end %>
-  <%= link_to 'next', episodes_with_range_path(@next_page_start, @next_page_end) %>
-<% end %>
+<% links = [] %>
+<% links << link_to('previous', episodes_with_range_path(@previous_page_start, @previous_page_end)) if @previous_page_start %>
+<% links << link_to('next',     episodes_with_range_path(@next_page_start,     @next_page_end))     if @next_page_end %>
+<%= raw links.join(' | ') %>

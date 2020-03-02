@@ -11,28 +11,33 @@ class EpisodesController < ApplicationController
   # GET /episodes.json
   # GET /episodes.rss
   def index
-    # Determine the appropriate range of episodes
+    # determine the appropriate range of episodes
     ep_range = []
     first_ep_num = Episode.published.first.number # Episode 1
     last_ep_num  = Episode.published.last.number  # Episode 250 or whatever
     unless params.has_key?(:begin) and params.has_key?(:end)
-      # set ep_range if /episodes was called, or /to/ was malformed
+      # set ep_range if no range was specified, or /to/ was malformed
       ep_range = [last_ep_num, last_ep_num - Settings.views.number_of_episodes_per_page + 1]
     else
       [params[:end], params[:begin]].each do |param|
-        param = first_ep_num if param == 'first'
-        param = last_ep_num  if param == 'last'
-        ep_range << param
+        # handle words
+        case param
+        when 'first', 'beginning', 'begin', 'start', 'alpha', 'liftoff', 'takeoff'
+          param = first_ep_num
+        when 'last', 'end', 'ending', 'finish', 'omega', 'touchdown', 'splashdown'
+          param = last_ep_num
+        end
+        # Set ep_range according to the requested range. We could sort strings, but don't want mixed object types.
+        ep_range << param.to_i
       end
     end
-    ep_range.map! { |e| e.to_i} # sort can take strings or numbers, but they can't be mixed.
     ep_range.sort!
 
-    # Pass selected episodes to views
+    # pass selected episodes to views
     @episodes = Episode.published.where( number: (ep_range[0]..ep_range[1]) ).reverse
     @rss_episodes = Episode.published_with_audio.reverse # TODO build RSS tests. github.com/edgar/feedvalidator
 
-    # Figure out what other ranges to link to, for pagination
+    # figure out what other ranges to link to, for pagination
     current_range_distance = ep_range[1] - ep_range[0]
     # move to higher number episodes (more recent)
     @previous_page_start = [ep_range[1] + 1 + current_range_distance, last_ep_num].min
@@ -42,6 +47,14 @@ class EpisodesController < ApplicationController
     @next_page_end   = [ep_range[0] - 1 - current_range_distance, first_ep_num].max
     @next_page_start = @next_page_end + current_range_distance
     @next_page_end = nil if @next_page_end == ep_range[0]
+
+    # if there is a missing episode (eg pulled down for edits), increment until we find an extant one
+    [@previous_page_start, @previous_page_end, @previous_page_start,
+                    @next_page_end, @next_page_start, @next_page_end].each do |num|
+      while not (Episode.find_by(number: num) or num.nil? or num>last_ep_num) do
+        num += 1
+      end
+    end
 
     respond_to do |format|
       format.html
