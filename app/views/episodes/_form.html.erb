@@ -94,7 +94,8 @@
 
     <div class="field">
       <%= form.label :newsletter_status %>
-      <%= form.text_field :newsletter_status %>
+      <%= form.hidden_field :newsletter_status %>
+      <%=raw Episode::NEWSLETTER_STATUSES.map{|s| s == episode.newsletter_status ? "<strong>#{s}</strong>" : s}.join(" > ") %>
     </div>
     <hr>
   </div>
