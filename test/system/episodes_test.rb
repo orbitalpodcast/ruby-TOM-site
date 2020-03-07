@@ -62,16 +62,16 @@ class EpisodesTest < ApplicationSystemTestCase
   end
 
   test "Viewing episode pagination" do
-    get episodes_path
-    assert_select 'h2', {text: EPISODE_TITLE_REGEX, count: 10}
+    visit episodes_path
+    assert_selector 'h2', text: EPISODE_TITLE_REGEX, count: 10
     assert_text 'next'
     assert_no_text 'previous'
 
     5.times do |i|
       click_on 'next'
-      assert_select 'h2', {text: EPISODE_TITLE_REGEX, count: 10}, "Didn't find ten h2 tags on loop #{i}"
-      assert_text 'next', "Didn't find next link on loop #{i}"
-      assert_text 'previous', "Didn't find previous link on loop #{i}"
+      assert_selector 'h2', text: EPISODE_TITLE_REGEX, count: 10
+      assert_text 'next'
+      assert_text 'previous'
     end
   end
 
@@ -103,7 +103,7 @@ class EpisodesTest < ApplicationSystemTestCase
 
     # Check the draft page contents
     assert page.has_field? 'Number', with: episodes(:one).number + 1
-    assert_text "Newsletter status\nnot scheduled"
+    assert page.has_select? 'newsletter_status', selected: 'not_scheduled'
     assert_button 'Save as draft'
     assert_no_button 'Draft and schedule newsletter'
     assert_no_button 'Cancel scheduled newsletter'
@@ -123,7 +123,7 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_current_path "/episodes/untitled-draft/edit"
     assert_text 'Episode draft was successfully created.'
     assert page.has_field? 'Slug', with: 'untitled-draft'
-    assert_text "Newsletter status\nnot scheduled"
+    assert page.has_select? 'newsletter_status', selected: 'not_scheduled'
 
     # Finish filling in the draft, checking slug generation
     fill_in "Title",        with: ep_params[:title]
@@ -131,7 +131,7 @@ class EpisodesTest < ApplicationSystemTestCase
     click_on "Save as draft"
     assert_text 'Episode draft was successfully updated.'
     assert page.has_field? 'Slug', with: ep_params[:slug]
-    assert_text "Newsletter status\nnot scheduled"
+    assert page.has_select? 'newsletter_status', selected: 'not_scheduled'
 
     # Attach some images
     files = ['0.jpg', '1.jpg', '2.png'].map {|x| Rails.root + 'test/fixtures/files/' + x}
@@ -171,7 +171,7 @@ class EpisodesTest < ApplicationSystemTestCase
     # Schedule the newsletter
     click_on 'Draft and schedule newsletter'
     assert_text 'Episode draft was successfully updated.'
-    assert_text "Newsletter status\nscheduled"
+    assert page.has_select? 'newsletter_status', selected: 'scheduled'
 
     # Check that the draft is displayed on the home page
     click_on 'Back'
@@ -199,7 +199,7 @@ class EpisodesTest < ApplicationSystemTestCase
     click_on 'Publish'
     assert_text 'Episode was successfully published.'
     assert_text "Draft\nfalse"
-    assert_text "Newsletter status\nscheduled"
+    assert page.has_select? 'newsletter_status', selected: 'scheduled'
 
     # Check that the published episode and scheduled newsletter job is on the homepage
     click_on 'Back'
@@ -238,7 +238,7 @@ end
 
     assert_text "Can't publish if the newsletter hasn't been handled."
     assert_text "Draft\ntrue"
-    assert_text 'not scheduled'
+    assert page.has_select? 'newsletter_status', selected: 'not_scheduled'
   end
 
   test "Trying to publish an episode that's missing its notes" do

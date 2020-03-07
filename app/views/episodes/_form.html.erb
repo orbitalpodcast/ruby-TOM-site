@@ -1,7 +1,7 @@
 <%= form_with(model: episode, local: true) do |form| %>
   <% if episode.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
+      <h2>Encountered <%= pluralize(episode.errors.count, "error") %>:</h2>
 
       <ul>
         <% episode.errors.full_messages.each do |message| %>
@@ -94,8 +94,9 @@
 
     <div class="field">
       <%= form.label :newsletter_status %>
-      <%= form.hidden_field :newsletter_status %>
-      <%=raw Episode::NEWSLETTER_STATUSES.map{|s| s == episode.newsletter_status ? "<strong>#{s}</strong>" : s}.join(" > ") %>
+      <%= select_tag :newsletter_status, options_for_select(Episode.newsletter_statuses,
+                     disabled: Episode.newsletter_statuses.except(episode.newsletter_status).values) %>
+
     </div>
     <hr>
   </div>
@@ -113,7 +114,8 @@
     <!-- OVERRIDE -->
     <p>
       <%= select_tag 'override', options_for_select(['Skip newsletter', 'Skip socials']),
-                                                    prompt:'Override actions (applied on save)' %>
+                                 prompt:'Override actions (applied on select)',
+                                 onchange: "this.form.submit();" %>
     </p>
 
     <!-- SUBMIT BUTTONS -->

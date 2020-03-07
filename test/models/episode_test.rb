@@ -74,9 +74,10 @@ class EpisodeTest < ActiveSupport::TestCase
     assert_not episode.save
   end
 
-  test "should not validate episode with missing draft" do
+  test "should validate episode with missing draft and default to true" do
     episode = Episode.new(ep_params.except(:draft))
-    assert_not episode.save
+    assert episode.save
+    assert episode.draft?
   end
 
   test "should not validate episode with missing draft (from empty string)" do
