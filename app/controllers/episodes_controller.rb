@@ -83,8 +83,6 @@ class EpisodesController < ApplicationController
       @episode.number = (Episode.maximum('number') || 0) + 1
       # find next tuesday TODO: pull publish date/schedule out into config file
       @episode.publish_date = DateTime.parse('tuesday') + (DateTime.parse('tuesday') > DateTime.current ? 0:7)
-      @episode.draft = true
-      @episode.newsletter_status = 'not scheduled'
       render :new
     elsif Episode.not_published.count == 1
       @episode = Episode.not_published.last
@@ -225,9 +223,9 @@ class EpisodesController < ApplicationController
       case params[:override]
       when 'Skip newsletter'
         # Just update the following attributes, don't persist any changes coming in from the view, and ignore validations
-        Episode.find_by(@episode.id).update(:newsletter_status, 'not sent')
+        Episode.find(@episode.id).update(newsletter_status: 'not sent')
       when 'Skip socials'
-        Episode.find_by(@episode.id).update(ever_been_published: true,
+        Episode.find(@episode.id).update(ever_been_published: true,
                                             reddit_url: 'skipped',
                                             twitter_url: 'skipped')
       end
@@ -380,7 +378,7 @@ class EpisodesController < ApplicationController
           # TODO: handle validations fails in update_images
           # We don't have an image object assigned, so we have to go find it.
           # Currently ignoring validations by using update instead of update_attributes.
-          Image.find_by(id: image_id).update(caption: image_deets[:caption], position: positions[image_id])
+          Image.find(image_id).update(caption: image_deets[:caption], position: positions[image_id])
         end
       end
     end
@@ -410,8 +408,8 @@ class EpisodesController < ApplicationController
 
     def delete_images
      # When the user checks image deletion checkboxes, we need to go through and delete those Image objects.
-      for image_id in (params[:remove_image] || []) do
-        Image.find_by( id: image_id).destroy!
+      for image_id, x in (params[:remove_image] || []) do # remove_image returns a hash {id:id}
+        Image.find(image_id).destroy!
       end
     end
 
