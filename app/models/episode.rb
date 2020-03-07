@@ -7,12 +7,13 @@ class Episode < ApplicationRecord
   scope :published_with_audio, -> {joins(:audio_attachment).where(draft: false)}
   scope :not_published,        -> {where draft: true}
 
-  NEWSLETTER_STATUSES =  ['not scheduled',   # when newly created, and not ready to email
-                           'scheduling',     # when scheduling requested, but not completed
-                           'canceling',      # when canceling a scheduled send requested, but not completed
-                           'scheduled',      # when notes are done, and an email is scheduled
-                           'sent',           # when email has been sent
-                           'not sent']       # rare: when no email has or will be sent
+  enum newsletter_status: {not_scheduled: 'not scheduled',  # when newly created, and not ready to email
+                           scheduling: 'scheduling',        # when scheduling requested, but not completed
+                           canceling: 'canceling',          # when canceling a scheduled send requested, but not completed
+                           scheduled: 'scheduled',          # when notes are done, and an email is scheduled
+                           sent: 'sent',                    # when email has been sent
+                           not_sent: 'not sent'             # rare: when no email has or will be sent
+                         }, _prefix: :newsletter
 
   # Validations for all episodes
   validates :number,
@@ -25,10 +26,8 @@ class Episode < ApplicationRecord
                             length: { minimum: 5 }
   validates :draft,
                             inclusion: { in: [true, false] }
-  validates :newsletter_status,
-                            inclusion: { in: NEWSLETTER_STATUSES }
   # Validations before schduling an episode newsletter
-  with_options if: -> { self.newsletter_status and self.newsletter_status_at_least? 'scheduling' } do |e|
+  with_options if: -> { not self.newsletter_not_scheduled? } do |e|
     e.validates :title,
                               presence: true,
                               uniqueness: { case_sensitive: false },
@@ -47,7 +46,7 @@ class Episode < ApplicationRecord
   end
 
   def scheduled_newsletter
-    unless self.newsletter_status_at_least? 'scheduled'
+    unless !self.newsletter_not_scheduled?
       error = "Can't publish if the newsletter hasn't been handled. "
       error << "Hint: either schedule the newsletter, or confirm it won't be sent. "
       error << "After that, additional validations will be run and might generate new errors."
@@ -64,14 +63,6 @@ class Episode < ApplicationRecord
   # HANDY
   def publish_date_short
     self.publish_date.strftime Settings.views.date_format
-  end
-  def newsletter_status_at_least?(target_status)
-    # Check progression of newsletter status through the expected stages.
-    NEWSLETTER_STATUSES.find_index(target_status) <= NEWSLETTER_STATUSES.find_index(self.newsletter_status)
-  end
-  def newsletter_status_before?(target_status)
-    # Check progression of newsletter status through the expected stages.
-    NEWSLETTER_STATUSES.find_index(target_status) > NEWSLETTER_STATUSES.find_index(self.newsletter_status)
   end
   def self.draft_waiting?
     # Used by routes to determine where to send GET /draft

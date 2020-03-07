@@ -147,7 +147,7 @@ class EpisodesController < ApplicationController
         format.html { render :edit }
         format.json { render :show, status: :accepted, location: @episode }
       else
-        @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_status == 'scheduling'
+        @episode.update_attribute(:newsletter_status, 'not scheduled') if @episode.newsletter_scheduling?
         @episode.reload # discards all user changes.
         # TODO Worth only resetting draft and newsletter_status in episode#update? If so, also add update_attachments.
         format.html { render :edit }
@@ -234,10 +234,10 @@ class EpisodesController < ApplicationController
     def handle_newsletter
       # Called on successful updates. Picks up where handle_submit_and_override leaves off. Called after successful save (so
       # that validations are run, and the emailer has good data), so we also modify the database with the new status.
-      if @episode.newsletter_status == 'scheduling'
+      if @episode.newsletter_scheduling?
         schedule_newsletter
         @episode.update_attribute :newsletter_status, 'scheduled'
-      elsif @episode.newsletter_status == 'canceling'
+      elsif @episode.newsletter_canceling?
         unschedule_newsletter
         @episode.update_attribute :newsletter_status, 'not scheduled'
       end
@@ -252,7 +252,7 @@ class EpisodesController < ApplicationController
       logger.debug ">>>>>>> Scheduling newsletter for #{email_datetime}"
 
       scheduled_job = EpisodeMailer.delay(run_at: email_time).show_notes(@episode)
-      @episode.update_attribute :newsletter_job_id, scheduled_job.id
+      scheduled_job.update_attribute :episode_id, @episode.id
     end
 
     def unschedule_newsletter
