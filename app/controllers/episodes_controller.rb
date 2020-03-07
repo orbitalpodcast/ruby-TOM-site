@@ -96,7 +96,7 @@ class EpisodesController < ApplicationController
   # POST /episodes
   # POST /episodes.json
   def create
-    @episode = Episode.new(episode_params.except(:images))
+    @episode = Episode.new(episode_params)
     @episode.slug = build_slug episode_title: episode_params[:title], episode_slug: episode_params[:slug]
     respond_to do |format|
       if @episode.save
@@ -128,7 +128,7 @@ class EpisodesController < ApplicationController
       if @episode.update( episode_params.merge!(slug:              @episode.slug,
                                                 draft:             @episode.draft,
                                                 newsletter_status: @episode.newsletter_status
-                                                ).except(:images))
+                                                ))
         # Did we fallback to a draft?
         # TODO: Make episode#update more friendly for published episodes.
         # Published episodes can get reverted to drafts if bad data is entered.
@@ -211,7 +211,7 @@ class EpisodesController < ApplicationController
       when 'Publish', 'Publish changes'
         debug :"#{params[:commit]} clicked"
         @episode.draft = false
-      else
+      else # no commits from bot requests and override dropdown selection
         if request.format == 'application/json'
           debug :"Bot submission."
           @episode.draft = true
@@ -358,7 +358,7 @@ class EpisodesController < ApplicationController
     def create_images
       # When images are uploaded, we need to create new Image objects, attach the files, and associate
       # the Image with this @episode
-      for this_image in (episode_params[:images] || []) do
+      for this_image in (params[:episode][:images] || []) do
         if @episode.images.empty?
           position = 1
         else
@@ -421,9 +421,9 @@ class EpisodesController < ApplicationController
     end
 
     def episode_params
-      # Whitelist episode params
+      # Whitelist episode params for database commits
       params.require(:episode).permit(:commit, :number, :title, :slug, :publish_date, :description, :notes,
-                                      :audio, :draft, :newsletter_status, :reddit_url, :twitter_url, images: [])
+                                      :reddit_url, :twitter_url, :audio)
     end
     def image_params(ids=nil)
       # Whitelist descriptions and positions, and merge. Returns {'id' => {position: ##, caption:'caption'}}
