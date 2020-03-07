@@ -119,19 +119,20 @@
     </p>
 
     <!-- SUBMIT BUTTONS -->
-    <% if episode.draft %>
+    <% if episode.draft? # when :new or :edit was rendered %>
       <%= form.submit 'Save as draft' %>
     <% else %>
       <%= form.submit 'Revert to draft' %>
     <% end %>
-    <% if episode.persisted? and episode.draft? %>
-      <%= form.submit 'Draft and schedule newsletter' if episode.newsletter_status_before? 'scheduled' %>
-      <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_status? == 'scheduled' %>
-      <%= form.submit 'Publish' %>
-    <% end %>
-    <% if episode.persisted? and !episode.draft %>
-      <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_status? == 'scheduled' %>
-      <%= form.submit 'Publish changes' %>
+    <% if episode.persisted? # only when :edit was rendered %>
+      <% if episode.draft? %>
+        <%= form.submit 'Draft and schedule newsletter' if episode.newsletter_not_scheduled? %>
+        <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_scheduled? %>
+        <%= form.submit 'Publish' %>
+      <% else %>
+        <%= form.submit 'Cancel scheduled newsletter' if episode.newsletter_scheduled? %>
+        <%= form.submit 'Publish changes' %>
+      <% end %>
     <% end %>
       <p>
   </div>
