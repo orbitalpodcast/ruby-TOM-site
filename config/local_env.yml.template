@@ -1,0 +1,17 @@
+POSTGRES_USERNAME: as_set_in_db_manager
+POSTGRES_PASSWORD: as_set_in_db_manager
+
+REDDIT_CLIENT_ID: 14_characters
+REDDIT_SECRET:    27_characters
+REDDIT_USERNAME:  as_set_in_reddit
+REDDIT_PASSWORD:  as_set_in_reddit
+
+TWITTER_CONSUMER_KEY:        25_characters
+TWITTER_CONSUMER_SECRET:     50_characters
+TWITTER_ACCESS_TOKEN:        50_characters
+TWITTER_ACCESS_TOKEN_SECRET: 45_characters
+
+# Paypal credentials go in config/paypal.yml
+
+scraper_bot_token:   dealers_choice
+scraper_bot_timeout: "2020-22-18T14:20:03.739-08:00"
