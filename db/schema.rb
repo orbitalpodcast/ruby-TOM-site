@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_005553) do
+ActiveRecord::Schema.define(version: 2020_01_05_210647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,35 +48,36 @@ ActiveRecord::Schema.define(version: 2020_02_26_005553) do
     t.string "queue"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
+    t.integer "episode_id"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "episodes", force: :cascade do |t|
-    t.boolean "draft"
     t.integer "number"
-    t.string "title"
     t.string "slug"
+    t.boolean "draft", default: true
+    t.string "newsletter_status", default: "not scheduled"
+    t.integer "newsletter_job_id"
+    t.boolean "ever_been_published"
+    t.string "title"
     t.datetime "publish_date"
     t.string "description"
     t.string "notes"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "newsletter_status"
-    t.integer "newsletter_job_id"
-    t.boolean "ever_been_published"
     t.string "reddit_url"
     t.string "twitter_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["number"], name: "index_episodes_on_number", unique: true
     t.index ["slug"], name: "index_episodes_on_slug", unique: true
   end
 
   create_table "images", force: :cascade do |t|
     t.string "caption"
+    t.string "dimensions", array: true
+    t.integer "position"
     t.bigint "episode_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "dimensions", array: true
-    t.integer "position"
     t.index ["episode_id"], name: "index_images_on_episode_id"
   end
 
@@ -85,10 +86,10 @@ ActiveRecord::Schema.define(version: 2020_02_26_005553) do
     t.string "password_digest"
     t.boolean "admin"
     t.string "email"
+    t.boolean "subscribed", default: false
+    t.string "access_token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "subscribed"
-    t.string "access_token"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
