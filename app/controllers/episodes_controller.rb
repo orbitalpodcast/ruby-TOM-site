@@ -257,7 +257,7 @@ class EpisodesController < ApplicationController
 
     def unschedule_newsletter
       logger.debug ">>>>>>> Deleting scheduled job #{@episode.newsletter_job_id}"
-      Delayed::Job.find(@episode.newsletter_job_id).destroy!
+      Delayed::Job.find_by(episode_id: @episode.id).destroy!
     end
 
     def publish
