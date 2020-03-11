@@ -1,0 +1,7 @@
+<h1>Thanks for signing up for The Orbital Mechanics Podcast's weekly show notes!</h1>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>All of our emails will have unsubscribe links, but just in case you change your mind before getting the first one, <%= link_to "Here's one just in case.", unsubscribe_newsletter_url(@user.quick_unsubscribe_token) %></p>

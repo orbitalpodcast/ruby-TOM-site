@@ -24,6 +24,9 @@ gem 'jbuilder', '~> 2.7'
 
 # Activate Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+# Use Devise for user model
+gem 'devise', '~>4.7.1'
+
 # Use DJ as a queuing backend
 gem 'delayed_job_active_record', '~> 4.1.4'
 

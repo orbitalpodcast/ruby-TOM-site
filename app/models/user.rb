@@ -1,4 +1,11 @@
 class User < ApplicationRecord
+  devise :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :validatable, :lockable, :confirmable, :timeoutable
+  enum account_type: [:no_login,             # newsletter and/or TWSF only
+                      :payment_only,         # supporters only
+                      :payment_and_shipping] # store customers and supporters with physical rewards
+  before_create {self.quick_unsubscribe_token = Devise.friendly_token}
+
   # TODO: generate errors for each failed password validation condition
   PASSWORD_FORMAT = /
     (?=.{8,})   # Must contain 8 or more characters
@@ -15,36 +22,35 @@ class User < ApplicationRecord
     \.[A-Za-z]{2,}    # TLD begins with a dot and has at least two alphas
   \z/x
 
-  has_secure_token :access_token
-  has_secure_password validations: false # default validations are crap anyway. Skip and allow non-admins to not have a password.
-
-  validates :email,
-                    presence: true,
-                    uniqueness: {message: "Looks like you've already signed up with that address. "\
-                                           "There's an unsubscribe link at the bottom of each of "\
-                                           "our emails, if that's what you're trying to do."},
-                    format: { with: EMAIL_FORMAT }
-  validates :admin,
-                    inclusion: { in: [true, nil] }
-  validates :password, 
-                      if: -> { self.admin? },
-                      presence: true,  
-                      format: { with: PASSWORD_FORMAT }
-
-  def to_param
-    access_token
-  end
-
-  def self.all_admins
-    where(admin: true)
-  end
-
-  def self.all_non_admins
-    where(admin: nil)
-  end
+  # validates :email,
+  #                   presence: true,
+  #                   uniqueness: {message: "Looks like you've already signed up with that address. "\
+  #                                          "There's an unsubscribe link at the bottom of each of "\
+  #                                          "our emails, if that's what you're trying to do."},
+  #                   format: { with: EMAIL_FORMAT }
+  # validates :password, 
+  #                     if: -> { customer_data? },
+  #                     presence: true,  
+  #                     format: { with: PASSWORD_FORMAT }
 
   def self.all_subscribed
     where(subscribed: true)
   end
+
+  def login_allowed?
+    return !self.no_login?
+  end
+
+  protected
   
+  # DEVISE TWEAKS
+  def password_required?
+    return false if self.no_login?
+    super
+  end
+
+  # def email_required?
+  #   true if user.just_TWSF_tracking
+  # end
+
 end

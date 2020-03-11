@@ -1,14 +1,11 @@
 class CreateUsers < ActiveRecord::Migration[6.0]
   def change
     create_table :users do |t|
-      t.string   :username
-      t.string   :password_digest
-      t.boolean  :admin
-      t.string   :email
-      t.boolean  :subscribed, default: false
-      t.string   :access_token
+      t.string  :quick_unsubscribe_token, index: {unique: true}
+      t.integer :account_type,            default: 0
+      t.boolean :subscribed,              default: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

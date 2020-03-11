@@ -4,7 +4,7 @@ class CreateEpisodes < ActiveRecord::Migration[6.0]
       t.integer  :number,               index: {unique: true}
       t.string   :slug,                 index: {unique: true}
       t.boolean  :draft,                default: true
-      t.string   :newsletter_status,    default: 'not scheduled'
+      t.integer  :newsletter_status,    default: 0
       t.integer  :newsletter_job_id
       t.boolean  :ever_been_published
       t.string   :title

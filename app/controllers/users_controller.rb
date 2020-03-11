@@ -1,57 +1,61 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:new, :create, :update, :edit, :welcome]
-  before_action :set_user,        only: [:show, :update, :destroy]
+  # When store is implemented, we'll let users edit their profiles. Right now, admins only.
+  before_action :authenticate_admin!#,         only: [:index, :show]
+  # before_action :authenticate_user_or_admin!, only: [:update, :destroy]
+  # before_action :set_user,        only: [:show, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @admins = Admin.all
+    @users = User.order :subscribed, :email
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find params[:id]
   end
 
   # GET /users/new
-  def new
-    @user = User.new
-    @user.subscribed = true
-    @user.email = params[:email] if params.dig(:email) # On unsuccessful signups, we will push through old parameters to re-populate the form.
-  end
+  # def new
+  #   @user = User.new
+  #   @user.subscribed = true
+    
+  #   # On unsuccessful signups, we will push through old parameters to re-populate the form.
+  #   @user.email = params[:email] if params.dig(:email)
+  # end
 
   # GET /users/1/edit
   def edit
-    @user = User.find_by access_token: params[:access_token]
+    @user = User.find params[:id]
   end
 
   # POST /users
   # POST /users.json
   def create
-    @user = User.new( params.require(:user).permit(:email, :subscribed) )
-    if not @user.subscribed
-      redirect_to new_user_path(email: request.parameters.dig(:user, :email)), errors.add(subscribed: "Wait, you didn't want to sign up?") and return
+    @user = User.new user_params
+    if not @user.subscribed?
+      redirect_to new_user_path(email: request.parameters.dig(:user, :email)),
+                                errors.add(subscribed: "Wait, you didn't want to sign up?") and return
     end
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to welcome_path }
-        format.json { render :show, status: :ok, location: @user }
-
-        UserMailer.with(user: @user).welcome_email.deliver_later
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      flash.now[:notice] = 'Please check your email for a confirmation link.'
+      render :new, status: :ok
+      RegistrationMailer.confirmation_instructions(user: @user).deliver_later
+    else
+      redirect_to new_user_path(email: request.parameters.dig(:user, :email)),
+                                errors.add(base: "Something went wrong")
     end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    logger.debug ">>>>>>> users#update invoked" 
+    @user = User.find params[:id]
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to edit_user_path, notice: 'Preferences successfully updated.' }
+        format.html { redirect_to user_path, notice: 'Preferences successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -63,9 +67,10 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    @user = User.find params[:id]
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: 'Account deleted.' }
       format.json { head :no_content }
     end
   end
@@ -78,7 +83,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:access_token, :email, :subscribed)
+      params.require(:user).permit(:email, :subscribed)
     end
 
 end
