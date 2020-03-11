@@ -7,13 +7,13 @@ class Episode < ApplicationRecord
   scope :published_with_audio, -> {joins(:audio_attachment).where(draft: false)}
   scope :not_published,        -> {where draft: true}
 
-  enum newsletter_status: {not_scheduled: 'not scheduled',  # when newly created, and not ready to email
-                           scheduling: 'scheduling',        # when scheduling requested, but not completed
-                           canceling: 'canceling',          # when canceling a scheduled send requested, but not completed
-                           scheduled: 'scheduled',          # when notes are done, and an email is scheduled
-                           sent: 'sent',                    # when email has been sent
-                           not_sent: 'not sent'             # rare: when no email has or will be sent
-                         }, _prefix: :newsletter
+  enum newsletter_status: [:not_scheduled, # 0 when newly created, and not ready to email
+                           :scheduling,    # 1 when scheduling requested, but not completed
+                           :canceling,     # 2 when canceling a scheduled send requested, but not completed
+                           :scheduled,     # 3 when notes are done, and an email is scheduled
+                           :sent,          # 4 when email has been sent
+                           :not_sent       # 5 rare: when no email has or will be sent
+                          ], _prefix: :newsletter
 
   # Validations for all episodes
   validates :number,
