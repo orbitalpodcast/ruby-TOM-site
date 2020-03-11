@@ -83,23 +83,23 @@ class EpisodesTest < ApplicationSystemTestCase
   end
 
   test 'Logging in and visiting the index' do
-    visit login_url
-    assert_selector 'h1', text: 'Login'
+    visit new_admin_session_url
+    assert_selector 'h2', text: 'Log in'
     assert_field 'Email'
     assert_field 'Password'
-    assert_button 'Login'
+    assert_button 'Log in'
     # TODO finish logging in and visiting the index system test
   end
 
   test "Publishing an episode, zero to 60" do
     # Check login redirect to draft
     visit draft_url
-    assert_current_path login_path
-    fill_in 'Email', with: users(:admin).email
+    assert_current_path new_admin_session_path
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
     assert_current_path draft_path
-    assert_text "Authentication successful!"
+    assert_text "Signed in successfully."
 
     # Check the draft page contents
     assert page.has_field? 'Number', with: episodes(:one).number + 1
@@ -184,12 +184,12 @@ class EpisodesTest < ApplicationSystemTestCase
     assert_no_selector 'h2', text: Episode.full_title(ep_params[:number], ep_params[:title])
 
     # Check login redirect to homepage
-    visit login_url
-    fill_in 'Email', with: users(:admin).email
+    visit new_admin_session_url
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
     assert_current_path root_path
-    assert_text "Authentication successful!"
+    assert_text "Signed in successfully."
     assert_selector 'h2', text: Episode.full_title(ep_params[:number], ep_params[:title]), count: 1
     assert_link 'Edit', href: "/episodes/#{ep_params[:slug]}/edit"
 
@@ -218,11 +218,11 @@ class EpisodesTest < ApplicationSystemTestCase
 end
 
   test "Trying to publish an episode without handling the newsletter" do
-    visit login_url
+    visit new_admin_session_url
 
-    fill_in 'Email', with: users(:admin).email
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
 
     visit draft_path
     fill_in "Number",       with: ep_params[:number]
@@ -242,11 +242,11 @@ end
   end
 
   test "Trying to publish an episode that's missing its notes" do
-    visit login_url
+    visit new_admin_session_url
 
-    fill_in 'Email', with: users(:admin).email
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
     assert_current_path root_path
 
     visit episodes_url
@@ -266,11 +266,11 @@ end
   end
 
   # test "Trying to save an episode draft with too short of a title" do
-  #   visit login_url
+  #   visit new_admin_session_url
 
-  #   fill_in 'Email', with: users(:admin).email
+  #   fill_in 'Email', with: admins(:ben).email
   #   fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-  #   click_on 'Login'
+  #   click_on 'Log in'
   #   assert_current_path root_path
 
   #   visit episodes_url
@@ -290,11 +290,11 @@ end
   # end
 
   test "Trying to publish an episode with a non-unique attributes" do
-    visit login_url
+    visit new_admin_session_url
 
-    fill_in 'Email', with: users(:admin).email
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
     assert_current_path root_path
 
     visit episodes_url
@@ -320,9 +320,9 @@ end
     # because before implementing the default scope, I'd wound up sorting incorrectly in the now depricated
     # most_recent_draft method, and it wound up loading an already-published episode.
     visit draft_url
-    fill_in 'Email', with: users(:admin).email
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
 
     visit edit_episode_path old_ep_params[:number]
     click_on 'Remove'
@@ -353,9 +353,9 @@ end
 
   test "Unusual image upload situations" do
     visit draft_path
-    fill_in 'Email', with: users(:admin).email
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
 
     files = ['0.jpg', '1.jpg', '2.png'].map {|x| Rails.root + 'test/fixtures/files/' + x}
     # attach image 0.jpg
@@ -380,10 +380,10 @@ end
   end
 
   test "previous/next buttons on episodes" do
-    visit login_url
-    fill_in 'Email', with: users(:admin).email
+    visit new_admin_session_url
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
 
     # Pick an episode in the "middle" of the stack, "yank it" back to draft.
     visit "/#{episodes(:four).slug}"
@@ -412,11 +412,11 @@ end
   end
 
   test "destroying a Episode" do
-    visit login_url
+    visit new_admin_session_url
 
-    fill_in 'Email', with: users(:admin).email
+    fill_in 'Email', with: admins(:ben).email
     fill_in 'Password', with: 'VSkI3n&r0Q9k2XFZGxUi'
-    click_on 'Login'
+    click_on 'Log in'
     assert_current_path root_path
 
     visit episodes_url
