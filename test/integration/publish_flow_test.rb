@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PublishFlowTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   TITLE_REGEX = /(Episode [0-9]{3}: )(DOWNLINK--|DATA RELAY--){0,1}[\w\s]*/
   ep_params = {newsletter_status: 'not sent',
               draft: false,
@@ -49,7 +50,7 @@ class PublishFlowTest < ActionDispatch::IntegrationTest
   
 
   test 'Reverting publish flow for invalid episode' do
-    post login_path, params: {email: users(:admin).email, password: 'VSkI3n&r0Q9k2XFZGxUi'}
+    sign_in admins(:ben)
 
     # Create new episode
     ep = {newsletter_status: 'not scheduled',
@@ -89,6 +90,7 @@ class PublishFlowTest < ActionDispatch::IntegrationTest
     assert_select 'div.field' do
       assert_select 'strong', 'true'
     end
+    sign_out :ben
   end
 
   # test 'Warning for missing images during publish flow' do

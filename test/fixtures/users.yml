@@ -2,19 +2,16 @@
 
 
 <% 50.times do |n| %>
-user_<%= n %>:
+subscribed_user_<%= n %>:
   email: <%= "subscribeduser#{n}@example.com" %>
+  encrypted_password: <%= BCrypt::Password.create("password_for_subscribeduser#{n}", cost: 1) %>
   subscribed: true
+  quick_unsubscribe_token: <%= Devise.friendly_token %>
 <% end %>
 
-<% 50.times do |n| %>
-user_<%= n %>:
+<% 10.times do |n| %>
+not_subscribed_user_<%= n %>:
   email: <%= "not_subscribeduser#{n}@example.com" %>
-  subscribed: false
+  encrypted_password: <%= BCrypt::Password.create("password_for_not_subscribeduser#{n}", cost: 1) %>
+  quick_unsubscribe_token: <%= Devise.friendly_token %>
 <% end %>
-
-admin:
-  email: 'ben@theorbitalmechanics.com'
-  password_digest: <%= BCrypt::Password.create('VSkI3n&r0Q9k2XFZGxUi', cost: 2) %>
-  subscribed: false
-  admin: true

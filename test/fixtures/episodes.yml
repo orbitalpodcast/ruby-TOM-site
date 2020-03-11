@@ -2,7 +2,7 @@
 
 one:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 241
   title: Clock Kerfuffle
   slug: clock-kerfuffle
@@ -23,7 +23,7 @@ one:
 
 two:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 240
   title: Nightingale
   slug: nightingale
@@ -44,7 +44,7 @@ two:
     * 18 December 1973: Launch of the Orion 2 space telescope onboard Soyuz 13 https://en.wikipedia.org/wiki/Soyuz_13 https://en.wikipedia.org/wiki/Orion_(space_telescope)
 three:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 239
   title: DOWNLINK--Kyla Edison
   slug: kyla-edison
@@ -70,7 +70,7 @@ three:
 
 four:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 238
   title: Moon Prep
   slug: moon-prep
@@ -93,7 +93,7 @@ four:
 
 five:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 237
   title: DOWNLINK--Elena Zorzoli Rossi
   slug: elena-zorzoli-rossi
@@ -119,7 +119,7 @@ five:
 
 six:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 236
   title: Panel Jettison
   slug: pannel-jettison
@@ -150,7 +150,7 @@ six:
 
 seven:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 235
   title: DOWNLINK--Andrew Rader
   slug: andrew-rader
@@ -175,7 +175,7 @@ seven:
 
 eight:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   number: 234
   title: Irregular Nomenclature
   slug: irregular-nomenclature
@@ -196,7 +196,7 @@ eight:
 
 nine:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   title: IAC DC, 2019
   publish_date: 2019-10-29
   number: 233
@@ -208,7 +208,7 @@ nine:
 
 ten:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   publish_date: 2019-10-15
   number: 232
   title: Full Panic Ensued
@@ -230,7 +230,7 @@ ten:
 <% 231.times do |n| %>
 episode_<%= n %>:
   draft: false
-  newsletter_status: not sent
+  newsletter_status: :not_sent
   publish_date: <%= '2019-10-22'.to_date + n*7 %>
   number: <%= 231-n %>
   title: Generated Episode <%= 231-n %>

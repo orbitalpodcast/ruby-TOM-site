@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class EpisodesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    @episode = Episode.new(newsletter_status: 'not sent',
+    @episode = Episode.new(newsletter_status: :not_sent,
                 draft: true,
                 publish_date: "2020-02-11",
                 number: 243,
@@ -25,7 +27,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
                         This week in SF history
                         * 14 Jan 1977: first SCA, N905NA, delivered to Edwards https://www.nasa.gov/sites/default/files/files/1d.pdf https://blog.nationalgeographic.org/2012/09/17/inside-the-space-shuttle-carrier-aircraft/ https://www.nasa.gov/sites/default/files/files/SCA_Historical_Narrative.pdf
                         * Next week in 2004: no need for TIRS")
-    @ep_draft = Episode.new(newsletter_status: 'not sent',
+    @ep_draft = Episode.new(newsletter_status: :not_sent,
                 draft: true,
                 publish_date: '1-7-2020',
                 number: 242,
@@ -106,8 +108,6 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h2', {text: EPISODE_TITLE_REGEX, count: 6}
   end
 
-  # TODO add test index pagination. Need to add many, many more episode fixtures.
-
   test "get index skipping drafts" do
     @ep_draft.save
 
@@ -125,25 +125,30 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create episode" do
-    assert_difference('Episode.count') do
-      post episodes_url, params: {episode: @episode.attributes, commit: "Save as draft"}
-    end
-    assert_redirected_to edit_episode_url(@episode)
-    assert_equal 'Episode draft was successfully created.', flash[:notice]
-  end
-
   test "should show episode" do
     get episode_url episodes(:one)
     assert_response :success
   end
 
+  test "should create episode" do
+    sign_in admins(:ben)
+    assert_difference('Episode.count') do
+      post episodes_url, params: {episode: @episode.attributes, commit: "Save as draft"}
+    end
+    assert_redirected_to edit_episode_url(@episode)
+    assert_equal 'Episode draft was successfully created.', flash[:notice]
+    sign_out :ben
+  end
+
   test "should get edit" do
+    sign_in admins(:ben)
     get edit_episode_url episodes(:one)
     assert_response :success
+    sign_out :ben
   end
 
   test "should update episode with new variables" do
+    sign_in admins(:ben)
     patch episode_url episodes(:one), params: { episode: { description:   @episode.description,
                                                            notes:         @episode.notes,
                                                            number:        @episode.number,
@@ -152,12 +157,15 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
                                                            title:         @episode.title } }
     assert_template 'episodes/edit'
     assert_equal 'Episode was successfully published.', flash[:notice]
+    sign_out :ben
   end
 
   test "should destroy episode" do
+    sign_in admins(:ben)
     assert_difference('Episode.count', -1) do
       delete episode_url episodes(:one)
     end
+    sign_out :ben
   end
 
 end

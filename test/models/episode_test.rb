@@ -3,7 +3,7 @@ require 'test_helper'
 class EpisodeTest < ActiveSupport::TestCase
 
   ep_params = {draft: false,
-              newsletter_status: 'not sent',
+              newsletter_status: :not_sent,
               publish_date: '2020-01-07',
               number: 242,
               title: 'DOWNLINK--Dr. Martin Elvis',

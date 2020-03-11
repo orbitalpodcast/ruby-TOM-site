@@ -1,0 +1,3 @@
+ben:
+  email: 'ben@theorbitalmechanics.com'
+  encrypted_password: <%= BCrypt::Password.create('VSkI3n&r0Q9k2XFZGxUi', cost: 1) %>
