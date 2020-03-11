@@ -1,10 +1,11 @@
 <% @episodes.each do |episode| %>
     <h2><%= link_to episode.full_title, episode_path(episode) %></h2>
-    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode) if logged_in_admin? %>
+    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode) if admin_signed_in? %>
     <h3><%= episode.description %></h3>
   </p>
 <% end %>
 
+<% #TODO: extract previous/next logic from index view to controller %>
 <% links = [] %>
 <% links << link_to('previous', episodes_with_range_path(@previous_page_start, @previous_page_end)) if @previous_page_start %>
 <% links << link_to('next',     episodes_with_range_path(@next_page_start,     @next_page_end))     if @next_page_end %>

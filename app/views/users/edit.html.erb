@@ -1,6 +1,11 @@
-<h1>Weekly show note email preferences for <i><%= @user.email %></i></h1>
+<h1>Preferences</h1>
 
-<%= form_for @user, url: user_path do |form| %>
-  <%= form.check_box :subscribed %> Subscribe to weekly show notes emails<br><br>
-  <%= form.submit 'update preferences' %>
+<% if admin_signed_in? %>
+  <%= render 'admin_form', user: @user %>
+  <%= link_to 'Show', @user %> |
+  <%= link_to 'Back', users_path %> |
+<% else %>
+  <%= render 'form', user: @user %>
 <% end %>
+
+<%= link_to 'Delete my account', @user, method: :delete %>

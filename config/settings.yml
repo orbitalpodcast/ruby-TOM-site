@@ -1,3 +1,6 @@
+organization:
+  name: 'The Orbital Mechanics'
+
 views:
   date_format: "%b %-d, %Y"
   number_of_homepage_episodes: 5
@@ -6,6 +9,9 @@ views:
 newsletter:
   from: ben@theorbitalmechanics.com
   default_send_time: 12:00:00 -08:00
+
+user:
+  from: info@theorbitalmechanics.com
 
 markup:
   header_symbol: '#' # Set a symbol to indicate a line is a header not included in the list below. Use for uncommon headers.
@@ -56,7 +62,6 @@ rss:
 # Include the email address of the owner in a nested <itunes:email> tag and the name of the owner in a nested <itunes:name> tag.
 # Note: The <itunes:owner> tag information is for administrative communication about the podcast and isn’t displayed in Apple Podcasts. Please make sure the email address is
 # active and monitored.
-
 
   category:
     - ['Science', 'Natural Sciences']

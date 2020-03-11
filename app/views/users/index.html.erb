@@ -1,38 +1,42 @@
-<h1>Users</h1>
+<h1><%= pluralize(@admins.length, "Admin") %>, <%= pluralize(@users.length, "User") %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Username</th>
-      <th>Has Password?</th>
-      <th>Admin?</th>
       <th>Email</th>
+      <th>Admin?</th>
+      <th>Has Password?</th>
       <th>Subscribed?</th>
+      <th>Failed Attempts</th>
+      <th>Locked?</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% User.all_admins.each do |user| %>
+    <% @admins.each do |a| %>
       <tr>
-        <td><%= user.username %></td>
-        <td><%= user.password_digest? %></td>
-        <td><%= user.admin %></td>
-        <td><%= user.email %></td>
-        <td><%= user.subscribed? %></td>
+        <td><%= a.email %></td>
+        <td>True</td>
+        <td><%= a.encrypted_password? %></td>
+        <td>N/A</td>
+        <td><%= a.failed_attempts %></td>
+        <td><%= a.locked_at? %></td>
       </tr>
     <% end %>
     <tr><td> -------- </td></tr>
-    <% User.all_non_admins.each do |user| %>
+    <% #TODO: paginate users list %>
+    <% @users.each do |u| %>
       <tr>
-        <td><%= user.username %></td>
-        <td><%= user.password_digest? %></td>
-        <td><%= user.admin? %></td>
-        <td><%= user.email %></td>
-        <td><%= user.subscribed? %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= u.email %></td>
+        <td></td>
+        <td><%= u.encrypted_password.empty? %></td>
+        <td><%= u.subscribed? %></td>
+        <td><%= u.failed_attempts %></td>
+        <td><%= u.locked_at? %></td>
+        <td><%= link_to 'Show', u %></td>
+        <td><%= link_to 'Edit', edit_user_path(u) %></td>
+        <td><%= link_to 'Destroy', u, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

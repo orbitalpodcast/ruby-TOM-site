@@ -12,19 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= form.label "Email (changes require new confirmation email)" %>
+    <%= form.label :email %>
     <%= form.text_field :email %>
   </div>
 
-  <div class="field">
-    <%= form.label 'Subscribed to weekly show note emails' %>
-    <%= form.text_field :subscribed %>
   <div class="actions">
     <%= form.submit %>
   </div>
-<% end %>
-
-<%= form_for @user, url: user_path do |form| %>
-  <%= form.check_box :subscribed %> Subscribe to weekly show notes emails<br><br>
-  <%= form.submit 'Update preferences' %>
 <% end %>

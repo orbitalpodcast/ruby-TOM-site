@@ -21,6 +21,10 @@
   <br>
 <% end %>
 
-<% if logged_in_admin? and @episode.draft? %> <p><H1>DRAFT DRAFT DRAFT</H1></p><% end %>
-<% if logged_in_admin? %><%= link_to 'Edit', edit_episode_path(@episode) %> | <% end %>
+<% if admin_signed_in? %>
+  <% if @episode.draft? %>
+    <p><h1>DRAFT DRAFT DRAFT</h1></p>
+  <% end %>
+  <%= link_to 'Edit', edit_episode_path(@episode) %> | 
+<% end %>
 <%= link_to 'Back', episodes_path %>

@@ -44,7 +44,7 @@
 
 <% @episodes.each do |episode| %>
     <h2><%= link_to episode.full_title, episode_path(episode.slug) %></h2>
-    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if logged_in_admin? %>
+    <i><%= episode.publish_date_short %></i> <%= link_to 'Edit', edit_episode_path(episode.slug) if admin_signed_in? %>
     <%= episode.description %>
   </p>
 <% end %>

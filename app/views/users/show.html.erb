@@ -1,23 +1,53 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <strong>Admin:</strong>
-  <%= @user.admin %>
-</p>
-
-<p>
   <strong>Email:</strong>
   <%= @user.email %>
+</p>
+
+<p>
+  <strong>Has Password:</strong>
+  <%= @user.encrypted_password? %>
+</p>
+
+<p>
+  <strong>Subscribed:</strong>
+  <%= @user.subscribed? %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= @user.created_at %>
+</p>
+
+<p>
+  <strong>Last updated:</strong>
+  <%= @user.updated_at %>
+</p>
+
+<p>
+  <strong>Reset password sent at:</strong>
+  <%= @user.reset_password_sent_at %>
+</p>
+
+<p>
+  <strong>Confirmation sent at:</strong>
+  <%= @user.confirmation_sent_at %>
+</p>
+
+<p>
+  <strong>Confirmed at:</strong>
+  <%= @user.confirmed_at %>
+</p>
+
+<p>
+  <strong>Failed attempts:</strong>
+  <%= @user.failed_attempts %>
+</p>
+
+<p>
+  <strong>Locked at:</strong>
+  <%= @user.locked_at %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

@@ -1,19 +1,16 @@
 <h1><%= link_to 'The Orbital Mechanics Podcast', root_path %></h1>
 
-<% if logged_in_admin? %>
-  <%= current_user.email %> | 
+<% if admin_signed_in? %>
+  <%= current_admin.email %> | 
   <%= link_to "Episode draft (#{Episode.not_published.count})", draft_path %> | 
   <% unless Delayed::Job.all.empty? %>
     <%= pluralize(Delayed::Job.all.count, 'job') %> | 
   <% end %>
-  <%= link_to 'Email Subscribers', users_path %> | 
-  <%= link_to 'Log Out', logout_path %>
+  <%= link_to 'Users', users_path %> | 
+  <%= link_to 'Log Out', destroy_admin_session_path, method: :delete %>
 <% end %> <br>
 
 <p>
-<% flash.each do |type, msg| %>
-  <div>
-    <%= msg %>
-  </div>
-<% end %>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
 </p>

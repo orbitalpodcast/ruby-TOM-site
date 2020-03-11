@@ -1,6 +1,6 @@
 class EpisodesController < ApplicationController
-  # allow not logged in users to access index and show.
-  skip_before_action :authorized,         only: [:index, :show]
+  # allow users to access index and show.
+  before_action :authenticate_admin!,    except: [:index, :show]
   # allow URL to reference slug or episode number. Create doesn't take an ID params, draft does its own work.
   before_action :set_episode,             only: [:show, :edit, :update, :destroy]
 
@@ -330,7 +330,7 @@ class EpisodesController < ApplicationController
       @episode = Episode.find_by(slug: params[:id]) || Episode.find_by(number: params[:id])
       # TODO: set_episode results in two database calls when given a number. Worth checking params presence first?
       if @episode.draft?
-        redirect_back(fallback_location: root_path, allow_other_host: false) unless logged_in_admin?
+        redirect_back(fallback_location: root_path, allow_other_host: false) unless admin_signed_in?
       end
     end
 
