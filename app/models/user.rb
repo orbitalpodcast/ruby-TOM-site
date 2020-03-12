@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :validatable, :lockable, :confirmable, :timeoutable
-  enum account_type: [:no_login,             # newsletter and/or TWSF only
-                      :payment_only,         # supporters only
-                      :payment_and_shipping] # store customers and supporters with physical rewards
+  enum account_type: [:no_login,             # newsletter, guest customers, and TWSF only
+                      :payment_only,         # supporters can log in
+                      :payment_and_shipping] # store customers can log in
   before_create {self.quick_unsubscribe_token = Devise.friendly_token}
 
   # TODO: generate errors for each failed password validation condition
@@ -37,8 +37,8 @@ class User < ApplicationRecord
     where(subscribed: true)
   end
 
-  def login_allowed?
-    return !self.no_login?
+  def active_for_authentication?
+    super && !self.no_login?
   end
 
   protected

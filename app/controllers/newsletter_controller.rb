@@ -30,7 +30,7 @@ class NewsletterController < ApplicationController
   def unsubscribe
     # TODO if @user =, else redirect to subscribe page
     @user = User.find_by(quick_unsubscribe_token: params[:quick_unsubscribe_token])
-    if @user.login_allowed?
+    if @user.active_for_authentication?
      @user.subscribed = false
      @user.save!
      redirect_to edit_user_path

@@ -99,4 +99,12 @@ class UserTest < ActiveSupport::TestCase
   #   assert_not user.save
   # end
 
+  # VALID_FOR_AUTHENITCATE
+  test 'Should respect user account type' do
+    refute users(:subscribed_user_0).active_for_authentication?
+    refute users(:not_subscribed_user_0).active_for_authentication?
+    assert users(:user_with_payment_only_0).active_for_authentication?
+    assert users(:user_with_payment_and_shipping_0).active_for_authentication?
+  end
+
 end

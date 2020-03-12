@@ -1,17 +1,37 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 
-<% 50.times do |n| %>
+<% 10.times do |n| %>
 subscribed_user_<%= n %>:
-  email: <%= "subscribeduser#{n}@example.com" %>
-  encrypted_password: <%= BCrypt::Password.create("password_for_subscribeduser#{n}", cost: 1) %>
+  email: <%= "subscribed_user#{n}@fixture.com" %>
   subscribed: true
+  encrypted_password: <%= BCrypt::Password.create("password_for_subscribeduser#{n}", cost: 1) %>
   quick_unsubscribe_token: <%= Devise.friendly_token %>
+  confirmed_at: <%= Time.now %>
 <% end %>
 
 <% 10.times do |n| %>
 not_subscribed_user_<%= n %>:
-  email: <%= "not_subscribeduser#{n}@example.com" %>
+  email: <%= "not_subscribed_user#{n}@fixture.com" %>
   encrypted_password: <%= BCrypt::Password.create("password_for_not_subscribeduser#{n}", cost: 1) %>
   quick_unsubscribe_token: <%= Devise.friendly_token %>
+  confirmed_at: <%= Time.now %>
+<% end %>
+
+<% 10.times do |n| %>
+user_with_payment_only_<%= n %>:
+  email: <%= "user_with_payment_only_#{n}@fixture.com" %>
+  account_type: :payment_only
+  encrypted_password: <%= BCrypt::Password.create("password_for_not_subscribeduser#{n}", cost: 1) %>
+  quick_unsubscribe_token: <%= Devise.friendly_token %>
+  confirmed_at: <%= Time.now %>
+<% end %>
+
+<% 10.times do |n| %>
+user_with_payment_and_shipping_<%= n %>:
+  email: <%= "user_with_payment_and_shipping_#{n}@fixture.com" %>
+  account_type: :payment_and_shipping
+  encrypted_password: <%= BCrypt::Password.create("password_for_not_subscribeduser#{n}", cost: 1) %>
+  quick_unsubscribe_token: <%= Devise.friendly_token %>
+  confirmed_at: <%= Time.now %>
 <% end %>
