@@ -5,3 +5,5 @@ ActiveRecord::FixtureSet.create_fixtures("#{Rails.root}/test/fixtures", "episode
 ActiveRecord::FixtureSet.create_fixtures("#{Rails.root}/test/fixtures", "users")
 
 ActiveRecord::FixtureSet.create_fixtures("#{Rails.root}/test/fixtures", "admins")
+
+ActiveRecord::FixtureSet.create_fixtures("#{Rails.root}/test/fixtures", "products")

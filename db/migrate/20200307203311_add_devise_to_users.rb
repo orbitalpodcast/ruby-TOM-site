@@ -41,6 +41,11 @@ class AddDeviseToUsers < ActiveRecord::Migration[6.0]
   end
 
   def self.down
+    remove_index :users, name: "index_users_on_unlock_token"
+    remove_index :users, name: "index_users_on_confirmation_token"
+    remove_index :users, name: "index_users_on_reset_password_token"
+    remove_index :users, name: "index_users_on_email"
+
     remove_column :users, :locked_at
     remove_column :users, :unlock_token
     remove_column :users, :failed_attempts

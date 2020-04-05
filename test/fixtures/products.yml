@@ -1,0 +1,35 @@
+mini_pack:
+  status: :listed
+  name: "Mini-Merch Pack"
+  description: "An assorted and rotating sample pack. You can expect 3-5 items. We have stickers, embroidered patches, magnets and pins. Ben orders merch, usually from Sticker Mule sales, and keeps it around until it sells out."
+  stock_quantity: -1
+  price_cents: 450
+  ship_cost_domestic_cents: 50
+  ship_cost_international_cents: 115
+
+poster_float:
+  status: :listed
+  name: "Float Poster"
+  description: "The fantastic Sofia Shen created this poster for us based on a concept by Chris Radcliff."
+  stock_quantity: 100
+  price_cents: 2000
+  ship_cost_domestic_cents: 300
+  ship_cost_international_cents: 1000
+
+out_of_stock:
+  status: :listed
+  name: "Patch That Says Out of Stock on It"
+  description: "You'd expect this would be a great product to own... only it's out of stock!"
+  stock_quantity: 0
+  price_cents: 9999
+  ship_cost_domestic_cents: 300
+  ship_cost_international_cents: 1000
+
+not_listed:
+  status: :unlisted
+  name: "Patch That Says Unlisted on It"
+  description: "You'd expect this would be a great product to own... only it shouldn't be listed!"
+  stock_quantity: 10
+  price_cents: 9999
+  ship_cost_domestic_cents: 300
+  ship_cost_international_cents: 1000
