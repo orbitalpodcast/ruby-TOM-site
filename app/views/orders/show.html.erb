@@ -1,0 +1,34 @@
+<h2>Order #<%= @order.id %></h2>
+<p>Status: <b><%= @order.status.capitalize %></b></p>
+<hr>
+
+<ul>
+  <% @order.products.each do |product| %>
+    <li>
+      <%= product.name %>
+    </li>
+    <ul><li>
+      <%= number_to_currency product.price_cents/100.0 %> x 
+      <%= product.quantity %> = 
+      <b><%= number_to_currency (product.price_cents/100.0)*product.quantity %></b>
+    </li></ul>
+  <% end %>
+</ul>
+<p>Subtotal: <%= number_to_currency @order.subtotal_cents/100.0 %></p>
+<p>Shipping: <%= number_to_currency @order.ship_cents/100.0 %></p>
+<p>Total: <b><%= number_to_currency @order.total_cents/100.0 %></b></p>
+
+<hr>
+<p>Shipping to:</p>
+<p><%= @order.address.full_name %></p>
+<p><%= @order.address.street1 %></p>
+<p><%= @order.address.street2 if not @order.address.street2.blank? %></p>
+<p><%= @order.address.city %>, <%= @order.address.state %> <%= @order.address.postcode %></p>
+<p><%= @order.address.country %></p>
+
+<p></p>
+<p>
+  If you need to add shipping notes or other comments, please reply to your order confirmation email.
+</p>
+<%= button_to "Resend order confirmation email", '' %>
+

@@ -1,0 +1,24 @@
+<%= form_for(@order, local: true) do |f| %>
+
+  <% for product in @order.products do %>
+    <p>
+      <h2><%= product.name %></h2>
+      <i><%= number_to_currency product.price_cents/100 %></i>
+      <%= check_box_tag 'product_ids[]', product.id %> Add to cart
+      <%= link_to 'Edit', '/' if admin_signed_in? %>
+      <p><%= product.description %></p>
+    </p>
+  <% end %>
+
+  <hr>
+  <p>
+    <%= f.label :shipping_destination %>
+    <%= select_tag :shipping_destination, options_for_select(["US", "International"]) %>
+  </p>
+  <p>
+    Create an account below or <%= link_to "log in", new_user_session_path %>.
+    <%= f.label :email %>
+    <%= text_field_tag :email %>
+    <p><%= f.submit "Continue to shipping details" %></p>
+  </p>
+<% end %>

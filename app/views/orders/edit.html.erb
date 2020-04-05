@@ -1,0 +1,61 @@
+<%= form_with(model: @order, local: true) do |order_form| %>
+
+
+  <hr>
+  <ul>
+    <% @order.orders_products.each do |op_join| %>
+      <%= order_form.fields_for 'orders_products_attributes[]', op_join do |op_form| %>
+        <%= op_form.hidden_field :id %>
+        <%= op_form.hidden_field :product_id %>
+        <li>
+          <%= op_join.product.name %>
+        </li>
+        <ul><li>
+          <%= number_to_currency op_join.product.price_cents/100.0 %> x 
+          <%= op_form.number_field :quantity %> = 
+          <b><%= number_to_currency (op_join.product.price_cents/100.0)*op_join.quantity %></b>
+        </li></ul>
+      <% end %>
+    <% end %>
+  </ul>
+  <%= order_form.submit 'Update quantities' %>
+  <p>Subtotal: <%= number_to_currency @order.subtotal_cents/100.0 %></p>
+  <p>Shipping: <%= number_to_currency @order.ship_cents/100.0 %></p>
+  <p>Total: <b><%= number_to_currency @order.total_cents/100.0 %></b></p>
+
+  <hr>
+  <p>
+    Where and to whom should we send your order? Please double check your entry, we don't share this data for validation!
+  </p>
+
+  <%= order_form.fields_for :address do |ff| %>
+    <%= ff.label :full_name %>
+    <%= ff.text_field :full_name %>
+
+    <%= ff.label :street1 %>
+    <%= ff.text_field :street1 %>
+
+    <%= ff.label :street2 %>
+    <%= ff.text_field :street2 %>
+
+    <%= ff.label :city %>
+    <%= ff.text_field :city %>
+
+    <%= ff.label :state %>
+    <%= ff.text_field :state %>
+
+    <%= ff.label :postcode %>
+    <%= ff.text_field :postcode %>
+
+    <%= ff.label :country %>
+    <%= ff.text_field :country %>
+  <% end %>
+
+  <p>
+    <%= order_form.submit 'Continue to Paypal' %>
+  </p>
+
+  <p>
+    If you need to add shipping notes or other comments, please reply to your order confirmation email.
+  </p>
+<% end %>
