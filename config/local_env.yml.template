@@ -11,7 +11,9 @@ TWITTER_CONSUMER_SECRET:     50_characters
 TWITTER_ACCESS_TOKEN:        50_characters
 TWITTER_ACCESS_TOKEN_SECRET: 45_characters
 
-# Paypal credentials go in config/paypal.yml
-
 scraper_bot_token:   dealers_choice
 scraper_bot_timeout: "2020-22-18T14:20:03.739-08:00"
+
+PAYPAL_CLIENT_ID:     80_characters
+PAYPAL_CLIENT_SECRET: 80_characters
+PAYPALMODE: sandbox
