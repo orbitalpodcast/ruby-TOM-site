@@ -6,6 +6,9 @@ class User < ApplicationRecord
                       :payment_and_shipping] # store customers can log in
   before_create {self.quick_unsubscribe_token = Devise.friendly_token}
 
+  has_many :orders
+  has_many :addresses, as: :addressable
+
   # TODO: generate errors for each failed password validation condition
   PASSWORD_FORMAT = /
     (?=.{8,})   # Must contain 8 or more characters
