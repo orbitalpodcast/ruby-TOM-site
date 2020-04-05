@@ -37,7 +37,7 @@ gem 'twitter', '~>6.2.0'
 gem 'reddit_bot', "~>1.7.4"
 
 # Paypal API
-gem 'paypal-sdk-rest', "~>1.7.2"
+gem 'paypal-checkout-sdk', "~>1.0"
 
 # Use activestorage-audio to interpret mp3 tags. Requires ffmpeg to be installed, locally and on server.
 # heroku buildpacks:add https://github.com/FFmpeg/FFmpeg.git
