@@ -91,8 +91,24 @@ class OrdersController < ApplicationController
   # Includes :token and :PayerID
   def finish
     @order = Order.find_by( payment_gateway: params[:payment_gateway], token: params[:token] )
-    @order.paid!
-    redirect_to order_path @order, notice: "Your order was successfully placed! Please reply to the order confirmation email if you have any questions or instructions."
+
+    # CAPTURE PAYMENT
+    req = PayPalCheckoutSdk::Orders::OrdersCaptureRequest::new(params[:token])
+    res = PayPalClient::client.execute(req)
+    
+    # TELL THE USER WHAT HAPPENED
+    if res.result.status == "COMPLETED"
+      @order.paid!
+      redirect_to order_path @order, notice: "Your order was successfully placed! "\
+                                             "Please reply to the order "\
+                                             "confirmation email if you have any "\
+                                             "questions or instructions." and return
+    else
+      debug :"PayPal capture request failed."
+      debug :"res", binding
+      redirect_to order_path @order, notice: "Something went wrong." and return
+    end
+
   end
 
   # GET /store/1
