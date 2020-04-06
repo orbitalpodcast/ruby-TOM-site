@@ -1,0 +1,13 @@
+that_ny:
+  addressable: created (Order)
+  country: US
+
+this_ny:
+  addressable: ready_to_pay (Order)
+  full_name: This Guy
+  street1: 123 Main St.
+  street2: Apt 1
+  city: New York City
+  state: NY
+  postcode: 10001
+  country: US
