@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
     if params[:product_ids].nil?
       redirect_to(store_url, alert: "You can't check out with an empty cart.") and return
     elsif params[:email].empty?
-      redirect_to(store_url, alert: "Please provide an email.") and return
+      redirect_to(store_url, alert: "Please provide an email or log in.") and return
     end
 
     # BUILD ORDER
