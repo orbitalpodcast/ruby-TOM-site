@@ -81,7 +81,7 @@ class OrdersController < ApplicationController
         else
           redirect_to edit_order_path @order
         end
-      elsif params[:commit] == 'Update quantities'
+      else
         redirect_to edit_order_path @order
       end
     else # let the user know why the order didn't update
