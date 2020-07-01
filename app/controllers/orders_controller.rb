@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     @order.products << Product.for_sale
   end
 
-  # POST /store/create
+  # POST /orders
   def create
     # CATCH EARLY ERRORS
     if params[:product_ids].nil?
@@ -58,19 +58,21 @@ class OrdersController < ApplicationController
     end
   end
 
-  # GET /store/1/edit
+  # GET /order/1/edit
   def edit
     @order = Order.find(params[:id])
     # @stored_addresses = user.addresses + order.addresses
   end
 
-  # PATCH/PUT /store/1
+  # PATCH/PUT /order/1
   def update
     @order = Order.find(params[:id])
     if @order.update(order_params)
       # TODO: in order#update, don't update quantities if continue to paypal was clicked or add confirmation page
+      # TODO: in order#update, extract out "continue to paypal" steps into method that returns a redirect to DRY
       if params[:commit] == 'Continue to Paypal'
         # TODO: add admin confirmation of orders over a certain dollar amount
+        # TODO: don't set response.result.id to both charge_id and token
         ex_response, ex_links = create_and_execute_paypal_order
         if @order.update(charge_id: ex_response.result.id,
                          links: ex_links,
@@ -87,9 +89,12 @@ class OrdersController < ApplicationController
     end
   end
 
-  # GET /store/:payment_gateway/:payment_status
-  # Includes :token and :PayerID
+  # GET /order_return/:payment_gateway/:payment_status
   def finish
+    # Paypal includes :token and :PayerID in params
+    # :payment_status will be either 'return' or 'cancel,' as defined in create_and_execute_paypal_order
+    # TODO: in order#finish, handle orders that have already been paid
+
     @order = Order.find_by( payment_gateway: params[:payment_gateway], token: params[:token] )
 
     # CAPTURE PAYMENT

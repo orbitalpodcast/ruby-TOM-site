@@ -24,8 +24,10 @@ class Order < ApplicationRecord
   protected
 
   def update_totals
+    # FIND PRODUCT INFO
     prices = self.products.pluck :price_cents
     quantities = self.products.pluck :quantity
+    # CALCULATE AND SET SELF TOTALS
     self.subtotal_cents = prices.zip(quantities) # put prices and quantities together
                           .map{|x,y| x*y} # multiply prices and quantities
                           .inject(:+) # sum up
