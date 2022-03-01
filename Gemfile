@@ -45,7 +45,7 @@ gem 'paypal-checkout-sdk', "~>1.0"
 gem 'activestorage-audio', '~>0.1.0'
 
 # Use Active Storage variant. Requires imagemagick to be installed, locally and on server. Heroku auto-installs.
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 
 # Use plyr as an in-line audio player. Maybe later video headers too?
 gem 'plyr-rails', '~>3.4.7'
